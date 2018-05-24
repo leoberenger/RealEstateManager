@@ -1,9 +1,8 @@
 package com.openclassrooms.realestatemanager;
 
-import org.junit.Test;
+import com.openclassrooms.realestatemanager.utils.Utils;
 
-import java.util.Calendar;
-import java.util.Date;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
