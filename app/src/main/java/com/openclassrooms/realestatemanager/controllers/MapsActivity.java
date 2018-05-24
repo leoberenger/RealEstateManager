@@ -33,7 +33,6 @@ public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnInfoWindowClickListener {
 
     private Disposable mDisposable;
-    private Observable<RealEstate> stream;
 
     private CameraPosition mCameraPosition;
 
@@ -118,7 +117,7 @@ public class MapsActivity extends FragmentActivity implements
 
                             setCurrentLocation(mLastKnownLocation);
 
-                            getAndShowProperty(stream);
+                            getAndShowProperty();
 
                         } else {
                             Log.d("MAPS ACTIVITY", "Current location is null. Using defaults.");
@@ -203,7 +202,8 @@ public class MapsActivity extends FragmentActivity implements
         this.currentLocation = currentLocation;
     }
 
-    private void getAndShowProperty(Observable<RealEstate> stream){
+    private void getAndShowProperty(){
+        /*
             this.mDisposable = stream
                     .subscribeWith(new DisposableObserver<RealEstate>(){
                         @Override
@@ -225,6 +225,7 @@ public class MapsActivity extends FragmentActivity implements
                             Log.e("DisplayFragment", "On Complete");
                         }
                     });
+          */
     }
 
     private void disposeWhenDestroy(){
