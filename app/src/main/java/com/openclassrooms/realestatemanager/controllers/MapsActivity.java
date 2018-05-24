@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.openclassrooms.models.RealEstate;
 import com.openclassrooms.realestatemanager.R;
 
 import io.reactivex.Observable;
@@ -32,7 +33,7 @@ public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnInfoWindowClickListener {
 
     private Disposable mDisposable;
-    private Observable<PropertiesAPI> stream;
+    private Observable<RealEstate> stream;
 
     private CameraPosition mCameraPosition;
 
@@ -89,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements
                 showCurrentLocationAndEnableControls();
 
                 // Get the current location of the device and set the position of the map.
-                getDeviceLocationToShowNearbyRestaurants();
+                getDeviceLocationToShowProperties();
 
                 mMap.setOnInfoWindowClickListener(MapsActivity.this);
             }
@@ -97,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
 
-    private void getDeviceLocationToShowNearbyRestaurants() {
+    private void getDeviceLocationToShowProperties() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -117,8 +118,7 @@ public class MapsActivity extends FragmentActivity implements
 
                             setCurrentLocation(mLastKnownLocation);
 
-                            //Get and show restaurants from httpRequest if not done yet
-                            getAndShowProperties(stream);
+                            getAndShowProperty(stream);
 
                         } else {
                             Log.d("MAPS ACTIVITY", "Current location is null. Using defaults.");
@@ -192,7 +192,7 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onInfoWindowClick(Marker marker) {
 
-        placeId = marker.getTag().toString();
+        String placeId = marker.getTag().toString();
 
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
         intent.putExtra("PLACE_ID", placeId);
@@ -203,20 +203,16 @@ public class MapsActivity extends FragmentActivity implements
         this.currentLocation = currentLocation;
     }
 
-    private void getAndShowProperties(Observable<PropertiesAPI> stream){
+    private void getAndShowProperty(Observable<RealEstate> stream){
             this.mDisposable = stream
-                    .subscribeWith(new DisposableObserver<PropertiesAPI>(){
+                    .subscribeWith(new DisposableObserver<RealEstate>(){
                         @Override
-                        public void onNext(PropertiesAPI properties) {
+                        public void onNext(RealEstate property) {
                             Log.e("MapsActivity", "On Next");
                             mMap.clear();
 
-                            String [] placesIds = new String[places.getResults().size()];
+                            showPropertyOnMapWithMarker(property);
 
-                            for(int i = 0; i<places.getResults().size(); i++){
-                                showRestaurantOnMapWithMarker(places.getResults().get(i));
-                                placesIds[i] = places.getResults().get(i).getPlaceId();
-                            }
                         }
 
                         @Override
@@ -236,12 +232,12 @@ public class MapsActivity extends FragmentActivity implements
             this.mDisposable.dispose();
     }
 
-    private void showRestaurantOnMapWithMarker(PropertiesAPI property){
+    private void showPropertyOnMapWithMarker(RealEstate property){
 
-        Double lat = property.getLat();
-        Double lng = property.getLng();
+        Double lat = Double.valueOf(property.getLatitude());
+        Double lng = Double.valueOf(property.getLongitude());
         String name = property.getName();
-        String tag = property.getId();
+        String tag = String.valueOf(property.getId());
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
