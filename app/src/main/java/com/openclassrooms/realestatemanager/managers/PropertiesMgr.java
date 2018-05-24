@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager.managers;
 
-import com.openclassrooms.models.RealEstate;
+import com.openclassrooms.realestatemanager.models.RealEstate;
 
 import java.util.ArrayList;
 import java.util.List;

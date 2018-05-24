@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.openclassrooms.models.RealEstate;
+import com.openclassrooms.realestatemanager.models.RealEstate;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 
