@@ -1,11 +1,17 @@
 package com.openclassrooms.realestatemanager.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.utils.Utils;
+
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +26,16 @@ public class MainActivity extends AppCompatActivity {
         //this.textViewMain = findViewById(R.id.activity_second_activity_text_view_main);
         this.textViewMain = findViewById(R.id.activity_main_activity_text_view_main);
         this.textViewQuantity = findViewById(R.id.activity_main_activity_text_view_quantity);
+
+        Button mapsBtn = (Button) findViewById(R.id.activity_main_maps_btn);
+        mapsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("MainActivity", "OnClick Maps Btn");
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         this.configureTextViewMain();
         this.configureTextViewQuantity();
@@ -36,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
         this.textViewQuantity.setTextSize(20);
         this.textViewQuantity.setText(quantity);
     }
+
 }

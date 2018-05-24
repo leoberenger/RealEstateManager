@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,15 +25,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.openclassrooms.models.RealEstate;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
+import java.util.List;
+
+import butterknife.ButterKnife;
 
 public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnInfoWindowClickListener {
 
-    private Disposable mDisposable;
+    private PropertiesMgr propertiesMgr = PropertiesMgr.getInstance();
 
     private CameraPosition mCameraPosition;
 
@@ -54,17 +56,25 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Prompt the user for permission.
+        getLocationPermission();
+
+        // Retrieve location and camera position from saved instance state.
+        if (savedInstanceState != null) {
+            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
+
         setContentView(R.layout.activity_maps);
+        ButterKnife.bind(this);
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         getMap(mapFragment);
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        this.disposeWhenDestroy();
     }
 
 
@@ -117,7 +127,9 @@ public class MapsActivity extends FragmentActivity implements
 
                             setCurrentLocation(mLastKnownLocation);
 
-                            getAndShowProperty();
+                            showPropertyOnMapWithMarker(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            List<RealEstate.Property> properties = propertiesMgr.getRealEstateProperties();
+
 
                         } else {
                             Log.d("MAPS ACTIVITY", "Current location is null. Using defaults.");
@@ -193,7 +205,7 @@ public class MapsActivity extends FragmentActivity implements
 
         String placeId = marker.getTag().toString();
 
-        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("PLACE_ID", placeId);
         startActivity(intent);
     }
@@ -202,43 +214,12 @@ public class MapsActivity extends FragmentActivity implements
         this.currentLocation = currentLocation;
     }
 
-    private void getAndShowProperty(){
-        /*
-            this.mDisposable = stream
-                    .subscribeWith(new DisposableObserver<RealEstate>(){
-                        @Override
-                        public void onNext(RealEstate property) {
-                            Log.e("MapsActivity", "On Next");
-                            mMap.clear();
+    private void showPropertyOnMapWithMarker(Double lat, Double lng){
 
-                            showPropertyOnMapWithMarker(property);
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e("DisplayFragment", "On Error"+Log.getStackTraceString(e));
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            Log.e("DisplayFragment", "On Complete");
-                        }
-                    });
-          */
-    }
-
-    private void disposeWhenDestroy(){
-        if(this.mDisposable != null && !this.mDisposable.isDisposed())
-            this.mDisposable.dispose();
-    }
-
-    private void showPropertyOnMapWithMarker(RealEstate property){
-
-        Double lat = Double.valueOf(property.getLatitude());
-        Double lng = Double.valueOf(property.getLongitude());
-        String name = property.getName();
-        String tag = String.valueOf(property.getId());
+        //Double lat = property.getLatitude();
+        //Double lng = property.getLongitude();
+        String name = "Home";                                   //property.getName();
+        String tag = "1234";                                    //String.valueOf(property.getId());
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
