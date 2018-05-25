@@ -2,6 +2,10 @@
     <string name="app_name">Real Estate Manager</string>
     <string name="title_activity_maps">Map</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TOOLBAR MENU -->
+    <string name="menu_map">MAP</string>
+    <string name="menu_search">SEARCH</string>
+    <string name="menu_edit">EDIT</string>
+    <string name="menu_add">ADD NEW</string>
+
 </resources>
