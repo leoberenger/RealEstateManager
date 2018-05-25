@@ -1,11 +1,14 @@
 package com.openclassrooms.realestatemanager.models;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(foreignKeys = @ForeignKey(entity = Agent.class,
+        parentColumns = "id",
+        childColumns = "agent_id"))
 public class Property{
 
     @PrimaryKey(autoGenerate = true) private long id;
@@ -21,7 +24,7 @@ public class Property{
     private boolean sold;
     private Date date_created;
     private Date date_sold;
-    private int agent_id;
+    private long agent_id;
     private Address address;
     private Double latitude;
     private Double longitude;
@@ -32,7 +35,7 @@ public class Property{
 
     public Property() { }
 
-    public Property(String name, int agent_id, boolean sold, Date date_created, Address address, Double latitude, Double longitude) {
+    public Property(String name, long agent_id, boolean sold, Date date_created, Address address, Double latitude, Double longitude) {
         this.name = name;
         this.agent_id = agent_id;
         this.sold = sold;
@@ -85,7 +88,7 @@ public class Property{
     public Date getDate_sold() {
         return date_sold;
     }
-    public int getAgent_id() {
+    public long getAgent_id() {
         return agent_id;
     }
     public Address getAddress() {
@@ -139,7 +142,7 @@ public class Property{
     public void setDate_sold(Date date_sold) {
         this.date_sold = date_sold;
     }
-    public void setAgent_id(int agent_id) {
+    public void setAgent_id(long agent_id) {
     this.agent_id = agent_id;
 }
     public void setAddress(Address address) {
