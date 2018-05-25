@@ -35,6 +35,13 @@ public class Property{
 
     public Property() { }
 
+    public Property(long id, String name, Double latitude, Double longitude) {
+        this.id = id;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public Property(String name, long agent_id, boolean sold, Date date_created, Address address, Double latitude, Double longitude) {
         this.name = name;
         this.agent_id = agent_id;

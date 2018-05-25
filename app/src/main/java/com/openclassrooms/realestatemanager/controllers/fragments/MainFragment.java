@@ -1,17 +1,16 @@
 package com.openclassrooms.realestatemanager.controllers.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.models.Property;
@@ -28,6 +27,8 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
+
+    String PROPERTY_ID = "PROPERTY_ID";
 
     // FOR DESIGN
     @BindView(R.id.properties_recycler_view) RecyclerView recyclerView;
@@ -47,7 +48,15 @@ public class MainFragment extends Fragment {
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
 
-        showNearbyRestaurants();
+        long propertyId = getArguments().getLong(PROPERTY_ID, 0);
+
+        if(propertyId == 0){
+            Log.e("Main Fragment", "no property pre selected");
+        }else{
+            Log.e("Main Fragment", "selected property_id = " + propertyId);
+        }
+
+        showNearbyProperties();
 
         return view;
     }
@@ -79,7 +88,7 @@ public class MainFragment extends Fragment {
     // UPDATE UI
     // -----------------
 
-    private void showNearbyRestaurants(){
+    private void showNearbyProperties(){
         List<Property> p = propertiesMgr.getRealEstateProperties();
         this.properties.clear();
         this.properties.addAll(p);

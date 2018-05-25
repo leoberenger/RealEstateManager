@@ -127,8 +127,10 @@ public class MapsActivity extends FragmentActivity implements
 
                             setCurrentLocation(mLastKnownLocation);
 
-                            showPropertyOnMapWithMarker(currentLocation.getLatitude(), currentLocation.getLongitude());
                             List<Property> properties = propertiesMgr.getRealEstateProperties();
+                            for (int i = 0; i<properties.size(); i++){
+                                showPropertyOnMapWithMarker(properties.get(i));
+                            }
 
 
                         } else {
@@ -203,10 +205,10 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onInfoWindowClick(Marker marker) {
 
-        String placeId = marker.getTag().toString();
+        long propertyId = Long.valueOf(marker.getTag().toString());
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("PLACE_ID", placeId);
+        intent.putExtra("PROPERTY_ID", propertyId);
         startActivity(intent);
     }
 
@@ -214,12 +216,12 @@ public class MapsActivity extends FragmentActivity implements
         this.currentLocation = currentLocation;
     }
 
-    private void showPropertyOnMapWithMarker(Double lat, Double lng){
+    private void showPropertyOnMapWithMarker(Property p){
 
-        //Double lat = property.getLatitude();
-        //Double lng = property.getLongitude();
-        String name = "Home";                                   //property.getName();
-        String tag = "1234";                                    //String.valueOf(property.getId());
+        Double lat = p.getLatitude();
+        Double lng = p.getLongitude();
+        String name = p.getName();
+        long tag = p.getId();
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))

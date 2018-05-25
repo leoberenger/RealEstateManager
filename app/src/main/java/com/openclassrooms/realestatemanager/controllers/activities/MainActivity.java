@@ -14,6 +14,8 @@ import com.openclassrooms.realestatemanager.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
+    String PROPERTY_ID = "PROPERTY_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +44,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureMainFragment(){
 
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_main_frame_layout);
+        Intent intent = getIntent();
+        long propertyId = intent.getLongExtra(PROPERTY_ID, 0);
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(PROPERTY_ID, propertyId);
+
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
 
         if (mainFragment == null) {
+
             mainFragment = new MainFragment();
+            mainFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_main_frame_layout, mainFragment)
                     .commit();
         }
-
     }
-
 }
