@@ -4,6 +4,8 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,7 +49,7 @@ public class MainFragment extends Fragment {
 
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
-
+/*
         long propertyId = getArguments().getLong(PROPERTY_ID, 0);
 
         if(propertyId == 0){
@@ -55,7 +57,7 @@ public class MainFragment extends Fragment {
         }else{
             Log.e("Main Fragment", "selected property_id = " + propertyId);
         }
-
+*/
         showNearbyProperties();
 
         return view;
@@ -78,8 +80,21 @@ public class MainFragment extends Fragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        String placeId = String.valueOf(adapter.getResult(position).getId());
+
+                        long propertyId = adapter.getResult(position).getId();
+                        Log.e("MainFragment onItemClik", "clicked property id = " + propertyId);
+
                         //Replace DetailFragment with new DetailFragment
+                        FragmentManager fm = getFragmentManager();
+                        FragmentTransaction ft = fm.beginTransaction();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putLong(PROPERTY_ID, propertyId);
+
+                        DetailFragment fragment = new DetailFragment();
+                        fragment.setArguments(bundle);
+                        ft.replace(R.id.activity_main_detail_fragment, fragment)
+                                .commit();
                     }
                 });
     }

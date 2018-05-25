@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.openclassrooms.realestatemanager.controllers.activities.MainActivity"
-    android:gravity="center">
+    android:orientation="horizontal">
 
+    <fragment
+        android:id="@+id/activity_main_main_fragment"
+        android:name="com.openclassrooms.realestatemanager.controllers.fragments.MainFragment"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent"/>
+
+    <fragment
+        android:id="@+id/activity_main_detail_fragment"
+        android:name="com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment"
+        android:layout_width="0dp"
+        android:layout_weight="7"
+        android:layout_height="match_parent"/>
+
+    <!--
     <Button
         android:id="@+id/activity_main_maps_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_dark"
-        android:text="MAPS"/>
+        android:text="MAPS" />
+    -->
 
-    <FrameLayout
-        android:id="@+id/activity_main_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
-</RelativeLayout>
+</LinearLayout>

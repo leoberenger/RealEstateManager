@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
@@ -21,11 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.configureMapsBtn();
+        //this.configureMapsBtn();
 
-        this.configureMainFragment();
     }
-
+/*
     private void configureMapsBtn(){
         Button mapsBtn = (Button) findViewById(R.id.activity_main_maps_btn);
         mapsBtn.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void configureMainFragment(){
+    private void configureAndShowMainFragment(){
 
         Intent intent = getIntent();
         long propertyId = intent.getLongExtra(PROPERTY_ID, 0);
@@ -61,4 +61,18 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    private void configureAndShowDetailFragment(){
+
+        DetailFragment detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail_layout);
+
+        if (detailFragment == null) {
+
+            detailFragment = new DetailFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.activity_main_frame_layout, detailFragment)
+                    .commit();
+        }
+    }
+*/
 }
