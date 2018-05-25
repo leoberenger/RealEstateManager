@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.openclassrooms.realestatemanager.models.RealEstate;
+import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 
@@ -128,7 +128,7 @@ public class MapsActivity extends FragmentActivity implements
                             setCurrentLocation(mLastKnownLocation);
 
                             showPropertyOnMapWithMarker(currentLocation.getLatitude(), currentLocation.getLongitude());
-                            List<RealEstate.Property> properties = propertiesMgr.getRealEstateProperties();
+                            List<Property> properties = propertiesMgr.getRealEstateProperties();
 
 
                         } else {

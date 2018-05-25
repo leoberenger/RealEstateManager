@@ -16,18 +16,17 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textViewMain;
-    private TextView textViewQuantity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //this.textViewMain = findViewById(R.id.activity_second_activity_text_view_main);
-        this.textViewMain = findViewById(R.id.activity_main_activity_text_view_main);
-        this.textViewQuantity = findViewById(R.id.activity_main_activity_text_view_quantity);
+        this.configureMapsBtn();
 
+        this.configureMainFragment();
+    }
+
+    private void configureMapsBtn(){
         Button mapsBtn = (Button) findViewById(R.id.activity_main_maps_btn);
         mapsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,21 +40,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        this.configureTextViewMain();
-        this.configureTextViewQuantity();
     }
 
-    private void configureTextViewMain(){
-        this.textViewMain.setTextSize(15);
-        this.textViewMain.setText("Le premier bien immobilier enregistré vaut ");
-    }
+    private void configureMainFragment(){
 
-    private void configureTextViewQuantity(){
-        //int quantity = Utils.convertDollarToEuro(100);
-        String quantity = String.valueOf(Utils.convertDollarToEuro(100));
-        this.textViewQuantity.setTextSize(20);
-        this.textViewQuantity.setText(quantity);
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_main_frame_layout);
+
+        if (mainFragment == null) {
+            mainFragment = new MainFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.activity_main_frame_layout, mainFragment)
+                    .commit();
+        }
+
     }
 
 }

@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.managers;
 
-import com.openclassrooms.realestatemanager.models.RealEstate;
-
+import com.openclassrooms.realestatemanager.models.Property;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +14,8 @@ public class PropertiesMgr {
     private PropertiesMgr() {
     }
 
-    public List<RealEstate.Property> getRealEstateProperties(){
-        List<RealEstate.Property> properties = new ArrayList<>();
+    public List<Property> getRealEstateProperties(){
+        List<Property> properties = new ArrayList<>();
 
         //Get List of properties from Database
 
