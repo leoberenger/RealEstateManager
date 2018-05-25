@@ -127,7 +127,7 @@ public class MapsActivity extends FragmentActivity implements
 
                             setCurrentLocation(mLastKnownLocation);
 
-                            List<Property> properties = propertiesMgr.getRealEstateProperties();
+                            List<Property> properties = propertiesMgr.getProperties();
                             for (int i = 0; i<properties.size(); i++){
                                 showPropertyOnMapWithMarker(properties.get(i));
                             }

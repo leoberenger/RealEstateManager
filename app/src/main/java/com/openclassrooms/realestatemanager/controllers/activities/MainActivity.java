@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
+import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {

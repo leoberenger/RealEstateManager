@@ -104,7 +104,7 @@ public class MainFragment extends Fragment {
     // -----------------
 
     private void showNearbyProperties(){
-        List<Property> p = propertiesMgr.getRealEstateProperties();
+        List<Property> p = propertiesMgr.getProperties();
         this.properties.clear();
         this.properties.addAll(p);
         adapter.notifyDataSetChanged();

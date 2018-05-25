@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.List;
 
 public class PropertiesMgr {
+
+    private List<Property> properties;
+
     private static final PropertiesMgr ourInstance = new PropertiesMgr();
 
     public static PropertiesMgr getInstance() {
@@ -15,9 +18,24 @@ public class PropertiesMgr {
     private PropertiesMgr() {
     }
 
-    public List<Property> getRealEstateProperties(){
-        List<Property> properties = new ArrayList<>();
+    public Property getProperty(long id) {
+        Property p = null;
 
+        for(int i = 0; i<properties.size(); i++){
+            if(properties.get(i).getId() == id)
+                p = properties.get(i);
+        }
+
+        return p;
+    }
+
+    public List<Property> getProperties() {
+        setRealEstateProperties();
+        return properties;
+    }
+
+    public void setRealEstateProperties(){
+        this.properties = new ArrayList<>();
         //Get List of properties from Database
 
         Property property1 = new Property(1, "Leclerc", 48.393379, -4.483767);
@@ -33,9 +51,5 @@ public class PropertiesMgr {
         properties.add(property4);
         properties.add(property5);
         properties.add(property6);
-
-
-
-        return properties;
     }
 }
