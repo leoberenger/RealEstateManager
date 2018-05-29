@@ -5,6 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Agent{
+
     @PrimaryKey(autoGenerate = true) private long id;
     private String agent_familyName;
     private String agent_firstName;
@@ -15,12 +16,6 @@ public class Agent{
     //--------------------------
 
     public Agent() { }
-
-    public Agent(String agent_familyName, String agent_firstName, String agent_phoneNb) {
-        this.agent_familyName = agent_familyName;
-        this.agent_firstName = agent_firstName;
-        this.agent_phoneNb = agent_phoneNb;
-    }
 
     //---------------------------
     //GETTERS
@@ -42,6 +37,9 @@ public class Agent{
     //---------------------------
     //SETTERS
     //--------------------------
+    public void setId(long id) {
+        this.id = id;
+    }
     public void setAgent_familyName(String agent_familyName) {
         this.agent_familyName = agent_familyName;
     }

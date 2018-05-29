@@ -38,6 +38,8 @@ public class PropertiesMgr {
         this.properties = new ArrayList<>();
         //Get List of properties from Database
 
+        /*
+
         Property property1 = new Property(1, "Leclerc", 48.393379, -4.483767);
         Property property2 = new Property(2, "Hôpital", 48.393364, -4.483760);
         Property property3 = new Property(3, "Chevaline", 48.393251, -4.483763);
@@ -51,5 +53,6 @@ public class PropertiesMgr {
         properties.add(property4);
         properties.add(property5);
         properties.add(property6);
+        */
     }
 }

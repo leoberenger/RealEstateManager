@@ -6,26 +6,11 @@ import android.arch.persistence.room.PrimaryKey;
 import java.util.Date;
 import java.util.List;
 
-@Entity(foreignKeys = @ForeignKey(entity = Agent.class,
-        parentColumns = "id",
-        childColumns = "agent_id"))
+@Entity
 public class Property{
 
     @PrimaryKey(autoGenerate = true) private long id;
     private String name;
-    private String type;
-    private int prix;
-    private int surface;
-    private int nbRooms;
-    private String description;
-    private String photoURI;
-    private String photoDescription;
-    private List<String> nearbyPOI;
-    private boolean sold;
-    private Date date_created;
-    private Date date_sold;
-    private long agent_id;
-    private Address address;
     private Double latitude;
     private Double longitude;
 
@@ -35,19 +20,9 @@ public class Property{
 
     public Property() { }
 
-    public Property(long id, String name, Double latitude, Double longitude) {
+    public Property(long id, String name, Double latitude, Double longitude){
         this.id = id;
         this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    public Property(String name, long agent_id, boolean sold, Date date_created, Address address, Double latitude, Double longitude) {
-        this.name = name;
-        this.agent_id = agent_id;
-        this.sold = sold;
-        this.date_created = date_created;
-        this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -62,45 +37,6 @@ public class Property{
     public String getName() {
         return name;
     }
-    public String getType() {
-        return type;
-    }
-    public int getPrix() {
-        return prix;
-    }
-    public int getSurface() {
-        return surface;
-    }
-    public int getNbRooms() {
-        return nbRooms;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public String getPhotoURI() {
-        return photoURI;
-    }
-    public String getPhotoDescription() {
-        return photoDescription;
-    }
-    public List<String> getNearbyPOI() {
-        return nearbyPOI;
-    }
-    public boolean isSold() {
-        return sold;
-    }
-    public Date getDate_created() {
-        return date_created;
-    }
-    public Date getDate_sold() {
-        return date_sold;
-    }
-    public long getAgent_id() {
-        return agent_id;
-    }
-    public Address getAddress() {
-        return address;
-    }
     public Double getLatitude() {
         return latitude;
     }
@@ -113,47 +49,11 @@ public class Property{
     //SETTERS
     //--------------------------
 
+    public void setId(long id) {
+        this.id = id;
+    }
     public void setName(String name) {
         this.name = name;
-    }
-    public void setType(String type) {
-        this.type = type;
-    }
-    public void setPrix(int prix) {
-        this.prix = prix;
-    }
-    public void setSurface(int surface) {
-        this.surface = surface;
-    }
-    public void setNbRooms(int nbRooms) {
-        this.nbRooms = nbRooms;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void setPhotoURI(String photoURI) {
-        this.photoURI = photoURI;
-    }
-    public void setPhotoDescription(String photoDescription) {
-        this.photoDescription = photoDescription;
-    }
-    public void setNearbyPOI(List<String> nearbyPOI) {
-        this.nearbyPOI = nearbyPOI;
-    }
-    public void setSold(boolean sold) {
-        this.sold = sold;
-    }
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
-    }
-    public void setDate_sold(Date date_sold) {
-        this.date_sold = date_sold;
-    }
-    public void setAgent_id(long agent_id) {
-    this.agent_id = agent_id;
-}
-    public void setAddress(Address address) {
-        this.address = address;
     }
     public void setLatitude(Double latitude) {
         this.latitude = latitude;

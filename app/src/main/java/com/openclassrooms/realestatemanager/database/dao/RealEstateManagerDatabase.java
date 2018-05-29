@@ -12,6 +12,9 @@ import android.support.annotation.NonNull;
 import com.openclassrooms.realestatemanager.models.Agent;
 import com.openclassrooms.realestatemanager.models.Property;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Database(entities = {Property.class, Agent.class}, version = 1, exportSchema = false)
 public abstract class RealEstateManagerDatabase extends RoomDatabase {
 
@@ -48,15 +51,30 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id", 1);
-                contentValues.put("username", "Philippe");
-                contentValues.put("urlPicture", "https://oc-user.imgix.net/users/avatars/15175844164713_frame_523.jpg?auto=compress,format&q=80&h=100&dpr=2");
+                contentValues.put("name", "Propriété 1");
+                contentValues.put("type", "Appartment");
+                contentValues.put("prix", 10000);
+                contentValues.put("surface", 30);
+                contentValues.put("nbRooms", 3);
+                contentValues.put("description", "Great appartment at the top of the building. Close to all services");
+                contentValues.put("photoURI", "https://picsum.photos/200/200/?image=826");
+                contentValues.put("photoDescription", "Photo of the appartment");
+                contentValues.put("nearbyPOI", "School");
+                contentValues.put("sold", false);
+                contentValues.put("id", 1);
+                contentValues.put("date_created", 20180529);
+                contentValues.put("date_sold", "");
+                contentValues.put("agent_id", 1);
+                contentValues.put("Address", "");
+                contentValues.put("latitude", 40.751621);
+                contentValues.put("longitude", -73.975502);
 
-                db.insert("User", OnConflictStrategy.IGNORE, contentValues);
+                db.insert("Property", OnConflictStrategy.IGNORE, contentValues);
             }
         };
     }
 
-    private RealEstateManagerDatabase() {
+    public RealEstateManagerDatabase() {
     }
 
 }
