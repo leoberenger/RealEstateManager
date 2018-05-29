@@ -51,21 +51,7 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id", 1);
-                contentValues.put("name", "Propriété 1");
-                contentValues.put("type", "Appartment");
-                contentValues.put("prix", 10000);
-                contentValues.put("surface", 30);
-                contentValues.put("nbRooms", 3);
-                contentValues.put("description", "Great appartment at the top of the building. Close to all services");
-                contentValues.put("photoURI", "https://picsum.photos/200/200/?image=826");
-                contentValues.put("photoDescription", "Photo of the appartment");
-                contentValues.put("nearbyPOI", "School");
-                contentValues.put("sold", false);
-                contentValues.put("id", 1);
-                contentValues.put("date_created", 20180529);
-                contentValues.put("date_sold", "");
-                contentValues.put("agent_id", 1);
-                contentValues.put("Address", "");
+                contentValues.put("name", "Chrysler Building");
                 contentValues.put("latitude", 40.751621);
                 contentValues.put("longitude", -73.975502);
 
