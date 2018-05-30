@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.controllers.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -23,9 +24,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.openclassrooms.realestatemanager.injections.Injection;
+import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
+import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 
 import java.util.List;
 
@@ -34,7 +38,10 @@ import butterknife.ButterKnife;
 public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnInfoWindowClickListener {
 
-    private PropertiesMgr propertiesMgr = PropertiesMgr.getInstance();
+    //FOR DATA
+    private PropertyViewModel propertyViewModel;
+    private List<Property> properties;
+
 
     private CameraPosition mCameraPosition;
 
@@ -70,6 +77,7 @@ public class MapsActivity extends FragmentActivity implements
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        this.configureViewModel();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -106,6 +114,16 @@ public class MapsActivity extends FragmentActivity implements
         });
     }
 
+    private void configureViewModel(){
+        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(this);
+        this.propertyViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(PropertyViewModel.class);
+        this.propertyViewModel.init();
+    }
+
+    private void getAllProperties(){
+        this.propertyViewModel.getAllProperties().observe(this, this::showPropertiesOnMapWithMarker);
+    }
 
     private void getDeviceLocationToShowProperties() {
         /*
@@ -127,10 +145,7 @@ public class MapsActivity extends FragmentActivity implements
 
                             setCurrentLocation(mLastKnownLocation);
 
-                            List<Property> properties = propertiesMgr.getProperties();
-                            for (int i = 0; i<properties.size(); i++){
-                                showPropertyOnMapWithMarker(properties.get(i));
-                            }
+                            getAllProperties();
 
 
                         } else {
@@ -216,17 +231,19 @@ public class MapsActivity extends FragmentActivity implements
         this.currentLocation = currentLocation;
     }
 
-    private void showPropertyOnMapWithMarker(Property p){
+    private void showPropertiesOnMapWithMarker(List<Property> properties){
 
-        Double lat = p.getLatitude();
-        Double lng = p.getLongitude();
-        String name = p.getArea();
-        long tag = p.getId();
+        for(int i = 0; i<properties.size(); i++){
+            Double lat = properties.get(i).getLatitude();
+            Double lng = properties.get(i).getLongitude();
+            String area = properties.get(i).getArea();
+            long tag = properties.get(i).getId();
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(lat, lng))
-                .title(name)
-                .icon(BitmapDescriptorFactory.defaultMarker()))
-                .setTag(tag);
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(lat, lng))
+                    .title(area)
+                    .icon(BitmapDescriptorFactory.defaultMarker()))
+                    .setTag(tag);
+            }
     }
 }

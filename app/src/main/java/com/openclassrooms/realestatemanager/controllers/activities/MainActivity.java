@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_map:
                 Log.e("MainActivity", "Map Btn clicked");
-                //Intent intent2 = new Intent(this, MapsActivity.class);
-                //startActivity(intent2);
+                Intent intent2 = new Intent(this, MapsActivity.class);
+                startActivity(intent2);
                 return true;
             case R.id.menu_add:
                 Log.e("MainActivity", "Add new Btn clicked");

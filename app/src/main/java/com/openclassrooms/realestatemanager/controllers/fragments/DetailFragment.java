@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.controllers.fragments;
 
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.injections.Injection;
+import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.models.Property;
+import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 
 import java.util.List;
 
@@ -23,11 +27,14 @@ import butterknife.ButterKnife;
  */
 public class DetailFragment extends Fragment {
 
+    //FOR DATA
+    private PropertyViewModel propertyViewModel;
+
+    //FOR DESIGN
     @BindView(R.id.fragment_detail_textview)
     TextView textView;
 
     String PROPERTY_ID = "PROPERTY_ID";
-    PropertiesMgr propertiesMgr = PropertiesMgr.getInstance();
 
     public DetailFragment() { }
 
@@ -39,20 +46,34 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
 
+        this.configureViewModel();
+
         if(getArguments() != null) {
             //Retrieve Property ID
             long propertyId = getArguments().getLong(PROPERTY_ID, 0);
 
             //Retrieve Property with its ID
-            Property property = propertiesMgr.getProperty(propertyId);
-
-            //Set Data
-            textView.setText(property.getArea());
+            this.getProperty(propertyId);
 
         }else{
             textView.setText("No Property Selected");
         }
 
         return view;
+    }
+
+    private void configureViewModel(){
+        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(getContext());
+        this.propertyViewModel = ViewModelProviders.of(getActivity(), viewModelFactory)
+                .get(PropertyViewModel.class);
+        this.propertyViewModel.init();
+    }
+
+    private void getProperty(long propertyId){
+        this.propertyViewModel.getProperty(propertyId).observe(this, this::updateUI);
+    }
+
+    private void updateUI(Property property){
+        textView.setText(property.getArea());
     }
 }

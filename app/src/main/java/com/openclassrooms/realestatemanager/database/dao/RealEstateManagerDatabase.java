@@ -51,7 +51,7 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id", 1);
-                contentValues.put("name", "Chrysler Building");
+                contentValues.put("area", "Soho");
                 contentValues.put("latitude", 40.751621);
                 contentValues.put("longitude", -73.975502);
 

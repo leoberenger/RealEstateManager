@@ -1,6 +1,8 @@
 package com.openclassrooms.realestatemanager.controllers.fragments;
 
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,10 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.injections.Injection;
+import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport;
 import com.openclassrooms.realestatemanager.views.PropertiesRecyclerAdapter;
+import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +35,15 @@ import butterknife.ButterKnife;
  */
 public class MainFragment extends Fragment {
 
+    //FOR DATA
+    private PropertyViewModel propertyViewModel;
+
     String PROPERTY_ID = "PROPERTY_ID";
 
     // FOR DESIGN
     @BindView(R.id.properties_recycler_view) RecyclerView recyclerView;
     private PropertiesRecyclerAdapter adapter;
     private List<Property> properties;
-    private PropertiesMgr propertiesMgr = PropertiesMgr.getInstance();
 
     public MainFragment() {
         // Required empty public constructor
@@ -46,6 +53,9 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.properties_recycler_view, container, false);
         ButterKnife.bind(this, view);
+
+        this.configureViewModel();
+        this.getAllProperties();
 
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
@@ -58,8 +68,6 @@ public class MainFragment extends Fragment {
             Log.e("Main Fragment", "selected property_id = " + propertyId);
         }
 */
-        showNearbyProperties();
-
         return view;
     }
 
@@ -99,15 +107,25 @@ public class MainFragment extends Fragment {
                 });
     }
 
+    private void configureViewModel(){
+        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(getContext());
+        this.propertyViewModel = ViewModelProviders.of(getActivity(), viewModelFactory)
+                .get(PropertyViewModel.class);
+        this.propertyViewModel.init();
+    }
+
+    private void getAllProperties(){
+        this.propertyViewModel.getAllProperties().observe(this, this::updatePropertiesList);
+    }
+
+
     // -----------------
     // UPDATE UI
     // -----------------
 
-    private void showNearbyProperties(){
-        List<Property> p = propertiesMgr.getProperties();
+    private void updatePropertiesList(List<Property> properties){
         this.properties.clear();
-        this.properties.addAll(p);
+        this.properties.addAll(properties);
         adapter.notifyDataSetChanged();
     }
-
 }
