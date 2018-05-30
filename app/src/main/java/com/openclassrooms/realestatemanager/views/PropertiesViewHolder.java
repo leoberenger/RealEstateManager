@@ -23,6 +23,6 @@ public class PropertiesViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void updateWithProperty(Property property){
-        this.mName.setText(property.getName());
+        this.mName.setText(property.getArea());
     }
 }

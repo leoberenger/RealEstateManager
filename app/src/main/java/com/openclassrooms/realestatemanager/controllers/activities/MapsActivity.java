@@ -220,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements
 
         Double lat = p.getLatitude();
         Double lng = p.getLongitude();
-        String name = p.getName();
+        String name = p.getArea();
         long tag = p.getId();
 
         mMap.addMarker(new MarkerOptions()

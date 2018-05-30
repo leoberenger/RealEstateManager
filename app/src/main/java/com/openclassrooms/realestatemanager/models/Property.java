@@ -10,7 +10,7 @@ import java.util.List;
 public class Property{
 
     @PrimaryKey(autoGenerate = true) private long id;
-    private String name;
+    private String area;
     private Double latitude;
     private Double longitude;
 
@@ -20,9 +20,9 @@ public class Property{
 
     public Property() { }
 
-    public Property(long id, String name, Double latitude, Double longitude){
+    public Property(long id, String area, Double latitude, Double longitude){
         this.id = id;
-        this.name = name;
+        this.area = area;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -34,8 +34,8 @@ public class Property{
     public long getId() {
         return id;
     }
-    public String getName() {
-        return name;
+    public String getArea() {
+        return area;
     }
     public Double getLatitude() {
         return latitude;
@@ -52,8 +52,8 @@ public class Property{
     public void setId(long id) {
         this.id = id;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setArea(String area) {
+        this.area = area;
     }
     public void setLatitude(Double latitude) {
         this.latitude = latitude;

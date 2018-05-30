@@ -47,7 +47,7 @@ public class DetailFragment extends Fragment {
             Property property = propertiesMgr.getProperty(propertyId);
 
             //Set Data
-            textView.setText(property.getName());
+            textView.setText(property.getArea());
 
         }else{
             textView.setText("No Property Selected");

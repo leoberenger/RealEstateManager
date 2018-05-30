@@ -32,7 +32,7 @@ public class PropertyDAOInstrumentedTest {
 
     //DATA SET FOR TEST
     private static long PROPERTY_ID = 2;
-    private static Property PROPERTY_DEMO = new Property(PROPERTY_ID, "Empire State Building",40.748441, -73.985664);
+    private static Property PROPERTY_DEMO = new Property(PROPERTY_ID, "MidTown",40.748441, -73.985664);
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -55,7 +55,7 @@ public class PropertyDAOInstrumentedTest {
         this.database.propertyDao().insertProperty(PROPERTY_DEMO);
         Property property =
                 LiveDataTestUtil.getValue(this.database.propertyDao().getProperty(PROPERTY_ID));
-        assertTrue(property.getName().equals(PROPERTY_DEMO.getName()) && property.getId() == PROPERTY_ID);
+        assertTrue(property.getArea().equals(PROPERTY_DEMO.getArea()) && property.getId() == PROPERTY_ID);
     }
 
 
