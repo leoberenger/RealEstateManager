@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.configureToolbar();
 
-        //this.configureMapsBtn();
-
+        this.configureAndShowMainFragment();
     }
 
     @Override
@@ -53,9 +52,12 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(intent1);
                 return true;
             case R.id.menu_map:
-                Log.e("MainActivity", "Map Btn clicked");
-                Intent intent2 = new Intent(this, MapsActivity.class);
-                startActivity(intent2);
+                if(Utils.isInternetAvailable(getApplicationContext())){
+                    Intent intentMap = new Intent(this, MapsActivity.class);
+                    startActivity(intentMap);
+                }else{
+                    Toast.makeText(getApplicationContext(), "No Internet Connexion Available", Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.menu_add:
                 Log.e("MainActivity", "Add new Btn clicked");
@@ -75,28 +77,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
     }
 
-    
-/*
-    private void configureMapsBtn(){
-        Button mapsBtn = (Button) findViewById(R.id.activity_main_maps_btn);
-        mapsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("MainActivity", "OnClick Maps Btn");
-                if(Utils.isInternetAvailable(getApplicationContext())){
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(getApplicationContext(), "No Internet Connexion Available", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
     private void configureAndShowMainFragment(){
 
         Intent intent = getIntent();
-        long propertyId = intent.getLongExtra(PROPERTY_ID, 0);
+        long propertyId = intent.getLongExtra(PROPERTY_ID, -1);
 
         Bundle bundle = new Bundle();
         bundle.putLong(PROPERTY_ID, propertyId);
@@ -104,26 +88,12 @@ public class MainActivity extends AppCompatActivity {
         MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
 
         if (mainFragment == null) {
-
             mainFragment = new MainFragment();
             mainFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_main_frame_layout, mainFragment)
+                    .add(R.id.activity_main_main_fragment, mainFragment)
                     .commit();
         }
     }
 
-    private void configureAndShowDetailFragment(){
-
-        DetailFragment detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail_layout);
-
-        if (detailFragment == null) {
-
-            detailFragment = new DetailFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_main_frame_layout, detailFragment)
-                    .commit();
-        }
-    }
-*/
 }

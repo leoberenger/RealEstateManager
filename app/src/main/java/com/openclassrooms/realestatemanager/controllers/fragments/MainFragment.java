@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ public class MainFragment extends Fragment {
     private PropertyViewModel propertyViewModel;
 
     String PROPERTY_ID = "PROPERTY_ID";
+    long propertyId = -1;
 
     // FOR DESIGN
     @BindView(R.id.properties_recycler_view) RecyclerView recyclerView;
@@ -59,15 +61,13 @@ public class MainFragment extends Fragment {
 
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
-/*
-        long propertyId = getArguments().getLong(PROPERTY_ID, 0);
 
-        if(propertyId == 0){
-            Log.e("Main Fragment", "no property pre selected");
-        }else{
-            Log.e("Main Fragment", "selected property_id = " + propertyId);
+        //Show Property selected on map
+        propertyId = getArguments().getLong(PROPERTY_ID);
+        if(propertyId != -1) {
+            configureAndShowDetailFragment(propertyId);
         }
-*/
+
         return view;
     }
 
@@ -89,20 +89,10 @@ public class MainFragment extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
-                        long propertyId = adapter.getResult(position).getId();
+                        propertyId = adapter.getResult(position).getId();
                         Log.e("MainFragment onItemClik", "clicked property id = " + propertyId);
 
-                        //Replace DetailFragment with new DetailFragment
-                        FragmentManager fm = getFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-
-                        Bundle bundle = new Bundle();
-                        bundle.putLong(PROPERTY_ID, propertyId);
-
-                        DetailFragment fragment = new DetailFragment();
-                        fragment.setArguments(bundle);
-                        ft.replace(R.id.activity_main_detail_fragment, fragment)
-                                .commit();
+                        configureAndShowDetailFragment(propertyId);
                     }
                 });
     }
@@ -119,9 +109,26 @@ public class MainFragment extends Fragment {
     }
 
 
+
     // -----------------
     // UPDATE UI
     // -----------------
+
+    private void configureAndShowDetailFragment (long propertyId){
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(PROPERTY_ID, propertyId);
+
+        DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment_detail_layout);
+
+        if (fragment == null) {
+            fragment = new DetailFragment();
+            fragment.setArguments(bundle);
+            getFragmentManager().beginTransaction()
+                    .add(R.id.activity_main_detail_fragment,fragment)
+                    .commit();
+        }
+    }
 
     private void updatePropertiesList(List<Property> properties){
         this.properties.clear();
