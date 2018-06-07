@@ -7,5 +7,6 @@
     <string name="menu_search">SEARCH</string>
     <string name="menu_edit">EDIT</string>
     <string name="menu_add">ADD NEW</string>
+    <string name="menu_calculator">CALCULATOR</string>
 
 </resources>

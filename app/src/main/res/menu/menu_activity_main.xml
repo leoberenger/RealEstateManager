@@ -4,12 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_map"
-        android:icon="@drawable/ic_map"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_map"/>
-
-    <item
         android:id="@+id/menu_edit"
         android:icon="@drawable/ic_edit"
         app:showAsAction="ifRoom"
@@ -21,12 +15,23 @@
         app:showAsAction="ifRoom"
         android:title="@string/menu_add"/>
 
+
+    <item
+        android:id="@+id/menu_calculator"
+        android:icon="@drawable/ic_euro"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_calculator"/>
+
+    <item
+        android:id="@+id/menu_map"
+        android:icon="@drawable/ic_map"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_map"/>
+
     <item
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom"
         android:title="@string/menu_search"/>
-
-
 
 </menu>

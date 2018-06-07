@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_edit:
                 Log.e("MainActivity", "Edit Btn clicked");
                 return true;
+            case R.id.menu_calculator:
+                Log.e("MainActivity", "Calculator Btn clicked");
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
