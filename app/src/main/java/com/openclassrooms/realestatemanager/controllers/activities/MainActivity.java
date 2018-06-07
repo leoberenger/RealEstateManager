@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     String PROPERTY_ID = "PROPERTY_ID";
+    long propertyId = -1;
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
     @Override
@@ -64,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_edit:
                 Log.e("MainActivity", "Edit Btn clicked");
+                if(propertyId != -1) {
+                    Intent intentEdit = new Intent(this, EditionActivity.class);
+                    intentEdit.putExtra(PROPERTY_ID, propertyId);
+                    startActivity(intentEdit);
+                }else{
+                    Toast.makeText(this, "No Propriety selected", Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.menu_calculator:
                 Log.e("MainActivity", "Calculator Btn clicked");
@@ -80,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private void configureAndShowMainFragment(){
 
         Intent intent = getIntent();
-        long propertyId = intent.getLongExtra(PROPERTY_ID, -1);
+        propertyId = intent.getLongExtra(PROPERTY_ID, -1);
 
         Bundle bundle = new Bundle();
         bundle.putLong(PROPERTY_ID, propertyId);
