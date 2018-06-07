@@ -63,6 +63,19 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
                 Property [] properties = {property0, property1, property2, property3, property4, property5,
                     property6, property7, property8, property9};
 
+                /*
+                ContentValues [] contentValues = new ContentValues[10];
+
+                for(int i = 0; i<contentValues.length; i++){
+                    contentValues[i].put("id", properties[i].getId());
+                    contentValues[i].put("area", properties[i].getArea());
+                    contentValues[i].put("latitude", properties[i].getLatitude());
+                    contentValues[i].put("longitude", properties[i].getLongitude());
+
+                    db.insert("Property", OnConflictStrategy.IGNORE, contentValues[i]);
+                }
+                */
+
                 ContentValues contentValues0 = new ContentValues();
                 contentValues0.put("id", properties[0].getId());
                 contentValues0.put("area", properties[0].getArea());
@@ -126,25 +139,10 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
 
                 ContentValues [] contentValues = {contentValues0, contentValues1, contentValues2, contentValues3, contentValues4,
                         contentValues5, contentValues6, contentValues7, contentValues8, contentValues9};
-                
+
                 for(int i = 0; i<10; i++){
                     db.insert("Property", OnConflictStrategy.IGNORE, contentValues[i]);
                 }
-
-
-
-
-                /*
-                for(int i = 0; i<contentValues.length; i++){
-                    contentValues[i].put("id", properties[i].getId());
-                    contentValues[i].put("area", properties[i].getArea());
-                    contentValues[i].put("latitude", properties[i].getLatitude());
-                    contentValues[i].put("longitude", properties[i].getLongitude());
-                }
-                */
-
-
-
             }
         };
     }
