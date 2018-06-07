@@ -15,7 +15,7 @@ public class EditionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edition);
-        
+
         Intent intent = getIntent();
         long propertyId = intent.getLongExtra(PROPERTY_ID, -1);
         Log.e("EditionActivity", "propertyId = " + propertyId);

@@ -27,6 +27,8 @@ import butterknife.ButterKnife;
  */
 public class DetailFragment extends Fragment {
 
+    String TAG = "DetailFragment";
+
     //FOR DATA
     private PropertyViewModel propertyViewModel;
 
@@ -48,13 +50,11 @@ public class DetailFragment extends Fragment {
 
         this.configureViewModel();
 
-        if(getArguments() != null) {
-            //Retrieve Property ID
-            long propertyId = getArguments().getLong(PROPERTY_ID, 0);
+        long propertyId = getArguments().getLong(PROPERTY_ID, 0);
 
+        if(propertyId != -1) {
             //Retrieve Property with its ID
             this.getProperty(propertyId);
-
         }else{
             textView.setText("No Property Selected");
         }

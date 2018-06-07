@@ -20,7 +20,8 @@ import com.openclassrooms.realestatemanager.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements MainFragment.OnPropertiesListSelectedListener {
 
     String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
@@ -34,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         this.configureToolbar();
 
-        this.configureAndShowMainFragment();
+        Intent intent = getIntent();
+        propertyId = intent.getLongExtra(PROPERTY_ID, -1);
+
+        this.configureAndShowMainFragment(propertyId);
+        this.configureAndShowDetailFragment(propertyId);
     }
 
     @Override
@@ -81,19 +86,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //From Callback in MainFragment, get Property Selected and show it in DetailFragment
+    @Override
+    public void onPropertySelected(long propertyId) {
+        configureAndShowDetailFragment(propertyId);
+    }
+
+
+
     private void configureToolbar(){
         setSupportActionBar(mToolbar);
     }
 
-    private void configureAndShowMainFragment(){
+    private void configureAndShowMainFragment(long propertyId){
 
-        Intent intent = getIntent();
-        propertyId = intent.getLongExtra(PROPERTY_ID, -1);
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
 
         Bundle bundle = new Bundle();
         bundle.putLong(PROPERTY_ID, propertyId);
-
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
 
         if (mainFragment == null) {
             mainFragment = new MainFragment();
@@ -103,5 +113,22 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    private void configureAndShowDetailFragment (long propertyId){
+
+        DetailFragment fragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail_layout);
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(PROPERTY_ID, propertyId);
+
+        if (fragment == null) {
+            fragment = new DetailFragment();
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.activity_main_detail_fragment, fragment)
+                    .commit();
+        }
+    }
+
 
 }
