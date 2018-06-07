@@ -62,6 +62,10 @@ public class DetailFragment extends Fragment {
         return view;
     }
 
+    // -----------------
+    // RETRIEVE DATA
+    // -----------------
+
     private void configureViewModel(){
         ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(getContext());
         this.propertyViewModel = ViewModelProviders.of(getActivity(), viewModelFactory)
@@ -70,10 +74,15 @@ public class DetailFragment extends Fragment {
     }
 
     private void getProperty(long propertyId){
-        this.propertyViewModel.getProperty(propertyId).observe(this, this::updateUI);
+        this.propertyViewModel.getProperty(propertyId).observe(this, this::updateShownProperty);
     }
 
-    private void updateUI(Property property){
+
+    // -----------------
+    // UPDATE UI
+    // -----------------
+
+    private void updateShownProperty(Property property){
         textView.setText(property.getArea());
     }
 }

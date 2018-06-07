@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity
         this.configureAndShowDetailFragment(propertyId);
     }
 
+    //-----------------------------------
+    // NAVIGATION
+    //-----------------------------------
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
@@ -86,13 +90,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //From Callback in MainFragment, get Property Selected and show it in DetailFragment
-    @Override
-    public void onPropertySelected(long propertyId) {
-        configureAndShowDetailFragment(propertyId);
-    }
-
-
+    //-----------------------------------
+    // CONFIGURATION
+    //-----------------------------------
 
     private void configureToolbar(){
         setSupportActionBar(mToolbar);
@@ -130,5 +130,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //-----------------------------------
+    // CALLBACKS
+    //-----------------------------------
+
+    //From Callback in MainFragment, get Property Selected and show it in DetailFragment
+    @Override
+    public void onPropertySelected(long propertyId) {
+        configureAndShowDetailFragment(propertyId);
+    }
 
 }

@@ -37,29 +37,15 @@ import butterknife.ButterKnife;
  */
 public class MainFragment extends Fragment {
 
+    //FOR CALLBACK
     OnPropertiesListSelectedListener mCallback;
 
     public interface OnPropertiesListSelectedListener{
-        public void onPropertySelected(long propertyId);
-    }
-
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-
-        try {
-            mCallback = (OnPropertiesListSelectedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnPropertiesListSelectedListener");
-        }
-
-
+        void onPropertySelected(long propertyId);
     }
 
     //FOR DATA
     private PropertyViewModel propertyViewModel;
-
     String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
 
@@ -112,6 +98,11 @@ public class MainFragment extends Fragment {
                 });
     }
 
+
+    // -----------------
+    // RETRIEVE DATA
+    // -----------------
+
     private void configureViewModel(){
         ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(getContext());
         this.propertyViewModel = ViewModelProviders.of(getActivity(), viewModelFactory)
@@ -124,11 +115,26 @@ public class MainFragment extends Fragment {
     }
 
 
+    // -------------------------
+    // COMMUNICATE WITH ACTIVITY
+    // -------------------------
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+
+        try {
+            mCallback = (OnPropertiesListSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnPropertiesListSelectedListener");
+        }
+    }
+
 
     // -----------------
     // UPDATE UI
     // -----------------
-
 
     private void updatePropertiesList(List<Property> properties){
         this.properties.clear();
