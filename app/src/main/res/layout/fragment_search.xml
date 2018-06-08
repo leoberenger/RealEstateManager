@@ -1,15 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.openclassrooms.realestatemanager.controllers.fragments.SearchFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.fragments.SearchFragment"
-    android:id="@+id/fragment_search_root_layout">
+    android:id="@+id/fragment_search_root_layout"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+        <!-- DatePicker -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search_date_picker"/>
+
+            <EditText
+                android:id="@+id/search_since"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:textColor="@android:color/black"
+                android:editable="false"/>
+        </LinearLayout>
+
+
+        <!-- Type Checkbox-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_types"/>
+
+            <CheckBox android:id="@+id/checkbox_house"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_house"/>
+
+            <CheckBox android:id="@+id/checkbox_apartment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_apartment" />
+
+            <CheckBox android:id="@+id/checkbox_duplex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_duplex"/>
+
+            <CheckBox android:id="@+id/checkbox_penthouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_penthouse"/>
+
+        </LinearLayout>
+
+    <!-- Point Of Interest Checkbox-->
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_poi"/>
+
+        <CheckBox android:id="@+id/checkbox_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_school"/>
+
+        <CheckBox android:id="@+id/checkbox_park"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_park" />
+
+        <CheckBox android:id="@+id/checkbox_shopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_shopping"/>
+
+        <CheckBox android:id="@+id/checkbox_metro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_metro"/>
+
+    </LinearLayout>
+
+        <!-- Button -->
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:padding="15dip"
+            android:text="@string/search"
+            android:textColor="#FFF"
+            android:background="@color/colorPrimary"
+            android:textStyle="bold"/>
+
+</LinearLayout>
