@@ -2,7 +2,7 @@ package com.openclassrooms.realestatemanager.injections;
 
 import android.content.Context;
 
-import com.openclassrooms.realestatemanager.database.dao.RealEstateManagerDatabase;
+import com.openclassrooms.realestatemanager.database.RealEstateManagerDatabase;
 import com.openclassrooms.realestatemanager.repositories.PropertyDataRepository;
 
 import java.util.concurrent.Executor;

@@ -2,12 +2,17 @@ package com.openclassrooms.realestatemanager.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Property{
+
+    public static String AREA_KEY = "area";
+    public static String LATITUDE_KEY = "latitude";
+    public static String LONGITUDE_KEY = "longitude";
 
     @PrimaryKey(autoGenerate = true) private long id;
     private String area;
@@ -124,5 +129,14 @@ public class Property{
             this.country = country;
         }
 
+    }
+
+    //----UTILS-----
+    public static Property fromContentValues(ContentValues values) {
+        final Property property = new Property();
+        if (values.containsKey(AREA_KEY)) property.setArea(values.getAsString(AREA_KEY));
+        if (values.containsKey(LATITUDE_KEY)) property.setLatitude(values.getAsDouble(LATITUDE_KEY));
+        if (values.containsKey(LONGITUDE_KEY)) property.setLongitude(values.getAsDouble(LONGITUDE_KEY));
+        return property;
     }
 }

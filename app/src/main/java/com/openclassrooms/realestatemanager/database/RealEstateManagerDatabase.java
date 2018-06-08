@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.database.dao;
+package com.openclassrooms.realestatemanager.database;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -9,11 +9,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.openclassrooms.realestatemanager.database.dao.AgentDAO;
+import com.openclassrooms.realestatemanager.database.dao.PropertyDAO;
 import com.openclassrooms.realestatemanager.models.Agent;
 import com.openclassrooms.realestatemanager.models.Property;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Database(entities = {Property.class, Agent.class}, version = 1, exportSchema = false)
 public abstract class RealEstateManagerDatabase extends RoomDatabase {
