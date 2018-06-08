@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".controllers.activities.SearchActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_search_fragment_layout"/>
+
 </android.support.constraint.ConstraintLayout>

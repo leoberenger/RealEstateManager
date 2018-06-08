@@ -54,13 +54,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        //Get to SearchManager or Notification Activity
         switch (item.getItemId()){
+
             case R.id.menu_search:
                 Log.e("MainActivity", "Search Btn clicked");
-                //Intent intent1 = new Intent(this, SearchActivity.class);
-                //startActivity(intent1);
+                Intent intentSearch = new Intent(this, SearchActivity.class);
+                startActivity(intentSearch);
                 return true;
+
             case R.id.menu_map:
                 if(Utils.isInternetAvailable(getApplicationContext())){
                     Intent intentMap = new Intent(this, MapsActivity.class);
@@ -69,9 +70,11 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(getApplicationContext(), "No Internet Connexion Available", Toast.LENGTH_LONG).show();
                 }
                 return true;
+
             case R.id.menu_add:
                 Log.e("MainActivity", "Add new Btn clicked");
                 return true;
+
             case R.id.menu_edit:
                 Log.e("MainActivity", "Edit Btn clicked");
                 if(propertyId != -1) {
@@ -82,9 +85,11 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(this, "No Propriety selected", Toast.LENGTH_LONG).show();
                 }
                 return true;
+
             case R.id.menu_calculator:
                 Log.e("MainActivity", "Calculator Btn clicked");
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
