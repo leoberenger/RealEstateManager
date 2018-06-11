@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
 
         if(intent.getParcelableExtra("query") != null) {
             SearchQuery query = (SearchQuery) intent.getParcelableExtra("query");
-            Log.e(TAG, "age = " + query.getAge() + "name = " + query.getName());
+            Log.e(TAG, "area selected = " + query.getArea());
         }
 
         this.configureAndShowMainFragment(propertyId);

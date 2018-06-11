@@ -5,23 +5,17 @@ import android.os.Parcelable;
 
 public class SearchQuery implements Parcelable {
 
-    private int age;
-    private String name;
+    private String area;
 
 
     //CONSTRUCTOR
-    public SearchQuery(int age, String name){
-        this.age = age;
-        this.name = name;
+    public SearchQuery(String area){
+        this.area = area;
     }
 
     //GETTERS
-    public int getAge() {
-        return age;
-    }
-
-    public String getName() {
-        return name;
+    public String getArea() {
+        return area;
     }
 
     //PARCELABLE METHODS
@@ -33,8 +27,7 @@ public class SearchQuery implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeInt(age);
-        out.writeString(name);
+        out.writeString(area);
     }
 
     public static final Parcelable.Creator<SearchQuery> CREATOR
@@ -50,7 +43,6 @@ public class SearchQuery implements Parcelable {
     };
 
     private SearchQuery(Parcel in) {
-        age = in.readInt();
-        name = in.readString();
+        area = in.readString();
     }
 }

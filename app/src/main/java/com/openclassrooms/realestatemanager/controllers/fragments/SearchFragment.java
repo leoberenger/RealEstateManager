@@ -123,7 +123,7 @@ public class SearchFragment extends Fragment
                 //Spinners
                 Log.e(TAG, "neighborhood selected = " + selectedNeighborhood);
 
-                query = new SearchQuery(18, "John");
+                query = new SearchQuery(selectedNeighborhood);
                 mCallback.onQuerySelected(query);
             }
         });
