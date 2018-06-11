@@ -15,6 +15,7 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
+import com.openclassrooms.realestatemanager.models.SearchQuery;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
 import butterknife.BindView;
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements MainFragment.OnPropertiesListSelectedListener {
+
+    String TAG = "MainActivity";
 
     String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
@@ -37,6 +40,11 @@ public class MainActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         propertyId = intent.getLongExtra(PROPERTY_ID, -1);
+
+        if(intent.getParcelableExtra("query") != null) {
+            SearchQuery query = (SearchQuery) intent.getParcelableExtra("query");
+            Log.e(TAG, "age = " + query.getAge() + "name = " + query.getName());
+        }
 
         this.configureAndShowMainFragment(propertyId);
         this.configureAndShowDetailFragment(propertyId);

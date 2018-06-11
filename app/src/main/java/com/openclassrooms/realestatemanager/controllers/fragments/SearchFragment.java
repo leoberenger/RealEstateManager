@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,7 +20,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.google.android.gms.maps.model.Marker;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.controllers.activities.MainActivity;
+import com.openclassrooms.realestatemanager.models.SearchQuery;
 
 import java.util.Calendar;
 
@@ -109,6 +113,12 @@ public class SearchFragment extends Fragment
 
                 //Spinners
                 Log.e(TAG, "neighborhood selected = " + selectedNeighborhood);
+
+                SearchQuery query = new SearchQuery(18, "John");
+
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
             }
         });
 
