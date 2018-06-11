@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.controllers.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +15,15 @@ import android.widget.Toast;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
+import com.openclassrooms.realestatemanager.injections.Injection;
+import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
+import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 import com.openclassrooms.realestatemanager.utils.Utils;
+import com.openclassrooms.realestatemanager.views.PropertyViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,8 +33,13 @@ public class MainActivity extends AppCompatActivity
 
     String TAG = "MainActivity";
 
+    //FOR DATA
+    private PropertyViewModel propertyViewModel;
     String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
+    private List<Property> properties;
+
+    //FOR DESIGN
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
     @Override
@@ -37,6 +49,9 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         this.configureToolbar();
+
+        this.configureViewModel();
+        this.getAllProperties();
 
         Intent intent = getIntent();
         propertyId = intent.getLongExtra(PROPERTY_ID, -1);
@@ -141,6 +156,26 @@ public class MainActivity extends AppCompatActivity
                     .add(R.id.activity_main_detail_fragment, fragment)
                     .commit();
         }
+    }
+
+    // -----------------
+    // RETRIEVE DATA
+    // -----------------
+
+    private void configureViewModel(){
+        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(this);
+        this.propertyViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(PropertyViewModel.class);
+        this.propertyViewModel.init();
+    }
+
+    private void getAllProperties(){
+        this.propertyViewModel.getAllProperties().observe(this, this::updatePropertiesList);
+    }
+
+    private void updatePropertiesList(List<Property> properties){
+        this.properties = properties;
+        Log.e(TAG, "area 0 = " + properties.get(0).getArea());
     }
 
     //-----------------------------------

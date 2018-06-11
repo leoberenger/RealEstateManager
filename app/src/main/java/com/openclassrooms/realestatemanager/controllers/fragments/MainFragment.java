@@ -45,7 +45,6 @@ public class MainFragment extends Fragment {
     }
 
     //FOR DATA
-    private PropertyViewModel propertyViewModel;
     String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
 
@@ -62,9 +61,6 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.properties_recycler_view, container, false);
         ButterKnife.bind(this, view);
-
-        this.configureViewModel();
-        this.getAllProperties();
 
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
@@ -96,22 +92,6 @@ public class MainFragment extends Fragment {
                         mCallback.onPropertySelected(propertyId);
                     }
                 });
-    }
-
-
-    // -----------------
-    // RETRIEVE DATA
-    // -----------------
-
-    private void configureViewModel(){
-        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(getContext());
-        this.propertyViewModel = ViewModelProviders.of(getActivity(), viewModelFactory)
-                .get(PropertyViewModel.class);
-        this.propertyViewModel.init();
-    }
-
-    private void getAllProperties(){
-        this.propertyViewModel.getAllProperties().observe(this, this::updatePropertiesList);
     }
 
 
