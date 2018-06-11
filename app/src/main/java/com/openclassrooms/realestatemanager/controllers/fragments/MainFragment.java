@@ -37,6 +37,8 @@ import butterknife.ButterKnife;
  */
 public class MainFragment extends Fragment {
 
+    String TAG = "Main Fragment";
+
     //FOR CALLBACK
     OnPropertiesListSelectedListener mCallback;
 
@@ -52,6 +54,7 @@ public class MainFragment extends Fragment {
     @BindView(R.id.properties_recycler_view) RecyclerView recyclerView;
     private PropertiesRecyclerAdapter adapter;
     private List<Property> properties;
+    private ArrayList<Property> mPropertyArrayList;
 
     public MainFragment() {
         // Required empty public constructor
@@ -64,6 +67,11 @@ public class MainFragment extends Fragment {
 
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
+
+        mPropertyArrayList = getArguments().getParcelableArrayList("properties");
+        Log.e(TAG, "property0 area = " + mPropertyArrayList.get(0).getArea());
+
+        this.updatePropertiesList(mPropertyArrayList);
 
         return view;
     }

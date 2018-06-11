@@ -23,6 +23,7 @@ import com.openclassrooms.realestatemanager.models.SearchQuery;
 import com.openclassrooms.realestatemanager.utils.Utils;
 import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity
             Log.e(TAG, "area selected = " + query.getArea());
         }
 
-        this.configureAndShowMainFragment(propertyId);
+        //this.configureAndShowMainFragment(propertyId);
         this.configureAndShowDetailFragment(propertyId);
     }
 
@@ -142,6 +143,24 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void configureAndShowMainFragment(List<Property> properties){
+
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
+
+        Bundle bundle = new Bundle();
+
+        ArrayList<Property> propertyArrayList = new ArrayList<>(properties);
+        bundle.putParcelableArrayList("properties", propertyArrayList);
+
+        if (mainFragment == null) {
+            mainFragment = new MainFragment();
+            mainFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.activity_main_main_fragment, mainFragment)
+                    .commit();
+        }
+    }
+
     private void configureAndShowDetailFragment (long propertyId){
 
         DetailFragment fragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail_layout);
@@ -176,6 +195,7 @@ public class MainActivity extends AppCompatActivity
     private void updatePropertiesList(List<Property> properties){
         this.properties = properties;
         Log.e(TAG, "area 0 = " + properties.get(0).getArea());
+        configureAndShowMainFragment(properties);
     }
 
     //-----------------------------------
