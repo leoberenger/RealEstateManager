@@ -25,6 +25,11 @@ public class PropertyDataRepository {
         return this.propertyDAO.getAllProperties();
     }
 
+    public LiveData<List<Property>> getSearchedProperties(String area){
+        return this.propertyDAO.getSearchedProperties(area);
+    }
+
+
     public LiveData<Property> getProperty(long propertyId){
         return this.propertyDAO.getProperty(propertyId);
     }

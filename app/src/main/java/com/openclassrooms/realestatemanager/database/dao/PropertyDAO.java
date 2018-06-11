@@ -18,6 +18,9 @@ public interface PropertyDAO {
     @Query("SELECT * FROM Property")
     LiveData<List<Property>> getAllProperties();
 
+    @Query("SELECT * FROM Property WHERE area = :area")
+    LiveData<List<Property>> getSearchedProperties(String area);
+
     @Query("SELECT * FROM Property")
     Cursor getPropertiesWithCursor();
 

@@ -35,6 +35,10 @@ public class PropertyViewModel extends ViewModel {
         return propertyDataSource.getAllProperties();
     }
 
+    public LiveData<List<Property>> getSearchedProperties(String area){
+        return propertyDataSource.getSearchedProperties(area);
+    }
+
     public LiveData<Property> getProperty(long propertyId){
         return propertyDataSource.getProperty(propertyId);
     }

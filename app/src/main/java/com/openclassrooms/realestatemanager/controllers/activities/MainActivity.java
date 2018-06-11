@@ -52,15 +52,20 @@ public class MainActivity extends AppCompatActivity
         this.configureToolbar();
 
         this.configureViewModel();
-        this.getAllProperties();
 
         Intent intent = getIntent();
         propertyId = intent.getLongExtra(PROPERTY_ID, -1);
 
+        //If coming from SearchActivity
         if(intent.getParcelableExtra("query") != null) {
             SearchQuery query = (SearchQuery) intent.getParcelableExtra("query");
-            Log.e(TAG, "area selected = " + query.getArea());
+            String area = query.getArea();
+            Log.e(TAG, "area selected = " + area);
+            this.getSearchedProperties(area);
+        }else {
+            this.getAllProperties();
         }
+
 
         //this.configureAndShowMainFragment(propertyId);
         this.configureAndShowDetailFragment(propertyId);
@@ -190,6 +195,10 @@ public class MainActivity extends AppCompatActivity
 
     private void getAllProperties(){
         this.propertyViewModel.getAllProperties().observe(this, this::updatePropertiesList);
+    }
+
+    private void getSearchedProperties(String area){
+        this.propertyViewModel.getSearchedProperties(area).observe(this, this::updatePropertiesList);
     }
 
     private void updatePropertiesList(List<Property> properties){
