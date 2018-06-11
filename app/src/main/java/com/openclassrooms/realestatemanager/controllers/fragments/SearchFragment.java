@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.controllers.fragments;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class SearchFragment extends Fragment
     int selectedDate = 0;
     boolean statusSold = false;
     String selectedNeighborhood = "";
+    SearchQuery query;
 
     //FOR DESIGN
     @BindView(R.id.checkbox_house) CheckBox checkboxHouse;
@@ -67,6 +69,13 @@ public class SearchFragment extends Fragment
 
     public SearchFragment() {
         // Required empty public constructor
+    }
+
+    //FOR CALLBACK
+    OnSearchQueryListener mCallback;
+
+    public interface OnSearchQueryListener{
+        void onQuerySelected(SearchQuery query);
     }
 
 
@@ -114,11 +123,8 @@ public class SearchFragment extends Fragment
                 //Spinners
                 Log.e(TAG, "neighborhood selected = " + selectedNeighborhood);
 
-                SearchQuery query = new SearchQuery(18, "John");
-
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("query", query);
-                startActivity(intent);
+                query = new SearchQuery(18, "John");
+                mCallback.onQuerySelected(query);
             }
         });
 
@@ -278,5 +284,22 @@ public class SearchFragment extends Fragment
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+
+    // -------------------------
+    // COMMUNICATE WITH ACTIVITY
+    // -------------------------
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+
+        try {
+            mCallback = (SearchFragment.OnSearchQueryListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnPropertiesListSelectedListener");
+        }
     }
 }
