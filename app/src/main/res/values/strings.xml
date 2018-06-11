@@ -15,6 +15,7 @@
     <string name="search_types">Types : </string>
     <string name="search_poi">POI : </string>
     <string name="search_status">Status : </string>
+    <string name="search_neighborhood_selection">Neighborhood : </string>
 
     <string name="search_house">House</string>
     <string name="search_apartment">Apartment</string>
@@ -28,6 +29,20 @@
 
     <string name="search_sold">Sold</string>
     <string name="search_not_sold">Not sold</string>
+
+    <string-array name="search_neighborhood">
+        <item>All</item>
+        <item>Centre ville</item>
+        <item>Port de commerce</item>
+        <item>St Marc</item>
+        <item>St Martin</item>
+        <item>Bellevue</item>
+        <item>St Pierre</item>
+        <item>Europe</item>
+        <item>Lambézellec</item>
+        <item>Gouesnou</item>
+        <item>Lampaul</item>
+    </string-array>
 
 
     <!-- TODO: Remove or change this placeholder text -->

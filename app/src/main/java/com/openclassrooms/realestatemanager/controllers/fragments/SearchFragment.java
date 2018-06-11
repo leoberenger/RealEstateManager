@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -15,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.openclassrooms.realestatemanager.R;
 
@@ -28,7 +31,8 @@ import butterknife.ButterKnife;
  */
 public class SearchFragment extends Fragment
         implements CompoundButton.OnCheckedChangeListener,
-        RadioGroup.OnCheckedChangeListener{
+        RadioGroup.OnCheckedChangeListener,
+        AdapterView.OnItemSelectedListener{
 
     String TAG = "SearchFragment";
 
@@ -39,6 +43,7 @@ public class SearchFragment extends Fragment
     final boolean [] poiArray = {false, false, false, false};
     int selectedDate = 0;
     boolean statusSold = false;
+    String selectedNeighborhood = "";
 
     //FOR DESIGN
     @BindView(R.id.checkbox_house) CheckBox checkboxHouse;
@@ -53,6 +58,7 @@ public class SearchFragment extends Fragment
     @BindView(R.id.search_status) RadioGroup radioGroupStatus;
     @BindView(R.id.search_sold) RadioButton radioBtnSold;
     @BindView(R.id.search_not_sold) RadioButton radioBtnNotSold;
+    @BindView(R.id.search_neighborhood) Spinner spinnerNeighborhood;
     @BindView(R.id.search_button) Button searchButton;
 
     public SearchFragment() {
@@ -71,6 +77,10 @@ public class SearchFragment extends Fragment
         this.configureDatePicker(datePicker);
         this.configureRadioGroup();
         this.configureSearch();
+
+        this.configureSpinner(R.array.search_neighborhood, spinnerNeighborhood);
+
+
 
         return view;
     }
@@ -96,6 +106,9 @@ public class SearchFragment extends Fragment
 
                 //RadioGroup
                 Log.e(TAG, "status sold? : " + statusSold);
+
+                //Spinners
+                Log.e(TAG, "neighborhood selected = " + selectedNeighborhood);
             }
         });
 
@@ -233,4 +246,27 @@ public class SearchFragment extends Fragment
     }
 
 
+    //-----------------------------------
+    // SPINNERS
+    //-----------------------------------
+
+    private void configureSpinner(int idRStringArray, Spinner spinner){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                idRStringArray, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedNeighborhood = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
