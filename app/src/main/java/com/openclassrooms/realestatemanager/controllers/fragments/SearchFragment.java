@@ -34,6 +34,7 @@ public class SearchFragment extends Fragment
     String poi = "";
     final boolean [] typesArray = {false, false, false, false};
     final boolean [] poiArray = {false, false, false, false};
+    int selectedDate = 0;
 
     //FOR DESIGN
     @BindView(R.id.search_since) EditText datePicker;
@@ -70,16 +71,29 @@ public class SearchFragment extends Fragment
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Date Picker
+                selectedDate = (!datePicker.getText().toString().isEmpty()) ?
+                        transformDateFormat(datePicker) :
+                        0 ;
+                Log.e(TAG, "selected date = " + selectedDate);
+
+
+                //Checkboxes
                 String [] typeNames = {"House", "Apartment", "Duplex", "Penthouse"};
                 String [] poiNames = {"School", "Park", "Shopping", "Metro"};
                 types = checkboxesSelected(typesArray, typeNames);
-                Log.e(TAG, types);
+                Log.e(TAG, "types selected = " + types);
                 poi = checkboxesSelected(poiArray, poiNames);
-                Log.e(TAG, poi);
+                Log.e(TAG, "POI selected = " + poi);
             }
         });
 
     }
+
+    //-----------------------------------
+    // DATE PICKERS
+    //-----------------------------------
 
     private void configureDatePicker(final EditText datePicker){
 
@@ -115,6 +129,18 @@ public class SearchFragment extends Fragment
             }
         });
     }
+
+    //transforms (string) 10/01/2018 to (int) 20180110
+    public int transformDateFormat(EditText datePicker){
+        String date = datePicker.getText().toString();
+        String orderedDate = date.substring(6,10) + date.substring(3,5) + date.substring(0,2);
+
+        return Integer.valueOf(orderedDate);
+    }
+
+    //-----------------------------------
+    // CHECKBOXES
+    //-----------------------------------
 
     private void configureCheckboxes(){
         //TYPES
@@ -173,4 +199,6 @@ public class SearchFragment extends Fragment
             case R.id.checkbox_metro: poiArray[3] = isChecked; break;
         }
     }
+
+
 }
