@@ -13,6 +13,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.openclassrooms.realestatemanager.R;
 
@@ -25,7 +27,8 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class SearchFragment extends Fragment
-        implements CompoundButton.OnCheckedChangeListener {
+        implements CompoundButton.OnCheckedChangeListener,
+        RadioGroup.OnCheckedChangeListener{
 
     String TAG = "SearchFragment";
 
@@ -35,10 +38,9 @@ public class SearchFragment extends Fragment
     final boolean [] typesArray = {false, false, false, false};
     final boolean [] poiArray = {false, false, false, false};
     int selectedDate = 0;
+    boolean statusSold = false;
 
     //FOR DESIGN
-    @BindView(R.id.search_since) EditText datePicker;
-    @BindView(R.id.search_button) Button searchButton;
     @BindView(R.id.checkbox_house) CheckBox checkboxHouse;
     @BindView(R.id.checkbox_apartment) CheckBox checkboxApartment;
     @BindView(R.id.checkbox_duplex) CheckBox checkboxDuplex;
@@ -47,6 +49,11 @@ public class SearchFragment extends Fragment
     @BindView(R.id.checkbox_metro) CheckBox checkboxMetro;
     @BindView(R.id.checkbox_shopping) CheckBox checkboxShopping;
     @BindView(R.id.checkbox_park) CheckBox checkboxPark;
+    @BindView(R.id.search_since) EditText datePicker;
+    @BindView(R.id.search_status) RadioGroup radioGroupStatus;
+    @BindView(R.id.search_sold) RadioButton radioBtnSold;
+    @BindView(R.id.search_not_sold) RadioButton radioBtnNotSold;
+    @BindView(R.id.search_button) Button searchButton;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -62,6 +69,7 @@ public class SearchFragment extends Fragment
 
         this.configureCheckboxes();
         this.configureDatePicker(datePicker);
+        this.configureRadioGroup();
         this.configureSearch();
 
         return view;
@@ -78,7 +86,6 @@ public class SearchFragment extends Fragment
                         0 ;
                 Log.e(TAG, "selected date = " + selectedDate);
 
-
                 //Checkboxes
                 String [] typeNames = {"House", "Apartment", "Duplex", "Penthouse"};
                 String [] poiNames = {"School", "Park", "Shopping", "Metro"};
@@ -86,6 +93,9 @@ public class SearchFragment extends Fragment
                 Log.e(TAG, "types selected = " + types);
                 poi = checkboxesSelected(poiArray, poiNames);
                 Log.e(TAG, "POI selected = " + poi);
+
+                //RadioGroup
+                Log.e(TAG, "status sold? : " + statusSold);
             }
         });
 
@@ -138,8 +148,9 @@ public class SearchFragment extends Fragment
         return Integer.valueOf(orderedDate);
     }
 
+
     //-----------------------------------
-    // CHECKBOXES
+    // CHECK BOXES
     //-----------------------------------
 
     private void configureCheckboxes(){
@@ -197,6 +208,27 @@ public class SearchFragment extends Fragment
             case R.id.checkbox_park: poiArray[1] = isChecked; break;
             case R.id.checkbox_shopping: poiArray[2] = isChecked; break;
             case R.id.checkbox_metro: poiArray[3] = isChecked; break;
+        }
+    }
+
+
+    //-----------------------------------
+    // RADIO GROUP
+    //-----------------------------------
+
+    private void configureRadioGroup(){
+        radioGroupStatus.setOnCheckedChangeListener(this::onCheckedChanged);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch(checkedId) {
+            case R.id.search_sold:
+                statusSold = true;
+                break;
+            case R.id.search_not_sold:
+                statusSold = false;
+                break;
         }
     }
 

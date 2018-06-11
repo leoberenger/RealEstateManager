@@ -14,6 +14,7 @@
     <string name="search_date_picker">SINCE</string>
     <string name="search_types">Types : </string>
     <string name="search_poi">POI : </string>
+    <string name="search_status">Status : </string>
 
     <string name="search_house">House</string>
     <string name="search_apartment">Apartment</string>
@@ -24,6 +25,9 @@
     <string name="search_park">Park</string>
     <string name="search_shopping">Shopping</string>
     <string name="search_metro">Metro</string>
+
+    <string name="search_sold">Sold</string>
+    <string name="search_not_sold">Not sold</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
