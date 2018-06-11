@@ -3,12 +3,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Property{
+public class Property implements Parcelable {
 
     public static String AREA_KEY = "area";
     public static String LATITUDE_KEY = "latitude";
@@ -65,6 +67,43 @@ public class Property{
     }
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+
+    //---------------------------
+    //PARCELABLE METHODS
+    //--------------------------
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeLong(id);
+        out.writeString(area);
+        out.writeDouble(latitude);
+        out.writeDouble(longitude);
+    }
+
+    public static final Parcelable.Creator<Property> CREATOR
+            = new Parcelable.Creator<Property>() {
+
+        public Property createFromParcel(Parcel in) {
+            return new Property(in);
+        }
+
+        public Property[] newArray(int size) {
+            return new Property[size];
+        }
+    };
+
+    private Property(Parcel in) {
+        id = in.readLong();
+        area = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
     }
 
 
