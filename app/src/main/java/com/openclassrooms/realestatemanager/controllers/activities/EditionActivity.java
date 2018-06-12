@@ -1,18 +1,24 @@
 package com.openclassrooms.realestatemanager.controllers.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.EditionFragment;
+import com.openclassrooms.realestatemanager.injections.Injection;
+import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.models.Property;
+import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 
 import butterknife.BindView;
 
-public class EditionActivity extends AppCompatActivity {
+public class EditionActivity extends AppCompatActivity
+    implements EditionFragment.OnEditionListener{
 
     String TAG = "EditionActivity";
     public static String PROPERTY_KEY = "PROPERTY";
@@ -20,6 +26,7 @@ public class EditionActivity extends AppCompatActivity {
     private boolean isEditionMode = false;
 
     //FOR DATA
+    private PropertyViewModel propertyViewModel;
     private Property property;
 
     @Override
@@ -27,8 +34,10 @@ public class EditionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edition);
 
-        //Retrieve property to edit
-        if(getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY)!=null){
+        this.configureViewModel();
+
+        //if Edit, retrieve property
+        if(getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY) != null){
             property = getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY);
             isEditionMode = true;
         }
@@ -55,5 +64,45 @@ public class EditionActivity extends AppCompatActivity {
                     .add(R.id.activity_edition_fragment, fragment)
                     .commit();
             }
+    }
+
+
+    // -----------------
+    // CALLBACK
+    // -----------------
+
+    @Override
+    public void onPropertyEdited(Property property) {
+        if(isEditionMode){
+            Log.e(TAG, "edit");
+            updateProperty(property);
+            Toast.makeText(this, "Property edited", Toast.LENGTH_LONG).show();
+        }else{
+            Log.e(TAG, "create");
+            createProperty(property);
+            Toast.makeText(this, "Property added", Toast.LENGTH_LONG).show();
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    // -----------------
+    // RETRIEVE DATA
+    // -----------------
+
+    private void configureViewModel(){
+        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(this);
+        this.propertyViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(PropertyViewModel.class);
+        this.propertyViewModel.init();
+    }
+
+    private void updateProperty(Property property){
+        this.propertyViewModel.updateProperty(property);
+    }
+
+    private void createProperty(Property property){
+        this.propertyViewModel.createProperty(property);
     }
 }

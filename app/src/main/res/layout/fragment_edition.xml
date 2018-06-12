@@ -13,4 +13,16 @@
         android:inputType="text"
         android:hint="Area"/>
 
+    <!-- Button Update/Create -->
+    <Button
+        android:id="@+id/edition_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="15dip"
+        android:text="@string/edition_update"
+        android:textColor="#FFF"
+        android:background="@color/colorPrimary"
+        android:textStyle="bold"/>
+
 </FrameLayout>
