@@ -15,29 +15,45 @@ import butterknife.BindView;
 public class EditionActivity extends AppCompatActivity {
 
     String TAG = "EditionActivity";
-    public static String AREA_KEY = "AREA";
+    public static String PROPERTY_KEY = "PROPERTY";
+    public static String EDITION_KEY = "EDITION";
+    private boolean isEditionMode = false;
+
+    //FOR DATA
+    private Property property;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edition);
 
-        Property property = getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY);
-        this.configureAndShowEditionFragment(property);
+        //Retrieve property to edit
+        if(getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY)!=null){
+            property = getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY);
+            isEditionMode = true;
+        }
+
+        this.configureAndShowEditionFragment(isEditionMode);
     }
 
-    private void  configureAndShowEditionFragment(Property property){
+    private void  configureAndShowEditionFragment(boolean isEditionMode){
         EditionFragment fragment = (EditionFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_edition_layout);
 
-        Bundle bundle = new Bundle();
-        bundle.putString(AREA_KEY, property.getArea());
-
         if (fragment == null) {
-        fragment = new EditionFragment();
-        fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.activity_edition_fragment, fragment)
-                .commit();
-        }
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(EDITION_KEY, isEditionMode);
+
+            //if Edition of Property, send property
+            if(isEditionMode) {
+                bundle.putParcelable(PROPERTY_KEY, property);
+            }
+
+            fragment = new EditionFragment();
+            fragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.activity_edition_fragment, fragment)
+                    .commit();
+            }
     }
 }

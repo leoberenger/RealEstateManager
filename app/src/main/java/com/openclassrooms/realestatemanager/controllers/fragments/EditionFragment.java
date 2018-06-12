@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.activities.EditionActivity;
+import com.openclassrooms.realestatemanager.models.Property;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +24,10 @@ public class EditionFragment extends Fragment {
         // Required empty public constructor
     }
 
+    //FOR DATA
+    private Property property;
+    private boolean isEditionMode;
+
     //FOR DESIGN
     @BindView(R.id.fragment_edition_area) EditText editTextArea;
 
@@ -33,11 +38,14 @@ public class EditionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_edition, container, false);
         ButterKnife.bind(this, view);
 
-        String area = getArguments().getString(EditionActivity.AREA_KEY);
-        editTextArea.setText(area);
+        isEditionMode = getArguments().getBoolean(EditionActivity.EDITION_KEY);
+
+        if(isEditionMode) {
+            property = getArguments().getParcelable(EditionActivity.PROPERTY_KEY);
+            editTextArea.setText(property.getArea());
+        }
 
         return view;
 
     }
-
 }

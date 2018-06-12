@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        this.configureViewModel();
         this.configureToolbar();
 
-        this.configureViewModel();
 
         //If from SearchActivity
         if(getIntent().getParcelableExtra("query") != null) {
@@ -93,11 +93,11 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.menu_add:
-                Log.e("MainActivity", "Add new Btn clicked");
+                Intent intentCreate = new Intent(this, EditionActivity.class);
+                startActivity(intentCreate);
                 return true;
 
             case R.id.menu_edit:
-                Log.e("MainActivity", "P selected = " + propertyId);
                 getPropertyToEdit(propertyId);
                 return true;
 
@@ -186,6 +186,11 @@ public class MainActivity extends AppCompatActivity
     private void getPropertyToEdit(long propertyId){
         this.propertyViewModel.getProperty(propertyId).observe(this, this::goToEditActivity);
     }
+
+
+    //-----------------------------------
+    // ACTIONS
+    //-----------------------------------
 
     private void goToEditActivity(Property property){
         Intent intentEdit = new Intent(this, EditionActivity.class);
