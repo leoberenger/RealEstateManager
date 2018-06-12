@@ -6,4 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".controllers.activities.EditionActivity">
 
+    <RelativeLayout
+        android:id="@+id/activity_edition_fragment"
+        android:name="com.openclassrooms.realestatemanager.controllers.fragments.EditionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </android.support.constraint.ConstraintLayout>
