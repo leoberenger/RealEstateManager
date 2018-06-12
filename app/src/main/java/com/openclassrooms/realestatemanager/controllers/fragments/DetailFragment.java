@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.controllers.activities.MainActivity;
 import com.openclassrooms.realestatemanager.injections.Injection;
 import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
@@ -30,13 +31,11 @@ public class DetailFragment extends Fragment {
     String TAG = "DetailFragment";
 
     //FOR DATA
-    private PropertyViewModel propertyViewModel;
+    private Property property;
 
     //FOR DESIGN
     @BindView(R.id.fragment_detail_textview)
     TextView textView;
-
-    String PROPERTY_ID = "PROPERTY_ID";
 
     public DetailFragment() { }
 
@@ -48,35 +47,13 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
 
-        this.configureViewModel();
-
-        long propertyId = getArguments().getLong(PROPERTY_ID, 0);
-
-        if(propertyId != -1) {
-            //Retrieve Property with its ID
-            this.getProperty(propertyId);
-        }else{
-            textView.setText("No Property Selected");
+        if(getArguments() != null) {
+            property = getArguments().getParcelable(MainActivity.PROPERTY_KEY);
+            updateShownProperty(property);
         }
 
         return view;
     }
-
-    // -----------------
-    // RETRIEVE DATA
-    // -----------------
-
-    private void configureViewModel(){
-        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(getContext());
-        this.propertyViewModel = ViewModelProviders.of(getActivity(), viewModelFactory)
-                .get(PropertyViewModel.class);
-        this.propertyViewModel.init();
-    }
-
-    private void getProperty(long propertyId){
-        this.propertyViewModel.getProperty(propertyId).observe(this, this::updateShownProperty);
-    }
-
 
     // -----------------
     // UPDATE UI

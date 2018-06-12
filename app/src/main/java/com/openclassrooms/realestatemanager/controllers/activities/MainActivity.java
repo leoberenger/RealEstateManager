@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity
         implements MainFragment.OnPropertiesListSelectedListener {
 
     String TAG = "MainActivity";
+    public static String PROPERTY_KEY = "property";
+    public static String PROPERTIES_KEY = "properties";
 
     //FOR DATA
     private PropertyViewModel propertyViewModel;
@@ -54,9 +56,11 @@ public class MainActivity extends AppCompatActivity
         this.configureViewModel();
 
         Intent intent = getIntent();
+
+        //If from MapsActivity, property selected
         propertyId = intent.getLongExtra(PROPERTY_ID, -1);
 
-        //If coming from SearchActivity
+        //If from SearchActivity
         if(intent.getParcelableExtra("query") != null) {
             SearchQuery query = (SearchQuery) intent.getParcelableExtra("query");
             String area = query.getArea();
@@ -65,10 +69,6 @@ public class MainActivity extends AppCompatActivity
         }else {
             this.getAllProperties();
         }
-
-
-        //this.configureAndShowMainFragment(propertyId);
-        this.configureAndShowDetailFragment(propertyId);
     }
 
     //-----------------------------------
@@ -132,30 +132,13 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
     }
 
-    private void configureAndShowMainFragment(long propertyId){
-
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
-
-        Bundle bundle = new Bundle();
-        bundle.putLong(PROPERTY_ID, propertyId);
-
-        if (mainFragment == null) {
-            mainFragment = new MainFragment();
-            mainFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_main_main_fragment, mainFragment)
-                    .commit();
-        }
-    }
-
     private void configureAndShowMainFragment(List<Property> properties){
 
         MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
 
         Bundle bundle = new Bundle();
-
         ArrayList<Property> propertyArrayList = new ArrayList<>(properties);
-        bundle.putParcelableArrayList("properties", propertyArrayList);
+        bundle.putParcelableArrayList(PROPERTIES_KEY, propertyArrayList);
 
         if (mainFragment == null) {
             mainFragment = new MainFragment();
@@ -166,12 +149,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void configureAndShowDetailFragment (long propertyId){
+    private void configureAndShowDetailFragment (Property property){
 
         DetailFragment fragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail_layout);
 
         Bundle bundle = new Bundle();
-        bundle.putLong(PROPERTY_ID, propertyId);
+        bundle.putParcelable(PROPERTY_KEY, property);
 
         if (fragment == null) {
             fragment = new DetailFragment();
@@ -194,17 +177,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getAllProperties(){
-        this.propertyViewModel.getAllProperties().observe(this, this::updatePropertiesList);
+        this.propertyViewModel.getAllProperties().observe(this, this::configureAndShowMainFragment);
     }
 
     private void getSearchedProperties(String area){
-        this.propertyViewModel.getSearchedProperties(area).observe(this, this::updatePropertiesList);
+        this.propertyViewModel.getSearchedProperties(area).observe(this, this::configureAndShowMainFragment);
     }
 
-    private void updatePropertiesList(List<Property> properties){
-        this.properties = properties;
-        Log.e(TAG, "area 0 = " + properties.get(0).getArea());
-        configureAndShowMainFragment(properties);
+    private void getProperty(long propertyId){
+        this.propertyViewModel.getProperty(propertyId).observe(this, this::configureAndShowDetailFragment);
     }
 
     //-----------------------------------
@@ -214,7 +195,7 @@ public class MainActivity extends AppCompatActivity
     //From Callback in MainFragment, get Property Selected and show it in DetailFragment
     @Override
     public void onPropertySelected(long propertyId) {
-        configureAndShowDetailFragment(propertyId);
+        getProperty(propertyId);
     }
 
 }
