@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.activities.MainActivity;
 import com.openclassrooms.realestatemanager.injections.Injection;
@@ -34,8 +37,10 @@ public class DetailFragment extends Fragment {
     private Property property;
 
     //FOR DESIGN
-    @BindView(R.id.fragment_detail_textview)
-    TextView textView;
+    @BindView(R.id.fragment_detail_description) TextView description;
+    @BindView(R.id.fragment_detail_specifics) TextView specifics;
+    @BindView(R.id.fragment_detail_address) TextView address;
+    @BindView(R.id.fragment_detail_photo) ImageView photo;
 
     public DetailFragment() { }
 
@@ -59,7 +64,21 @@ public class DetailFragment extends Fragment {
     // UPDATE UI
     // -----------------
 
-    private void updateShownProperty(Property property){
-        textView.setText(property.getArea());
+    private void updateShownProperty(Property p){
+
+        //Img
+        Glide.with(this).load(p.getUrlPhoto()).into(photo);
+
+        //Description
+        description.setText(p.getDescription());
+
+        //Specifics
+        String specs = "Surface : " + p.getSurface() + " / Number of rooms : " + p.getNbRooms();
+        specifics.setText(specs);
+
+        //Address
+        String location = "Latitude : " + p.getLatitude() + " / Longitude : " + p.getLongitude();
+        address.setText(location);
+
     }
 }
