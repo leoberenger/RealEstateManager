@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
@@ -17,7 +15,6 @@ import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.injections.Injection;
 import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
-import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 import com.openclassrooms.realestatemanager.utils.Utils;
@@ -40,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private PropertyViewModel propertyViewModel;
     String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
+    long propertySelectedOnMapId = -1;
     private List<Property> properties;
 
     //FOR DESIGN
@@ -55,16 +53,10 @@ public class MainActivity extends AppCompatActivity
 
         this.configureViewModel();
 
-        Intent intent = getIntent();
-
-        //If from MapsActivity, property selected
-        propertyId = intent.getLongExtra(PROPERTY_ID, -1);
-
         //If from SearchActivity
-        if(intent.getParcelableExtra("query") != null) {
-            SearchQuery query = (SearchQuery) intent.getParcelableExtra("query");
+        if(getIntent().getParcelableExtra("query") != null) {
+            SearchQuery query = (SearchQuery) getIntent().getParcelableExtra("query");
             String area = query.getArea();
-            Log.e(TAG, "area selected = " + area);
             this.getSearchedProperties(area);
         }else {
             this.getAllProperties();
@@ -105,14 +97,8 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.menu_edit:
-                Log.e("MainActivity", "Edit Btn clicked");
-                if(propertyId != -1) {
-                    Intent intentEdit = new Intent(this, EditionActivity.class);
-                    intentEdit.putExtra(PROPERTY_ID, propertyId);
-                    startActivity(intentEdit);
-                }else{
-                    Toast.makeText(this, "No Propriety selected", Toast.LENGTH_LONG).show();
-                }
+                Log.e("MainActivity", "P selected = " + propertyId);
+                getPropertyToEdit(propertyId);
                 return true;
 
             case R.id.menu_calculator:
@@ -147,6 +133,15 @@ public class MainActivity extends AppCompatActivity
                     .add(R.id.activity_main_main_fragment, mainFragment)
                     .commit();
         }
+
+        //If from MapsActivity, property selected
+        propertySelectedOnMapId = getIntent().getLongExtra(PROPERTY_ID, -1);
+
+        propertyId = (propertySelectedOnMapId != -1)?
+                propertySelectedOnMapId :   //Show property clicked in maps
+                properties.get(0).getId();  //Show by default 1st item
+
+        getPropertyToShow(propertyId);
     }
 
     private void configureAndShowDetailFragment (Property property){
@@ -184,8 +179,18 @@ public class MainActivity extends AppCompatActivity
         this.propertyViewModel.getSearchedProperties(area).observe(this, this::configureAndShowMainFragment);
     }
 
-    private void getProperty(long propertyId){
+    private void getPropertyToShow(long propertyId){
         this.propertyViewModel.getProperty(propertyId).observe(this, this::configureAndShowDetailFragment);
+    }
+
+    private void getPropertyToEdit(long propertyId){
+        this.propertyViewModel.getProperty(propertyId).observe(this, this::goToEditActivity);
+    }
+
+    private void goToEditActivity(Property property){
+        Intent intentEdit = new Intent(this, EditionActivity.class);
+        intentEdit.putExtra(PROPERTY_KEY, property);
+        startActivity(intentEdit);
     }
 
     //-----------------------------------
@@ -195,7 +200,8 @@ public class MainActivity extends AppCompatActivity
     //From Callback in MainFragment, get Property Selected and show it in DetailFragment
     @Override
     public void onPropertySelected(long propertyId) {
-        getProperty(propertyId);
+        this.propertyId = propertyId;
+        getPropertyToShow(propertyId);
     }
 
 }

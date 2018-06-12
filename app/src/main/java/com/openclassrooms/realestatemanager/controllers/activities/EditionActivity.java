@@ -6,19 +6,21 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.models.Property;
 
 public class EditionActivity extends AppCompatActivity {
 
-    String PROPERTY_ID = "PROPERTY_ID";
+    String TAG ="EditionActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edition);
 
-        Intent intent = getIntent();
-        long propertyId = intent.getLongExtra(PROPERTY_ID, -1);
-        Log.e("EditionActivity", "propertyId = " + propertyId);
+        Property property = getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY);
+
+        Log.e(TAG, "p selected = " + property.getArea());
 
     }
 }
