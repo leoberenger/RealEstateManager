@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.RequestManager;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.models.Property;
 
@@ -18,12 +19,15 @@ import java.util.List;
 
 public class PropertiesRecyclerAdapter extends RecyclerView.Adapter<PropertiesViewHolder>{
 
+    private final RequestManager glide;
+
     //FOR DATA
     private final List<Property> properties;
 
     //CONSTRUCTOR
-    public PropertiesRecyclerAdapter(List<Property> p){
+    public PropertiesRecyclerAdapter(List<Property> p, RequestManager glide){
         this.properties = p;
+        this.glide = glide;
     }
 
     public Property getResult(int position){
@@ -42,7 +46,7 @@ public class PropertiesRecyclerAdapter extends RecyclerView.Adapter<PropertiesVi
 
     @Override
     public void onBindViewHolder(@NonNull PropertiesViewHolder viewHolder, int position){
-        viewHolder.updateWithProperty(this.properties.get(position));
+        viewHolder.updateWithProperty(this.properties.get(position), this.glide);
     }
 
     @Override
