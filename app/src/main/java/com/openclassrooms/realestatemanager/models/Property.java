@@ -107,70 +107,10 @@ public class Property implements Parcelable {
     }
 
 
-    private class Address{
-        private String streetNb;
-        private String streetName;
-        private String apptNb;
-        private String zipCode;
-        private String stateNb;
-        private String city;
-        private String country;
+    //---------------------------
+    //CONTENT PROVIDER METHOD
+    //--------------------------
 
-        //---------------------------
-        //GETTERS
-        //--------------------------
-
-        public String getStreetNb() {
-            return streetNb;
-        }
-        public String getStreetName() {
-            return streetName;
-        }
-        public String getApptNb() {
-            return apptNb;
-        }
-        public String getZipCode() {
-            return zipCode;
-        }
-        public String getStateNb() {
-            return stateNb;
-        }
-        public String getCity() {
-            return city;
-        }
-        public String getCountry() {
-            return country;
-        }
-
-        //---------------------------
-        //SETTERS
-        //--------------------------
-
-        public void setStreetNb(String streetNb) {
-            this.streetNb = streetNb;
-        }
-        public void setStreetName(String streetName) {
-            this.streetName = streetName;
-        }
-        public void setApptNb(String apptNb) {
-            this.apptNb = apptNb;
-        }
-        public void setZipCode(String zipCode) {
-            this.zipCode = zipCode;
-        }
-        public void setStateNb(String stateNb) {
-            this.stateNb = stateNb;
-        }
-        public void setCity(String city) {
-            this.city = city;
-        }
-        public void setCountry(String country) {
-            this.country = country;
-        }
-
-    }
-
-    //----UTILS-----
     public static Property fromContentValues(ContentValues values) {
         final Property property = new Property();
         if (values.containsKey(AREA_KEY)) property.setArea(values.getAsString(AREA_KEY));
