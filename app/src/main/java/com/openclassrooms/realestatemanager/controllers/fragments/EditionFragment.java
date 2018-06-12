@@ -70,7 +70,7 @@ public class EditionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isEditionMode){
-                    property.setArea("Centre ville");
+                    property.setArea(editTextArea.getText().toString());
                     propertyEdited = property;
                 }else {
                     propertyEdited = new Property(22, "Midtown", 48.380000, -4.480000);
