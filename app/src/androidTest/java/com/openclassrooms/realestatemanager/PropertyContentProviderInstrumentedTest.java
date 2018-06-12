@@ -64,6 +64,18 @@ public class PropertyContentProviderInstrumentedTest {
         values.put(Property.AREA_KEY, "Roscanvel");
         values.put(Property.LATITUDE_KEY, 48.329944);
         values.put(Property.LONGITUDE_KEY, -4.549833);
+        values.put(Property.PRICE_KEY, 100000);
+        values.put(Property.SURFACE_KEY, 125);
+        values.put(Property.NB_ROOMS_KEY, 6);
+        values.put(Property.DESCRIPTION_KEY, "Awesome house to buy close to the sea");
+        values.put(Property.PHOTO_URL_KEY, "https://picsum.photos/200/200/?image=820");
+        values.put(Property.PHOTO_DESCRIPTION_KEY, "Garden");
+        values.put(Property.IS_SOLD_KEY, false);
+        values.put(Property.DATE_CREATED_KEY, 20180612);
+        values.put(Property.DATE_SOLD_KEY, 0);
+        values.put(Property.TYPE_KEY, "house");
+        values.put(Property.POI_KEY, "school");
+        values.put(Property.AGENT_ID_KEY, 3);
         return values;
     }
 }

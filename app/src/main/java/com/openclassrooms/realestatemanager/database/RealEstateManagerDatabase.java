@@ -48,100 +48,143 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
 
-                Property property0 = new Property(0, "Centre ville", 48.387933, -4.488045);
-                Property property1 = new Property(1, "Port de commerce", 48.392151, -4.479032);
-                Property property2 = new Property(2, "St Marc", 48.386929, -4.467273);
-                Property property3 = new Property(3, "St Martin", 48.380143, -4.487213);
-                Property property4 = new Property(4, "Bellevue", 48.402719, -4.467158);
-                Property property5 = new Property(5, "St Pierre", 48.406232, -4.496259);
-                Property property6 = new Property(6, "Europe", 48.408568, -4.513296);
-                Property property7 = new Property(7, "Lambezellec", 48.412385, -4.480294);
-                Property property8 = new Property(8, "Gouesnou", 48.414408, -4.451433);
-                Property property9 = new Property(9, "Lampaul", 48.396350, -4.418772);
+                Property property0 = new Property(
+                        "Port de commerce",
+                        48.392151,
+                        -4.479032,
+                        95000,
+                        125,
+                        7,
+                        "Très bel appartement en bord de mer, proche de tous commerces",
+                        "https://picsum.photos/200/200/?image=88",
+                        "vue du salon",
+                        false,
+                        20180201,
+                        0,
+                        "appartment",
+                        "shopping",
+                        3);
 
-                Property [] properties = {property0, property1, property2, property3, property4, property5,
-                    property6, property7, property8, property9};
+                Property property1 = new Property(
+                        "Centre ville",
+                        48.380143,
+                        -4.487213,
+                        250000,
+                        215,
+                        11,
+                        "Au centre ville, maison de charme pour grande famille avec jardin",
+                        "https://picsum.photos/200/200/?image=93",
+                        "vue du jardin",
+                        false,
+                        20180401,
+                        0,
+                        "house",
+                        "school",
+                        1);
 
-                /*
-                ContentValues [] contentValues = new ContentValues[10];
+                Property property2 = new Property(
+                        "Centre ville",
+                        48.406232,
+                        -4.496259,
+                        328000,
+                        120,
+                        4,
+                        "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
+                        "https://picsum.photos/200/200/?image=11",
+                        "vue de la terrasse",
+                        true,
+                        20180131,
+                        20180401,
+                        "penthouse",
+                        "metro",
+                        2);
+
+
+                Property [] properties = {property0, property1, property2};
+
+/*
+                ContentValues [] contentValues = new ContentValues [3];
 
                 for(int i = 0; i<contentValues.length; i++){
-                    contentValues[i].put("id", properties[i].getId());
-                    contentValues[i].put("area", properties[i].getArea());
-                    contentValues[i].put("latitude", properties[i].getLatitude());
-                    contentValues[i].put("longitude", properties[i].getLongitude());
+                    contentValues[i].put(Property.AREA_KEY, properties[i].getArea());
+                    contentValues[i].put(Property.LATITUDE_KEY, properties[i].getLatitude());
+                    contentValues[i].put(Property.LONGITUDE_KEY, properties[i].getLongitude());
+                    contentValues[i].put(Property.PRICE_KEY, properties[i].getPrice());
+                    contentValues[i].put(Property.SURFACE_KEY, properties[i].getSurface());
+                    contentValues[i].put(Property.NB_ROOMS_KEY, properties[i].getNbRooms());
+                    contentValues[i].put(Property.DESCRIPTION_KEY, properties[i].getDescription());
+                    contentValues[i].put(Property.PHOTO_URL_KEY, properties[i].getUrlPhoto());
+                    contentValues[i].put(Property.PHOTO_DESCRIPTION_KEY, properties[i].getPhotoDescription());
+                    contentValues[i].put(Property.IS_SOLD_KEY, properties[i].isSold());
+                    contentValues[i].put(Property.DATE_CREATED_KEY, properties[i].getDateCreated());
+                    contentValues[i].put(Property.DATE_SOLD_KEY, properties[i].getDateSold());
+                    contentValues[i].put(Property.TYPE_KEY, properties[i].getType());
+                    contentValues[i].put(Property.POI_KEY, properties[i].getPoi());
+                    contentValues[i].put(Property.AGENT_ID_KEY, properties[i].getAgentID());
 
                     db.insert("Property", OnConflictStrategy.IGNORE, contentValues[i]);
                 }
-                */
+*/
 
                 ContentValues contentValues0 = new ContentValues();
-                contentValues0.put("id", properties[0].getId());
-                contentValues0.put("area", properties[0].getArea());
-                contentValues0.put("latitude", properties[0].getLatitude());
-                contentValues0.put("longitude", properties[0].getLongitude());
+                contentValues0.put(Property.AREA_KEY, properties[0].getArea());
+                contentValues0.put(Property.LATITUDE_KEY, properties[0].getLatitude());
+                contentValues0.put(Property.LONGITUDE_KEY, properties[0].getLongitude());
+                contentValues0.put(Property.PRICE_KEY, properties[0].getPrice());
+                contentValues0.put(Property.SURFACE_KEY, properties[0].getSurface());
+                contentValues0.put(Property.NB_ROOMS_KEY, properties[0].getNbRooms());
+                contentValues0.put(Property.DESCRIPTION_KEY, properties[0].getDescription());
+                contentValues0.put(Property.PHOTO_URL_KEY, properties[0].getUrlPhoto());
+                contentValues0.put(Property.PHOTO_DESCRIPTION_KEY, properties[0].getPhotoDescription());
+                contentValues0.put(Property.IS_SOLD_KEY, properties[0].isSold());
+                contentValues0.put(Property.DATE_CREATED_KEY, properties[0].getDateCreated());
+                contentValues0.put(Property.DATE_SOLD_KEY, properties[0].getDateSold());
+                contentValues0.put(Property.TYPE_KEY, properties[0].getType());
+                contentValues0.put(Property.POI_KEY, properties[0].getPoi());
+                contentValues0.put(Property.AGENT_ID_KEY, properties[0].getAgentID());
+
+                db.insert("Property", OnConflictStrategy.IGNORE, contentValues0);
+
 
                 ContentValues contentValues1 = new ContentValues();
-                contentValues1.put("id", properties[1].getId());
-                contentValues1.put("area", properties[1].getArea());
-                contentValues1.put("latitude", properties[1].getLatitude());
-                contentValues1.put("longitude", properties[1].getLongitude());
+                contentValues1.put(Property.AREA_KEY, properties[1].getArea());
+                contentValues1.put(Property.LATITUDE_KEY, properties[1].getLatitude());
+                contentValues1.put(Property.LONGITUDE_KEY, properties[1].getLongitude());
+                contentValues1.put(Property.PRICE_KEY, properties[1].getPrice());
+                contentValues1.put(Property.SURFACE_KEY, properties[1].getSurface());
+                contentValues1.put(Property.NB_ROOMS_KEY, properties[1].getNbRooms());
+                contentValues1.put(Property.DESCRIPTION_KEY, properties[1].getDescription());
+                contentValues1.put(Property.PHOTO_URL_KEY, properties[1].getUrlPhoto());
+                contentValues1.put(Property.PHOTO_DESCRIPTION_KEY, properties[1].getPhotoDescription());
+                contentValues1.put(Property.IS_SOLD_KEY, properties[1].isSold());
+                contentValues1.put(Property.DATE_CREATED_KEY, properties[1].getDateCreated());
+                contentValues1.put(Property.DATE_SOLD_KEY, properties[1].getDateSold());
+                contentValues1.put(Property.TYPE_KEY, properties[1].getType());
+                contentValues1.put(Property.POI_KEY, properties[1].getPoi());
+                contentValues1.put(Property.AGENT_ID_KEY, properties[1].getAgentID());
+
+                db.insert("Property", OnConflictStrategy.IGNORE, contentValues1);
 
                 ContentValues contentValues2 = new ContentValues();
-                contentValues2.put("id", properties[2].getId());
-                contentValues2.put("area", properties[2].getArea());
-                contentValues2.put("latitude", properties[2].getLatitude());
-                contentValues2.put("longitude", properties[2].getLongitude());
+                contentValues2.put(Property.AREA_KEY, properties[2].getArea());
+                contentValues2.put(Property.LATITUDE_KEY, properties[2].getLatitude());
+                contentValues2.put(Property.LONGITUDE_KEY, properties[2].getLongitude());
+                contentValues2.put(Property.PRICE_KEY, properties[2].getPrice());
+                contentValues2.put(Property.SURFACE_KEY, properties[2].getSurface());
+                contentValues2.put(Property.NB_ROOMS_KEY, properties[2].getNbRooms());
+                contentValues2.put(Property.DESCRIPTION_KEY, properties[2].getDescription());
+                contentValues2.put(Property.PHOTO_URL_KEY, properties[2].getUrlPhoto());
+                contentValues2.put(Property.PHOTO_DESCRIPTION_KEY, properties[2].getPhotoDescription());
+                contentValues2.put(Property.IS_SOLD_KEY, properties[2].isSold());
+                contentValues2.put(Property.DATE_CREATED_KEY, properties[2].getDateCreated());
+                contentValues2.put(Property.DATE_SOLD_KEY, properties[2].getDateSold());
+                contentValues2.put(Property.TYPE_KEY, properties[2].getType());
+                contentValues2.put(Property.POI_KEY, properties[2].getPoi());
+                contentValues2.put(Property.AGENT_ID_KEY, properties[2].getAgentID());
 
-                ContentValues contentValues3 = new ContentValues();
-                contentValues3.put("id", properties[3].getId());
-                contentValues3.put("area", properties[3].getArea());
-                contentValues3.put("latitude", properties[3].getLatitude());
-                contentValues3.put("longitude", properties[3].getLongitude());
-
-                ContentValues contentValues4 = new ContentValues();
-                contentValues4.put("id", properties[4].getId());
-                contentValues4.put("area", properties[4].getArea());
-                contentValues4.put("latitude", properties[4].getLatitude());
-                contentValues4.put("longitude", properties[4].getLongitude());
-
-                ContentValues contentValues5 = new ContentValues();
-                contentValues5.put("id", properties[5].getId());
-                contentValues5.put("area", properties[5].getArea());
-                contentValues5.put("latitude", properties[5].getLatitude());
-                contentValues5.put("longitude", properties[5].getLongitude());
-
-                ContentValues contentValues6 = new ContentValues();
-                contentValues6.put("id", properties[6].getId());
-                contentValues6.put("area", properties[6].getArea());
-                contentValues6.put("latitude", properties[6].getLatitude());
-                contentValues6.put("longitude", properties[6].getLongitude());
-
-                ContentValues contentValues7 = new ContentValues();
-                contentValues7.put("id", properties[7].getId());
-                contentValues7.put("area", properties[7].getArea());
-                contentValues7.put("latitude", properties[7].getLatitude());
-                contentValues7.put("longitude", properties[7].getLongitude());
-
-                ContentValues contentValues8 = new ContentValues();
-                contentValues8.put("id", properties[8].getId());
-                contentValues8.put("area", properties[8].getArea());
-                contentValues8.put("latitude", properties[8].getLatitude());
-                contentValues8.put("longitude", properties[8].getLongitude());
-
-                ContentValues contentValues9 = new ContentValues();
-                contentValues9.put("id", properties[9].getId());
-                contentValues9.put("area", properties[9].getArea());
-                contentValues9.put("latitude", properties[9].getLatitude());
-                contentValues9.put("longitude", properties[9].getLongitude());
+                db.insert("Property", OnConflictStrategy.IGNORE, contentValues2);
 
 
-                ContentValues [] contentValues = {contentValues0, contentValues1, contentValues2, contentValues3, contentValues4,
-                        contentValues5, contentValues6, contentValues7, contentValues8, contentValues9};
-
-                for(int i = 0; i<10; i++){
-                    db.insert("Property", OnConflictStrategy.IGNORE, contentValues[i]);
-                }
             }
         };
     }

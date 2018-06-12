@@ -73,11 +73,14 @@ public class EditionFragment extends Fragment {
                     property.setArea(editTextArea.getText().toString());
                     propertyEdited = property;
                 }else {
+                    /*
                     String area = editTextArea.getText().toString();
                     long id = 25;
                     double latitude = 48.300000;
                     double longitude = -4.470000;
+
                     propertyEdited = new Property(id, area, latitude, longitude);
+                    */
                 }
 
                 mCallback.onPropertyEdited(propertyEdited);
