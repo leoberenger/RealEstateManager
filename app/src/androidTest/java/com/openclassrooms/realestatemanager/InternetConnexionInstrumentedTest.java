@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class InternetConnexionInstrumentedTest {
     @Test
-    public void internetIsAvailable() throws Exception {
+    public void internetIsAvailable() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 

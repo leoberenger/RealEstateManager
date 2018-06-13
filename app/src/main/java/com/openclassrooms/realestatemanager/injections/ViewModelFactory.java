@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.injections;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
 
 import com.openclassrooms.realestatemanager.repositories.PropertyDataRepository;
 import com.openclassrooms.realestatemanager.views.PropertyViewModel;

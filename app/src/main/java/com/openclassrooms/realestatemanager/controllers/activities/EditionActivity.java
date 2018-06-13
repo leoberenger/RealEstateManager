@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
@@ -14,8 +13,6 @@ import com.openclassrooms.realestatemanager.injections.Injection;
 import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.views.PropertyViewModel;
-
-import butterknife.BindView;
 
 public class EditionActivity extends AppCompatActivity
     implements EditionFragment.OnEditionListener{

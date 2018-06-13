@@ -15,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -37,7 +36,7 @@ public class PropertyDAOInstrumentedTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
-    public void initDb() throws Exception{
+    public void initDb() {
         this.database = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
                 RealEstateManagerDatabase.class)
                 .allowMainThreadQueries()
@@ -45,7 +44,7 @@ public class PropertyDAOInstrumentedTest {
     }
 
     @After
-    public void closeDb() throws Exception{
+    public void closeDb() {
         database.close();
     }
 

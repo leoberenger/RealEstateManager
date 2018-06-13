@@ -7,7 +7,6 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 import android.database.Cursor;
 
-import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.models.Property;
 
 import java.util.List;

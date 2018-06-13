@@ -2,14 +2,9 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 
 
 import android.app.Activity;
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,13 +14,9 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.injections.Injection;
-import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
-import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport;
 import com.openclassrooms.realestatemanager.views.PropertiesRecyclerAdapter;
-import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

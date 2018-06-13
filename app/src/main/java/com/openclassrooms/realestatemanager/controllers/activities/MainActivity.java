@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
 
         //If from SearchActivity
         if(getIntent().getParcelableExtra("query") != null) {
-            SearchQuery query = (SearchQuery) getIntent().getParcelableExtra("query");
+            SearchQuery query = getIntent().getParcelableExtra("query");
             String area = query.getArea();
             this.getSearchedProperties(area);
         }else {

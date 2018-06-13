@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,9 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.google.android.gms.maps.model.Marker;
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.controllers.activities.MainActivity;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 
 import java.util.Calendar;

@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 public class FormatDateUnitTest {
     @Test
-    public void formatDate_isCorrect() throws Exception {
+    public void formatDate_isCorrect() {
         String date = "16/05/2018";
         assertEquals(date, Utils.getTodayDate());
     }

@@ -11,7 +11,7 @@ import com.openclassrooms.realestatemanager.models.Agent;
 @Dao
 public interface AgentDAO {
 
-    public interface UserDao {
+    interface UserDao {
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         void createAgent(Agent agent);

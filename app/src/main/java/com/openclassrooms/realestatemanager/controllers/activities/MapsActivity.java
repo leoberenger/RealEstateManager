@@ -28,7 +28,6 @@ import com.openclassrooms.realestatemanager.injections.Injection;
 import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.managers.PropertiesMgr;
 import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 
 import java.util.List;
