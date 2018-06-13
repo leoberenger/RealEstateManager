@@ -183,17 +183,14 @@ public class SearchFragment extends Fragment
     //-----------------------------------
 
     private void configureCheckboxes(){
-        //TYPES
-        checkboxHouse.setOnCheckedChangeListener(this::onCheckedChanged);
-        checkboxApartment.setOnCheckedChangeListener(this::onCheckedChanged);
-        checkboxDuplex.setOnCheckedChangeListener(this::onCheckedChanged);
-        checkboxPenthouse.setOnCheckedChangeListener(this::onCheckedChanged);
 
-        //POI
-        checkboxSchool.setOnCheckedChangeListener(this::onCheckedChanged);
-        checkboxShopping.setOnCheckedChangeListener(this::onCheckedChanged);
-        checkboxPark.setOnCheckedChangeListener(this::onCheckedChanged);
-        checkboxMetro.setOnCheckedChangeListener(this::onCheckedChanged);
+        CheckBox [] checkBoxes = {checkboxHouse, checkboxApartment, checkboxDuplex, checkboxPenthouse,
+                                    checkboxSchool, checkboxShopping, checkboxPark, checkboxMetro};
+
+        for (CheckBox checkBox : checkBoxes){
+            checkBox.setOnCheckedChangeListener(this::onCheckedChanged);
+        }
+
     }
 
     //Return the types selected
