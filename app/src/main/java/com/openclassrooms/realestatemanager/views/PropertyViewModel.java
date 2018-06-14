@@ -41,9 +41,9 @@ public class PropertyViewModel extends ViewModel {
 
     public LiveData<List<Property>> getSearchedProperties(String area, long priceMin, long priceMax,
                                                           int surfaceMin, int surfaceMax, int nbRooms,
-                                                          int nbPhotos, boolean isSold, int date){
+                                                          int nbPhotos, boolean isSold, int date, String [] propertyTypes){
         return propertyDataSource.getSearchedProperties(area, priceMin, priceMax, surfaceMin, surfaceMax,
-                nbRooms, nbPhotos, isSold, date);
+                nbRooms, nbPhotos, isSold, date, propertyTypes);
     }
 
     public LiveData<Property> getProperty(long propertyId){

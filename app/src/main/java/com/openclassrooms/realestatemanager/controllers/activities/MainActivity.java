@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity
     private void getSearchedProperties(SearchQuery query){
         this.propertyViewModel.getSearchedProperties(query.getArea(), query.getPriceMin(),
                 query.getPriceMax(), query.getSurfaceMin(), query.getSurfaceMax(),
-                query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDate())
+                query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDate(), query.getPropertyTypes())
             .observe(this, this::configureAndShowMainFragment);
     }
 

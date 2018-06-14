@@ -19,7 +19,8 @@ public interface PropertyDAO {
     @Query("SELECT * FROM Property")
     LiveData<List<Property>> getAllProperties();
 
-    @Query("SELECT * FROM Property WHERE area = :area " +
+    @Query("SELECT * FROM Property WHERE type IN (:propertyTypes) " +
+            "AND area = :area " +
             "AND price BETWEEN :priceMin AND :priceMax " +
             "AND surface BETWEEN :surfaceMin AND :surfaceMax "+
             "AND nbRooms >= :nbRooms " +
@@ -29,7 +30,7 @@ public interface PropertyDAO {
     )
     LiveData<List<Property>> getSearchedProperties(String area, long priceMin, long priceMax,
                                                    int surfaceMin, int surfaceMax, int nbRooms,
-                                                   int nbPhotos, boolean isSold, int date);
+                                                   int nbPhotos, boolean isSold, int date, String [] propertyTypes);
 
     @Query("SELECT * FROM Property")
     Cursor getPropertiesWithCursor();

@@ -41,7 +41,7 @@ public class SearchFragment extends Fragment
     String TAG = "SearchFragment";
 
     //FOR DATA
-    ArrayList<String> propertyTypes = new ArrayList<String>();
+    String [] propertyTypes = new String [4];
     ArrayList<String> pois = new ArrayList<String>();
     final boolean [] typesArray = {false, false, false, false};
     final boolean [] poisArray = {false, false, false, false};
@@ -127,8 +127,8 @@ public class SearchFragment extends Fragment
                 //Checkboxes
                 propertyTypes = checkboxesSelected(typesArray, Property.typesNames);
                 Log.e(TAG, "typesNames selected = " + propertyTypes);
-                pois = checkboxesSelected(poisArray, Property.poisNames);
-                Log.e(TAG, "POI selected = " + pois);
+                //pois = checkboxesSelected(poisArray, Property.poisNames);
+                //Log.e(TAG, "POI selected = " + pois);
 
                 //RadioGroup
                 Log.e(TAG, "status sold? : " + statusSold);
@@ -144,7 +144,7 @@ public class SearchFragment extends Fragment
 
                 query = new SearchQuery(selectedNeighborhood, Long.parseLong(priceMin), Long.parseLong(priceMax),
                         Integer.valueOf(surfaceMin), Integer.valueOf(surfaceMax), Integer.valueOf(nbRooms),
-                        Integer.valueOf(nbPhotos), statusSold, selectedDate);
+                        Integer.valueOf(nbPhotos), statusSold, selectedDate, propertyTypes);
 
 
                 mCallback.onQuerySelected(query);
@@ -216,17 +216,17 @@ public class SearchFragment extends Fragment
 
     }
 
-    public ArrayList<String> checkboxesSelected(boolean [] array, String [] checkboxesNames){
+    public String [] checkboxesSelected(boolean [] array, String [] checkboxesNames){
 
-        ArrayList<String> arrayList = new ArrayList<String>();
+        String [] strings = new String[4];
 
         for(int i = 0; i < array.length; i++) {
             if (array[i]) {
-                arrayList.add(checkboxesNames[i]);
+                strings[i] = checkboxesNames[i];
             }
         }
 
-        return arrayList;
+        return strings;
     }
 
     @Override
