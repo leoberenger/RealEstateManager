@@ -284,21 +284,21 @@ public class MainActivity extends AppCompatActivity
         properties[0] = new Property("Port de commerce", 48.392151, -4.479032,
                 95000, 125, 7,
                 "Très bel appartement en bord de mer, proche de tous commerces",
-                p1PhotoUrls, p1PhotoDescriptions,
+                p1PhotoUrls, p1PhotoDescriptions, p1PhotoUrls.size(),
                 false, 20180201, 0, Property.typesNames[1], 3, p1pois,
                 "4", "Glasgow", "4", "29200", "29", "Brest", "France");
 
         properties[1] = new Property("Centre ville",48.380143,-4.487213,
                 250000,215,11,
                 "Au centre ville, maison de charme pour grande famille avec jardin",
-                p2PhotoUrls, p2PhotoDescriptions,
+                p2PhotoUrls, p2PhotoDescriptions, p2PhotoUrls.size(),
                 false,20180401,0, Property.typesNames[0], 1, p2pois,
                 "1", "Danton", "1", "29200", "29", "Brest", "France");
 
         properties[2] = new Property( "Centre ville", 48.406232, -4.496259,
                 328000, 120, 4,
                 "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
-                p3PhotoUrls, p3PhotoDescriptions,
+                p3PhotoUrls, p3PhotoDescriptions, p3PhotoUrls.size(),
                 true,20180131,20180401, Property.typesNames[3], 2, p3pois,
                 "2", "Jaurès", "0", "29200", "29", "Brest", "France");
 

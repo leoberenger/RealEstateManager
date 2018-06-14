@@ -23,6 +23,7 @@ public class Property implements Parcelable {
     public static String DESCRIPTION_KEY = "description";
     public static String PHOTO_URL_KEY = "photoUrls";
     public static String PHOTO_DESCRIPTION_KEY = "photoDescriptions";
+    public static String PHOTO_NUMBER_KEY = "nbPhotos";
     public static String IS_SOLD_KEY = "isSold";
     public static String DATE_CREATED_KEY = "dateCreated";
     public static String DATE_SOLD_KEY = "dateSold";
@@ -51,6 +52,12 @@ public class Property implements Parcelable {
     private String description;
     private ArrayList<String> photoUrls;
     private ArrayList<String> photoDescriptions;
+
+
+
+
+
+    private int nbPhotos;
     private boolean isSold;
 
     private int dateCreated;
@@ -74,7 +81,7 @@ public class Property implements Parcelable {
     public Property() { }
 
     public Property(String area, Double latitude, Double longitude, long price, int surface,
-                    int nbRooms, String description, ArrayList<String> photoUrls, ArrayList<String>photoDescriptions,
+                    int nbRooms, String description, ArrayList<String> photoUrls, ArrayList<String>photoDescriptions, int nbPhotos,
                     boolean isSold, int dateCreated, int dateSold, String type, int agentID, ArrayList<String> pois,
                     String streetNb, String streetName, String apptNb, String zipCode, String stateNb, String city, String country) {
         this.area = area;
@@ -86,6 +93,7 @@ public class Property implements Parcelable {
         this.description = description;
         this.photoUrls = photoUrls;
         this.photoDescriptions = photoDescriptions;
+        this.nbPhotos = nbPhotos;
         this.isSold = isSold;
         this.dateCreated = dateCreated;
         this.dateSold = dateSold;
@@ -135,6 +143,9 @@ public class Property implements Parcelable {
     }
     public ArrayList<String> getPhotoDescriptions() {
         return photoDescriptions;
+    }
+    public int getNbPhotos() {
+        return nbPhotos;
     }
     public boolean isSold() {
         return isSold;
@@ -211,6 +222,9 @@ public class Property implements Parcelable {
     public void setPhotoDescriptions(ArrayList<String> photoDescriptions) {
         this.photoDescriptions = photoDescriptions;
     }
+    public void setNbPhotos(int nbPhotos) {
+        this.nbPhotos = nbPhotos;
+    }
     public void setSold(boolean sold) {
         isSold = sold;
     }
@@ -273,6 +287,7 @@ public class Property implements Parcelable {
         out.writeString(description);
         out.writeList(photoUrls);
         out.writeList(photoDescriptions);
+        out.writeInt(nbPhotos);
         out.writeInt((isSold)?1:0);
         out.writeInt(dateCreated);
         out.writeInt(dateSold);
@@ -313,6 +328,7 @@ public class Property implements Parcelable {
         in.readStringList(photoUrls);
         photoDescriptions = new ArrayList<String>();
         in.readStringList(photoDescriptions);
+        nbPhotos = in.readInt();
         isSold = in.readInt()!=0;
         dateCreated = in.readInt();
         dateSold = in.readInt();
