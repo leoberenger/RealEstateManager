@@ -61,10 +61,11 @@ public class MainFragment extends Fragment {
         this.configureOnClickRecyclerView();
 
         mPropertyArrayList = getArguments().getParcelableArrayList("properties");
-        Log.e(TAG, "property0 area = " + mPropertyArrayList.get(0).getArea());
+        if(mPropertyArrayList.size() != 0) {
+            Log.e(TAG, "property0 area = " + mPropertyArrayList.get(0).getArea());
 
-        this.updatePropertiesList(mPropertyArrayList);
-
+            this.updatePropertiesList(mPropertyArrayList);
+        }
         return view;
     }
 

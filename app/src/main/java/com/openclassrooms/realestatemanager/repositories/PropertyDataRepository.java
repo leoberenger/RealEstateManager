@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData;
 import com.openclassrooms.realestatemanager.database.dao.PropertyDAO;
 import com.openclassrooms.realestatemanager.models.Property;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyDataRepository {
@@ -25,8 +26,11 @@ public class PropertyDataRepository {
         return this.propertyDAO.getAllProperties();
     }
 
-    public LiveData<List<Property>> getSearchedProperties(String area){
-        return this.propertyDAO.getSearchedProperties(area);
+    public LiveData<List<Property>> getSearchedProperties(String area, long priceMin, long priceMax,
+                                                          int surfaceMin, int surfaceMax, int nbRooms,
+                                                          int nbPhotos, boolean isSold, int date){
+        return this.propertyDAO.getSearchedProperties(area, priceMin, priceMax, surfaceMin, surfaceMax,
+                nbRooms, nbPhotos, isSold, date);
     }
 
 

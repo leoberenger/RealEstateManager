@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.repositories.PropertyDataRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -38,8 +39,11 @@ public class PropertyViewModel extends ViewModel {
         return propertyDataSource.getAllProperties();
     }
 
-    public LiveData<List<Property>> getSearchedProperties(String area){
-        return propertyDataSource.getSearchedProperties(area);
+    public LiveData<List<Property>> getSearchedProperties(String area, long priceMin, long priceMax,
+                                                          int surfaceMin, int surfaceMax, int nbRooms,
+                                                          int nbPhotos, boolean isSold, int date){
+        return propertyDataSource.getSearchedProperties(area, priceMin, priceMax, surfaceMin, surfaceMax,
+                nbRooms, nbPhotos, isSold, date);
     }
 
     public LiveData<Property> getProperty(long propertyId){

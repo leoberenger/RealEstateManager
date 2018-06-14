@@ -141,11 +141,20 @@ public class MainActivity extends AppCompatActivity
         //If from MapsActivity, property selected
         propertySelectedOnMapId = getIntent().getLongExtra(Property.PROPERTY_ID, -1);
 
-        propertyId = (propertySelectedOnMapId != -1)?
-                propertySelectedOnMapId :   //Show property clicked in maps
-                properties.get(0).getId();  //Show by default 1st item
+        if(propertySelectedOnMapId != -1) {
+            propertyId = propertySelectedOnMapId;   //Show property clicked in maps
+            getPropertyToShow(propertyId);
+        }else{
+            if (properties.size() != 0){
+                propertyId = properties.get(0).getId();  //Show by default 1st item
+                getPropertyToShow(propertyId);
+            }else{
+                Toast.makeText(this, "No property corresponding", Toast.LENGTH_LONG).show();
+            }
+        }
 
-        getPropertyToShow(propertyId);
+
+
     }
 
     private void configureAndShowDetailFragment (Property property){
@@ -183,7 +192,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getSearchedProperties(SearchQuery query){
-        this.propertyViewModel.getSearchedProperties(query.getArea()).observe(this, this::configureAndShowMainFragment);
+        this.propertyViewModel.getSearchedProperties(query.getArea(), query.getPriceMin(),
+                query.getPriceMax(), query.getSurfaceMin(), query.getSurfaceMax(),
+                query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDate())
+            .observe(this, this::configureAndShowMainFragment);
     }
 
     private void getPropertyToShow(long propertyId){

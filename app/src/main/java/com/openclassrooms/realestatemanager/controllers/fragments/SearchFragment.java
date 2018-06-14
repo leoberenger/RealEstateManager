@@ -144,8 +144,7 @@ public class SearchFragment extends Fragment
 
                 query = new SearchQuery(selectedNeighborhood, Long.parseLong(priceMin), Long.parseLong(priceMax),
                         Integer.valueOf(surfaceMin), Integer.valueOf(surfaceMax), Integer.valueOf(nbRooms),
-                        Integer.valueOf(nbPhotos), statusSold,
-                        0, 0, propertyTypes, pois);
+                        Integer.valueOf(nbPhotos), statusSold, selectedDate);
 
 
                 mCallback.onQuerySelected(query);

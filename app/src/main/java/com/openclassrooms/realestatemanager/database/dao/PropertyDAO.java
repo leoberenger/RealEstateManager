@@ -10,6 +10,7 @@ import android.database.Cursor;
 
 import com.openclassrooms.realestatemanager.models.Property;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -18,8 +19,17 @@ public interface PropertyDAO {
     @Query("SELECT * FROM Property")
     LiveData<List<Property>> getAllProperties();
 
-    @Query("SELECT * FROM Property WHERE area = :area")
-    LiveData<List<Property>> getSearchedProperties(String area);
+    @Query("SELECT * FROM Property WHERE area = :area " +
+            "AND price BETWEEN :priceMin AND :priceMax " +
+            "AND surface BETWEEN :surfaceMin AND :surfaceMax "+
+            "AND nbRooms >= :nbRooms " +
+            "AND nbPhotos >= :nbPhotos " +
+            "AND isSold = :isSold " +
+            "AND dateCreated < :date "
+    )
+    LiveData<List<Property>> getSearchedProperties(String area, long priceMin, long priceMax,
+                                                   int surfaceMin, int surfaceMax, int nbRooms,
+                                                   int nbPhotos, boolean isSold, int date);
 
     @Query("SELECT * FROM Property")
     Cursor getPropertiesWithCursor();
