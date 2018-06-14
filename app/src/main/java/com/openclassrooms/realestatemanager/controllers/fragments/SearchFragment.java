@@ -21,8 +21,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -39,10 +41,10 @@ public class SearchFragment extends Fragment
     String TAG = "SearchFragment";
 
     //FOR DATA
-    String types = "";
-    String poi = "";
+    ArrayList<String> propertyTypes = new ArrayList<String>();
+    ArrayList<String> pois = new ArrayList<String>();
     final boolean [] typesArray = {false, false, false, false};
-    final boolean [] poiArray = {false, false, false, false};
+    final boolean [] poisArray = {false, false, false, false};
     int selectedDate = 0;
     boolean statusSold = false;
     String selectedNeighborhood = "";
@@ -123,12 +125,10 @@ public class SearchFragment extends Fragment
                 Log.e(TAG, "selected date = " + selectedDate);
 
                 //Checkboxes
-                String [] typeNames = {"House", "Apartment", "Duplex", "Penthouse"};
-                String [] poiNames = {"School", "Park", "Shopping", "Metro"};
-                types = checkboxesSelected(typesArray, typeNames);
-                Log.e(TAG, "typesNames selected = " + types);
-                poi = checkboxesSelected(poiArray, poiNames);
-                Log.e(TAG, "POI selected = " + poi);
+                propertyTypes = checkboxesSelected(typesArray, Property.typesNames);
+                Log.e(TAG, "typesNames selected = " + propertyTypes);
+                pois = checkboxesSelected(poisArray, Property.poisNames);
+                Log.e(TAG, "POI selected = " + pois);
 
                 //RadioGroup
                 Log.e(TAG, "status sold? : " + statusSold);
@@ -142,7 +142,12 @@ public class SearchFragment extends Fragment
                 Log.e(TAG, "nb photos = " + nbPhotos);
                 Log.e(TAG, "neighborhood selected = " + selectedNeighborhood);
 
-                query = new SearchQuery(selectedNeighborhood);
+                query = new SearchQuery(selectedNeighborhood, Long.parseLong(priceMin), Long.parseLong(priceMax),
+                        Integer.valueOf(surfaceMin), Integer.valueOf(surfaceMax), Integer.valueOf(nbRooms),
+                        Integer.valueOf(nbPhotos), statusSold,
+                        0, 0, propertyTypes, pois);
+
+
                 mCallback.onQuerySelected(query);
             }
         });
@@ -212,30 +217,17 @@ public class SearchFragment extends Fragment
 
     }
 
-    //Return the typesNames selected
-    public String checkboxesSelected(boolean [] array, String [] checkboxesNames){
+    public ArrayList<String> checkboxesSelected(boolean [] array, String [] checkboxesNames){
 
-        StringBuilder str = new StringBuilder("Checkboxes selected : ");
+        ArrayList<String> arrayList = new ArrayList<String>();
 
         for(int i = 0; i < array.length; i++) {
             if (array[i]) {
-                String type = " " + checkboxesNames[i] + " ";
-                str.append(type);
+                arrayList.add(checkboxesNames[i]);
             }
         }
 
-        return str.toString();
-    }
-
-    //Check if all typesNames are set to false
-    public boolean noDeskSelected(boolean [] desks){
-        boolean noDeskSelected = true;
-
-        for(boolean desk:desks) {
-            if(desk) noDeskSelected = false;
-        }
-
-        return noDeskSelected;
+        return arrayList;
     }
 
     @Override
@@ -249,10 +241,10 @@ public class SearchFragment extends Fragment
             case R.id.checkbox_penthouse: typesArray[3] = isChecked; break;
 
             //POI
-            case R.id.checkbox_school: poiArray[0] = isChecked; break;
-            case R.id.checkbox_park: poiArray[1] = isChecked; break;
-            case R.id.checkbox_shopping: poiArray[2] = isChecked; break;
-            case R.id.checkbox_metro: poiArray[3] = isChecked; break;
+            case R.id.checkbox_school: poisArray[0] = isChecked; break;
+            case R.id.checkbox_park: poisArray[1] = isChecked; break;
+            case R.id.checkbox_shopping: poisArray[2] = isChecked; break;
+            case R.id.checkbox_metro: poisArray[3] = isChecked; break;
         }
     }
 

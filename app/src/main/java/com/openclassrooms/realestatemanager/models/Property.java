@@ -52,11 +52,6 @@ public class Property implements Parcelable {
     private String description;
     private ArrayList<String> photoUrls;
     private ArrayList<String> photoDescriptions;
-
-
-
-
-
     private int nbPhotos;
     private boolean isSold;
 

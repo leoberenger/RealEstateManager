@@ -57,10 +57,9 @@ public class MainActivity extends AppCompatActivity
         Stetho.initializeWithDefaults(this);
 
         //If from SearchActivity
-        if(getIntent().getParcelableExtra("query") != null) {
-            SearchQuery query = getIntent().getParcelableExtra("query");
-            String area = query.getArea();
-            this.getSearchedProperties(area);
+        if(getIntent().getParcelableExtra(SearchQuery.SEARCH_QUERY_KEY) != null) {
+            SearchQuery query = getIntent().getParcelableExtra(SearchQuery.SEARCH_QUERY_KEY);
+            this.getSearchedProperties(query);
         }else {
             this.getAllProperties();
         }
@@ -183,8 +182,8 @@ public class MainActivity extends AppCompatActivity
         this.propertyViewModel.getAllProperties().observe(this, this::configureAndShowMainFragment);
     }
 
-    private void getSearchedProperties(String area){
-        this.propertyViewModel.getSearchedProperties(area).observe(this, this::configureAndShowMainFragment);
+    private void getSearchedProperties(SearchQuery query){
+        this.propertyViewModel.getSearchedProperties(query.getArea()).observe(this, this::configureAndShowMainFragment);
     }
 
     private void getPropertyToShow(long propertyId){

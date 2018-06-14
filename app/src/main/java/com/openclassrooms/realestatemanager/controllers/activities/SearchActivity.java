@@ -44,7 +44,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public void onQuerySelected(SearchQuery query) {
         Intent intentSearch = new Intent(this, MainActivity.class);
-        intentSearch.putExtra("query", query);
+        intentSearch.putExtra(SearchQuery.SEARCH_QUERY_KEY, query);
         startActivity(intentSearch);
     }
 }

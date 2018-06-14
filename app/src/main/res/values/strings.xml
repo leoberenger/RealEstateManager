@@ -38,17 +38,17 @@
     <string name="search_not_sold">Not sold</string>
 
     <string-array name="search_priceMin">
-        <item>50 000</item>
-        <item>75 000</item>
-        <item>100 000</item>
-        <item>150 000</item>
+        <item>50000</item>
+        <item>75000</item>
+        <item>100000</item>
+        <item>150000</item>
     </string-array>
 
     <string-array name="search_priceMax">
-        <item>150 000</item>
-        <item>200 000</item>
-        <item>250 000</item>
-        <item>300 000</item>
+        <item>150000</item>
+        <item>200000</item>
+        <item>250000</item>
+        <item>300000</item>
     </string-array>
 
     <string-array name="search_surfaceMin">
