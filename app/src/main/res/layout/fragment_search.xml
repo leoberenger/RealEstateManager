@@ -8,28 +8,6 @@
     android:id="@+id/fragment_search_root_layout"
     android:orientation="vertical">
 
-    <!-- DatePicker -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/search_date_picker"/>
-
-        <EditText
-            android:id="@+id/search_since"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:padding="15dp"
-            android:textColor="@android:color/black"
-            android:editable="false"/>
-    </LinearLayout>
-
-
     <!-- Type Checkbox-->
     <LinearLayout
         android:orientation="horizontal"
@@ -60,6 +38,85 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_penthouse"/>
+
+    </LinearLayout>
+
+    <!-- Price Spinners -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_price_min"/>
+        <Spinner
+            android:id="@+id/search_priceMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_price_max"/>
+        <Spinner
+            android:id="@+id/search_priceMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!-- Surface Spinners -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_surface_min"/>
+        <Spinner
+            android:id="@+id/search_surfaceMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_surface_max"/>
+        <Spinner
+            android:id="@+id/search_surfaceMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <!-- NbRooms + Neighborhood Spinners-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_nbRooms_selection"/>
+        <Spinner
+            android:id="@+id/search_nbRooms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_neighborhood_selection"/>
+        <Spinner
+            android:id="@+id/search_neighborhood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -96,28 +153,7 @@
 
     </LinearLayout>
 
-    <!-- Radio Button Sold / Not sold -->
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/search_status">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_status"/>
-        <RadioButton android:id="@+id/search_sold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_sold"/>
-        <RadioButton android:id="@+id/search_not_sold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_not_sold"/>
-    </RadioGroup>
-
-    <!-- Spinner -->
-
+    <!-- NbPhotos Spinners-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -125,13 +161,55 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search_neighborhood_selection"/>
+            android:text="@string/search_nbPhotos"/>
         <Spinner
-            android:id="@+id/search_neighborhood"
-            android:layout_width="fill_parent"
+            android:id="@+id/search_nbPhotos"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+
+    <!-- Status + DatePicker -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/search_status">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_status"/>
+            <RadioButton android:id="@+id/search_sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_sold"/>
+            <RadioButton android:id="@+id/search_not_sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_not_sold"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_date_picker"/>
+
+        <EditText
+            android:id="@+id/search_since"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:padding="15dp"
+            android:textColor="@android:color/black"
+            android:editable="false"/>
+    </LinearLayout>
+
 
     <!-- Button Search -->
     <Button

@@ -46,6 +46,12 @@ public class SearchFragment extends Fragment
     int selectedDate = 0;
     boolean statusSold = false;
     String selectedNeighborhood = "";
+    String priceMin = "";
+    String priceMax = "";
+    String surfaceMin = "";
+    String surfaceMax = "";
+    String nbRooms = "";
+    String nbPhotos = "";
     SearchQuery query;
 
     //FOR DESIGN
@@ -62,6 +68,12 @@ public class SearchFragment extends Fragment
     @BindView(R.id.search_sold) RadioButton radioBtnSold;
     @BindView(R.id.search_not_sold) RadioButton radioBtnNotSold;
     @BindView(R.id.search_neighborhood) Spinner spinnerNeighborhood;
+    @BindView(R.id.search_priceMin) Spinner spinnerPriceMin;
+    @BindView(R.id.search_priceMax) Spinner spinnerPriceMax;
+    @BindView(R.id.search_surfaceMin) Spinner spinnerSurfaceMin;
+    @BindView(R.id.search_surfaceMax) Spinner spinnerSurfaceMax;
+    @BindView(R.id.search_nbRooms) Spinner spinnerNbRooms;
+    @BindView(R.id.search_nbPhotos) Spinner spinnerNbPhotos;
     @BindView(R.id.search_button) Button searchButton;
 
     public SearchFragment() {
@@ -89,8 +101,12 @@ public class SearchFragment extends Fragment
         this.configureSearch();
 
         this.configureSpinner(R.array.search_neighborhood, spinnerNeighborhood);
-
-
+        this.configureSpinner(R.array.search_priceMin, spinnerPriceMin);
+        this.configureSpinner(R.array.search_priceMax, spinnerPriceMax);
+        this.configureSpinner(R.array.search_surfaceMin, spinnerSurfaceMin);
+        this.configureSpinner(R.array.search_surfaceMax, spinnerSurfaceMax);
+        this.configureSpinner(R.array.search_nbRooms, spinnerNbRooms);
+        this.configureSpinner(R.array.search_nbPhotos, spinnerNbPhotos);
 
         return view;
     }
@@ -118,6 +134,12 @@ public class SearchFragment extends Fragment
                 Log.e(TAG, "status sold? : " + statusSold);
 
                 //Spinners
+                Log.e(TAG, "price min = " + priceMin);
+                Log.e(TAG, "price max = " + priceMax );
+                Log.e(TAG, "surface min = " + surfaceMin );
+                Log.e(TAG, "surface max = " + surfaceMax );
+                Log.e(TAG, "nb rooms = " + nbRooms);
+                Log.e(TAG, "nb photos = " + nbPhotos);
                 Log.e(TAG, "neighborhood selected = " + selectedNeighborhood);
 
                 query = new SearchQuery(selectedNeighborhood);
@@ -272,12 +294,30 @@ public class SearchFragment extends Fragment
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedNeighborhood = parent.getItemAtPosition(position).toString();
-        /*
+
         switch(parent.getId()){
-            case R.id.spinner
+            case R.id.search_priceMin:
+                priceMin = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.search_priceMax:
+                priceMax = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.search_surfaceMin:
+                surfaceMin = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.search_surfaceMax:
+                surfaceMax = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.search_nbRooms:
+                nbRooms = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.search_neighborhood:
+                selectedNeighborhood = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.search_nbPhotos:
+                nbPhotos = parent.getItemAtPosition(position).toString();
+                break;
         }
-        */
 
     }
 

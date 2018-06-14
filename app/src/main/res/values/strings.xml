@@ -11,11 +11,18 @@
 
     <!-- SEARCH -->
     <string name="search">SEARCH</string>
+
     <string name="search_date_picker">SINCE</string>
     <string name="search_types">Types : </string>
     <string name="search_poi">POI : </string>
     <string name="search_status">Status : </string>
     <string name="search_neighborhood_selection">Neighborhood : </string>
+    <string name="search_nbRooms_selection">Nb of Rooms : </string>
+    <string name="search_nbPhotos">Nb of Photos : </string>
+    <string name="search_price_min">Price min</string>
+    <string name="search_price_max">Price max</string>
+    <string name="search_surface_min">Surface min</string>
+    <string name="search_surface_max">Surface max</string>
 
     <string name="search_house">House</string>
     <string name="search_apartment">Apartment</string>
@@ -30,18 +37,53 @@
     <string name="search_sold">Sold</string>
     <string name="search_not_sold">Not sold</string>
 
+    <string-array name="search_priceMin">
+        <item>50 000</item>
+        <item>75 000</item>
+        <item>100 000</item>
+        <item>150 000</item>
+    </string-array>
+
+    <string-array name="search_priceMax">
+        <item>150 000</item>
+        <item>200 000</item>
+        <item>250 000</item>
+        <item>300 000</item>
+    </string-array>
+
+    <string-array name="search_surfaceMin">
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+    </string-array>
+
+    <string-array name="search_surfaceMax">
+        <item>125</item>
+        <item>150</item>
+        <item>175</item>
+        <item>200</item>
+    </string-array>
+
+    <string-array name="search_nbRooms">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="search_nbPhotos">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
     <string-array name="search_neighborhood">
-        <item>All</item>
         <item>Centre ville</item>
         <item>Port de commerce</item>
         <item>St Marc</item>
         <item>St Martin</item>
-        <item>Bellevue</item>
-        <item>St Pierre</item>
-        <item>Europe</item>
-        <item>Lambezellec</item>
-        <item>Gouesnou</item>
-        <item>Lampaul</item>
     </string-array>
 
     <!-- EDITION -->
