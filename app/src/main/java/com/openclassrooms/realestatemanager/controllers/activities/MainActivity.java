@@ -161,9 +161,11 @@ public class MainActivity extends AppCompatActivity
             fragment = new DetailFragment();
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_main_detail_fragment, fragment)
+                    .replace(R.id.activity_main_detail_fragment, fragment)
+                    .addToBackStack(null)
                     .commit();
         }
+
     }
 
     // -----------------
