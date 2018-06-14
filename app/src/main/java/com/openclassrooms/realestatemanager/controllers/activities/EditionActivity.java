@@ -34,8 +34,8 @@ public class EditionActivity extends AppCompatActivity
         this.configureViewModel();
 
         //if Edit, retrieve property
-        if(getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY) != null){
-            property = getIntent().getParcelableExtra(MainActivity.PROPERTY_KEY);
+        if(getIntent().getParcelableExtra(Property.PROPERTY_KEY) != null){
+            property = getIntent().getParcelableExtra(Property.PROPERTY_KEY);
             isEditionMode = true;
         }
 

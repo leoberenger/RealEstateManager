@@ -110,7 +110,7 @@ public class SearchFragment extends Fragment
                 String [] typeNames = {"House", "Apartment", "Duplex", "Penthouse"};
                 String [] poiNames = {"School", "Park", "Shopping", "Metro"};
                 types = checkboxesSelected(typesArray, typeNames);
-                Log.e(TAG, "types selected = " + types);
+                Log.e(TAG, "typesNames selected = " + types);
                 poi = checkboxesSelected(poiArray, poiNames);
                 Log.e(TAG, "POI selected = " + poi);
 
@@ -190,7 +190,7 @@ public class SearchFragment extends Fragment
 
     }
 
-    //Return the types selected
+    //Return the typesNames selected
     public String checkboxesSelected(boolean [] array, String [] checkboxesNames){
 
         StringBuilder str = new StringBuilder("Checkboxes selected : ");
@@ -205,7 +205,7 @@ public class SearchFragment extends Fragment
         return str.toString();
     }
 
-    //Check if all types are set to false
+    //Check if all typesNames are set to false
     public boolean noDeskSelected(boolean [] desks){
         boolean noDeskSelected = true;
 

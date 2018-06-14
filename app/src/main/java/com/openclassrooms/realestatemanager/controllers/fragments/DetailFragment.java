@@ -44,7 +44,7 @@ public class DetailFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         if(getArguments() != null) {
-            property = getArguments().getParcelable(MainActivity.PROPERTY_KEY);
+            property = getArguments().getParcelable(Property.PROPERTY_KEY);
             updateShownProperty(property);
         }
 
@@ -58,7 +58,7 @@ public class DetailFragment extends Fragment {
     private void updateShownProperty(Property p){
 
         //Img
-        Glide.with(this).load(p.getUrlPhoto()).into(photo);
+        Glide.with(this).load(p.getPhotoUrls().get(0)).into(photo);
 
         //Description
         description.setText(p.getDescription());

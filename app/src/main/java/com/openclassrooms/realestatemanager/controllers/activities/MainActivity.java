@@ -35,15 +35,11 @@ public class MainActivity extends AppCompatActivity
         implements MainFragment.OnPropertiesListSelectedListener {
 
     String TAG = "MainActivity";
-    public static String PROPERTY_KEY = "property";
-    public static String PROPERTIES_KEY = "properties";
 
     //FOR DATA
     private PropertyViewModel propertyViewModel;
-    String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
     long propertySelectedOnMapId = -1;
-    private List<Property> properties;
 
     //FOR DESIGN
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -54,17 +50,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Stetho.initializeWithDefaults(this);
-
-        new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
-
+        this.configureToolbar();
 
         this.configureViewModel();
         //this.createProperties();
-
-        this.configureToolbar();
+        Stetho.initializeWithDefaults(this);
 
         //If from SearchActivity
         if(getIntent().getParcelableExtra("query") != null) {
@@ -139,7 +129,7 @@ public class MainActivity extends AppCompatActivity
 
         Bundle bundle = new Bundle();
         ArrayList<Property> propertyArrayList = new ArrayList<>(properties);
-        bundle.putParcelableArrayList(PROPERTIES_KEY, propertyArrayList);
+        bundle.putParcelableArrayList(Property.PROPERTIES_KEY, propertyArrayList);
 
         if (mainFragment == null) {
             mainFragment = new MainFragment();
@@ -150,7 +140,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //If from MapsActivity, property selected
-        propertySelectedOnMapId = getIntent().getLongExtra(PROPERTY_ID, -1);
+        propertySelectedOnMapId = getIntent().getLongExtra(Property.PROPERTY_ID, -1);
 
         propertyId = (propertySelectedOnMapId != -1)?
                 propertySelectedOnMapId :   //Show property clicked in maps
@@ -161,15 +151,11 @@ public class MainActivity extends AppCompatActivity
 
     private void configureAndShowDetailFragment (Property property){
 
-        Log.e(TAG, " property " + property.getId() + " has poi : " + property.getPois().get(0)
-        + " and is located in street : " + property.getStreetName());
-
-
-
-        DetailFragment fragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail_layout);
+        DetailFragment fragment = (DetailFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_detail_layout);
 
         Bundle bundle = new Bundle();
-        bundle.putParcelable(PROPERTY_KEY, property);
+        bundle.putParcelable(Property.PROPERTY_KEY, property);
 
         if (fragment == null) {
             fragment = new DetailFragment();
@@ -208,7 +194,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onChanged(@Nullable Property property) {
                 Intent intentEdit = new Intent(getApplicationContext(), EditionActivity.class);
-                intentEdit.putExtra(PROPERTY_KEY, property);
+                intentEdit.putExtra(Property.PROPERTY_KEY, property);
                 startActivity(intentEdit);
             }
         });
@@ -227,44 +213,91 @@ public class MainActivity extends AppCompatActivity
         getPropertyToShow(propertyId);
     }
 
+
+    //-----------------------------------
+    // PREPOPULATE DATABASE
+    //-----------------------------------
+
     private void createProperties(){
+
+        //-----------------------------------
+        //POIS
+        //-----------------------------------
+
+        ArrayList<String> p1pois = new ArrayList<String>();
+        p1pois.add(Property.poisNames[0]);
+        p1pois.add(Property.poisNames[1]);
+
+        ArrayList<String> p2pois = new ArrayList<String>();
+        p2pois.add(Property.poisNames[2]);
+
+        ArrayList<String> p3pois = new ArrayList<String>();
+        p3pois.add(Property.poisNames[0]);
+        p3pois.add(Property.poisNames[3]);
+        p3pois.add(Property.poisNames[1]);
+
+        //-----------------------------------
+        //PHOTOS
+        //-----------------------------------
+
+        ArrayList<String> p1PhotoUrls = new ArrayList<String>();
+        p1PhotoUrls.add("https://picsum.photos/200/200/?image=11");
+        p1PhotoUrls.add("https://picsum.photos/200/200/?image=104");
+
+        ArrayList<String> p2PhotoUrls = new ArrayList<String>();
+        p2PhotoUrls.add("https://picsum.photos/200/200/?image=122");
+        p2PhotoUrls.add("https://picsum.photos/200/200/?image=12");
+        p2PhotoUrls.add("https://picsum.photos/200/200/?image=23");
+        p2PhotoUrls.add("https://picsum.photos/200/200/?image=20");
+
+        ArrayList<String> p3PhotoUrls = new ArrayList<String>();
+        p3PhotoUrls.add("https://picsum.photos/200/200/?image=10");
+        p3PhotoUrls.add("https://picsum.photos/200/200/?image=102");
+        p3PhotoUrls.add("https://picsum.photos/200/200/?image=13");
+
+        ArrayList<String> p1PhotoDescriptions = new ArrayList<String>();
+        p1PhotoDescriptions.add("Garden");
+        p1PhotoDescriptions.add("Sun");
+
+        ArrayList<String> p2PhotoDescriptions = new ArrayList<String>();
+        p2PhotoDescriptions.add("Tower");
+        p2PhotoDescriptions.add("Beach");
+        p2PhotoDescriptions.add("Kitchen");
+        p2PhotoDescriptions.add("Desk");
+
+        ArrayList<String> p3PhotoDescriptions = new ArrayList<String>();
+        p3PhotoDescriptions.add("View");
+        p3PhotoDescriptions.add("Cake");
+        p3PhotoDescriptions.add("Snow");
+
+        //-----------------------------------
+        //CREATION OF PROPERTIES
+        //-----------------------------------
 
         Property [] properties = new Property[3];
         for (int i = 0; i<properties.length; i++){
             properties[i] = new Property();
         }
 
-        ArrayList<String> p1pois = new ArrayList<String>();
-        p1pois.add("school");
-        p1pois.add("shopping");
-
-        ArrayList<String> p2pois = new ArrayList<String>();
-        p2pois.add("park");
-
-        ArrayList<String> p3pois = new ArrayList<String>();
-        p3pois.add("school");
-        p3pois.add("park");
-        p3pois.add("shopping");
-
         properties[0] = new Property("Port de commerce", 48.392151, -4.479032,
                 95000, 125, 7,
                 "Très bel appartement en bord de mer, proche de tous commerces",
-                "https://picsum.photos/200/200/?image=88", "vue du salon",
-                false, 20180201, 0, "appartment", 3, p1pois,
+                p1PhotoUrls, p1PhotoDescriptions,
+                false, 20180201, 0, Property.typesNames[1], 3, p1pois,
                 "4", "Glasgow", "4", "29200", "29", "Brest", "France");
 
         properties[1] = new Property("Centre ville",48.380143,-4.487213,
                 250000,215,11,
                 "Au centre ville, maison de charme pour grande famille avec jardin",
-                "https://picsum.photos/200/200/?image=93", "vue du jardin",
-                false,20180401,0,"house", 1, p2pois,
+                p2PhotoUrls, p2PhotoDescriptions,
+                false,20180401,0, Property.typesNames[0], 1, p2pois,
                 "1", "Danton", "1", "29200", "29", "Brest", "France");
 
         properties[2] = new Property( "Centre ville", 48.406232, -4.496259,
                 328000, 120, 4,
                 "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
-                "https://picsum.photos/200/200/?image=11", "vue de la terrasse",
-                true,20180131,20180401, "penthouse", 2, p3pois,
+                p3PhotoUrls, p3PhotoDescriptions,
+                true,20180131,20180401, Property.typesNames[3], 2, p3pois,
                 "2", "Jaurès", "0", "29200", "29", "Brest", "France");
 
         for(int i = 0; i<properties.length;i++) {

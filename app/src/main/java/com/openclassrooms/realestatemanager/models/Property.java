@@ -10,6 +10,10 @@ import java.util.ArrayList;
 @Entity
 public class Property implements Parcelable {
 
+    public static String PROPERTY_KEY = "property";
+    public static String PROPERTIES_KEY = "properties";
+    public static String PROPERTY_ID = "PROPERTY_ID";
+
     public static String AREA_KEY = "area";
     public static String LATITUDE_KEY = "latitude";
     public static String LONGITUDE_KEY = "longitude";
@@ -17,14 +21,14 @@ public class Property implements Parcelable {
     public static String SURFACE_KEY = "surface";
     public static String NB_ROOMS_KEY = "nbRooms";
     public static String DESCRIPTION_KEY = "description";
-    public static String PHOTO_URL_KEY = "urlPhoto";
-    public static String PHOTO_DESCRIPTION_KEY = "photoDescription";
+    public static String PHOTO_URL_KEY = "photoUrls";
+    public static String PHOTO_DESCRIPTION_KEY = "photoDescriptions";
     public static String IS_SOLD_KEY = "isSold";
     public static String DATE_CREATED_KEY = "dateCreated";
     public static String DATE_SOLD_KEY = "dateSold";
     public static String TYPE_KEY = "type";
     public static String AGENT_ID_KEY = "agentId";
-    public static String POIS_KEY = "pois";
+    public static String POIS_KEY = "poisNames";
     public static String ADDRESS_STREET_NB_KEY = "streetNb";
     public static String ADDRESS_STREET_NAME_KEY = "streetName";
     public static String ADDRESS_APPT_NUMBER_KEY = "apptNb";
@@ -33,22 +37,28 @@ public class Property implements Parcelable {
     public static String ADDRESS_CITY_KEY = "city";
     public static String ADDRESS_COUNTRY_KEY = "country";
 
+    public static final String [] poisNames = {"School", "Park", "Shopping", "Metro"};
+    public static final String [] typesNames = {"House", "Apartment", "Duplex", "Penthouse"};
+
     @PrimaryKey(autoGenerate = true) private long id;
     private String area;
     private Double latitude;
     private Double longitude;
     private long price;
     private int surface;
+
     private int nbRooms;
     private String description;
-    private String urlPhoto;
-    private String photoDescription;
+    private ArrayList<String> photoUrls;
+    private ArrayList<String> photoDescriptions;
     private boolean isSold;
+
     private int dateCreated;
     private int dateSold;
     private String type;
     private int agentID;
     private ArrayList<String> pois;
+
     private String streetNb;
     private String streetName;
     private String apptNb;
@@ -64,7 +74,7 @@ public class Property implements Parcelable {
     public Property() { }
 
     public Property(String area, Double latitude, Double longitude, long price, int surface,
-                    int nbRooms, String description, String urlPhoto, String photoDescription,
+                    int nbRooms, String description, ArrayList<String> photoUrls, ArrayList<String>photoDescriptions,
                     boolean isSold, int dateCreated, int dateSold, String type, int agentID, ArrayList<String> pois,
                     String streetNb, String streetName, String apptNb, String zipCode, String stateNb, String city, String country) {
         this.area = area;
@@ -74,8 +84,8 @@ public class Property implements Parcelable {
         this.surface = surface;
         this.nbRooms = nbRooms;
         this.description = description;
-        this.urlPhoto = urlPhoto;
-        this.photoDescription = photoDescription;
+        this.photoUrls = photoUrls;
+        this.photoDescriptions = photoDescriptions;
         this.isSold = isSold;
         this.dateCreated = dateCreated;
         this.dateSold = dateSold;
@@ -120,11 +130,11 @@ public class Property implements Parcelable {
     public String getDescription() {
         return description;
     }
-    public String getUrlPhoto() {
-        return urlPhoto;
+    public ArrayList<String> getPhotoUrls() {
+        return photoUrls;
     }
-    public String getPhotoDescription() {
-        return photoDescription;
+    public ArrayList<String> getPhotoDescriptions() {
+        return photoDescriptions;
     }
     public boolean isSold() {
         return isSold;
@@ -195,11 +205,11 @@ public class Property implements Parcelable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setUrlPhoto(String urlPhoto) {
-        this.urlPhoto = urlPhoto;
+    public void setPhotoUrls(ArrayList<String> photoUrls) {
+        this.photoUrls = photoUrls;
     }
-    public void setPhotoDescription(String photoDescription) {
-        this.photoDescription = photoDescription;
+    public void setPhotoDescriptions(ArrayList<String> photoDescriptions) {
+        this.photoDescriptions = photoDescriptions;
     }
     public void setSold(boolean sold) {
         isSold = sold;
@@ -261,14 +271,14 @@ public class Property implements Parcelable {
         out.writeInt(surface);
         out.writeInt(nbRooms);
         out.writeString(description);
-        out.writeString(urlPhoto);
-        out.writeString(photoDescription);
+        out.writeList(photoUrls);
+        out.writeList(photoDescriptions);
         out.writeInt((isSold)?1:0);
         out.writeInt(dateCreated);
         out.writeInt(dateSold);
         out.writeString(type);
         out.writeInt(agentID);
-        //ADD POIS LIST
+        out.writeList(pois);
         out.writeString(streetNb);
         out.writeString(streetName);
         out.writeString(apptNb);
@@ -299,14 +309,17 @@ public class Property implements Parcelable {
         surface = in.readInt();
         nbRooms = in.readInt();
         description = in.readString();
-        urlPhoto = in.readString();
-        photoDescription = in.readString();
+        photoUrls = new ArrayList<String>();
+        in.readStringList(photoUrls);
+        photoDescriptions = new ArrayList<String>();
+        in.readStringList(photoDescriptions);
         isSold = in.readInt()!=0;
         dateCreated = in.readInt();
         dateSold = in.readInt();
         type = in.readString();
         agentID = in.readInt();
-        //ADD POIS LIST
+        pois = new ArrayList<String>();
+        in.readStringList(pois);
         streetNb = in.readString();
         streetName = in.readString();
         apptNb = in.readString();
@@ -330,8 +343,8 @@ public class Property implements Parcelable {
         if (values.containsKey(SURFACE_KEY)) property.setSurface(values.getAsInteger(SURFACE_KEY));
         if (values.containsKey(NB_ROOMS_KEY)) property.setNbRooms(values.getAsInteger(NB_ROOMS_KEY));
         if (values.containsKey(DESCRIPTION_KEY)) property.setDescription(values.getAsString(DESCRIPTION_KEY));
-        if (values.containsKey(PHOTO_URL_KEY)) property.setUrlPhoto(values.getAsString(PHOTO_URL_KEY));
-        if (values.containsKey(PHOTO_DESCRIPTION_KEY)) property.setPhotoDescription(values.getAsString(PHOTO_DESCRIPTION_KEY));
+        //if (values.containsKey(PHOTO_URL_KEY)) property.setPhotoUrls(values.getAsString(PHOTO_URL_KEY));
+        //if (values.containsKey(PHOTO_DESCRIPTION_KEY)) property.setPhotoDescriptions(values.getAsString(PHOTO_DESCRIPTION_KEY));
         if (values.containsKey(IS_SOLD_KEY)) property.setSold(values.getAsBoolean(IS_SOLD_KEY));
         if (values.containsKey(DATE_CREATED_KEY)) property.setDateCreated(values.getAsInteger(DATE_CREATED_KEY));
         if (values.containsKey(DATE_SOLD_KEY)) property.setDateSold(values.getAsInteger(DATE_SOLD_KEY));
@@ -340,4 +353,6 @@ public class Property implements Parcelable {
 
         return property;
     }
+
+
 }

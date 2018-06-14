@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.database.dao;
+package com.openclassrooms.realestatemanager.database;
 
 import android.arch.persistence.room.TypeConverter;
 

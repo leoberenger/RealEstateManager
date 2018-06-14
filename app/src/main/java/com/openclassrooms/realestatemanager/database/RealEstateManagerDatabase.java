@@ -2,19 +2,14 @@ package com.openclassrooms.realestatemanager.database;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
-import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
-import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.openclassrooms.realestatemanager.database.dao.Converters;
 import com.openclassrooms.realestatemanager.database.dao.PropertyDAO;
 import com.openclassrooms.realestatemanager.models.Property;
-
-import java.util.ArrayList;
 
 @Database(entities = {Property.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
