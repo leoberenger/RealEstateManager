@@ -27,10 +27,13 @@ public class PropertyViewModel extends ViewModel {
 
     public void init(){
         if(this.properties != null){return;}
-        properties = propertyDataSource.getAllProperties();
+            properties = propertyDataSource.getAllProperties();
     }
 
-    //FOR PROPERTY
+    //------------------------
+    // FOR PROPERTY
+    //------------------------
+
     public LiveData<List<Property>> getAllProperties(){
         return propertyDataSource.getAllProperties();
     }
@@ -54,12 +57,4 @@ public class PropertyViewModel extends ViewModel {
             propertyDataSource.updateProperty(property);
         });
     }
-
-
-
-
-
-
-
-
 }

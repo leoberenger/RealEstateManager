@@ -1,7 +1,9 @@
 package com.openclassrooms.realestatemanager.controllers.activities;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
@@ -25,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity
         implements MainFragment.OnPropertiesListSelectedListener {
@@ -49,9 +54,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        this.configureViewModel();
-        this.configureToolbar();
+        Stetho.initializeWithDefaults(this);
 
+        new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();
+
+
+        this.configureViewModel();
+        //this.createProperties();
+
+        this.configureToolbar();
 
         //If from SearchActivity
         if(getIntent().getParcelableExtra("query") != null) {
@@ -61,6 +74,8 @@ public class MainActivity extends AppCompatActivity
         }else {
             this.getAllProperties();
         }
+
+
     }
 
     //-----------------------------------
@@ -146,6 +161,11 @@ public class MainActivity extends AppCompatActivity
 
     private void configureAndShowDetailFragment (Property property){
 
+        Log.e(TAG, " property " + property.getId() + " has poi : " + property.getPois().get(0)
+        + " and is located in street : " + property.getStreetName());
+
+
+
         DetailFragment fragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail_layout);
 
         Bundle bundle = new Bundle();
@@ -184,19 +204,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getPropertyToEdit(long propertyId){
-        this.propertyViewModel.getProperty(propertyId).observe(this, this::goToEditActivity);
+        this.propertyViewModel.getProperty(propertyId).observe(this, new Observer<Property>() {
+            @Override
+            public void onChanged(@Nullable Property property) {
+                Intent intentEdit = new Intent(getApplicationContext(), EditionActivity.class);
+                intentEdit.putExtra(PROPERTY_KEY, property);
+                startActivity(intentEdit);
+            }
+        });
+
     }
 
-
-    //-----------------------------------
-    // ACTIONS
-    //-----------------------------------
-
-    private void goToEditActivity(Property property){
-        Intent intentEdit = new Intent(this, EditionActivity.class);
-        intentEdit.putExtra(PROPERTY_KEY, property);
-        startActivity(intentEdit);
-    }
 
     //-----------------------------------
     // CALLBACKS
@@ -207,6 +225,51 @@ public class MainActivity extends AppCompatActivity
     public void onPropertySelected(long propertyId) {
         this.propertyId = propertyId;
         getPropertyToShow(propertyId);
+    }
+
+    private void createProperties(){
+
+        Property [] properties = new Property[3];
+        for (int i = 0; i<properties.length; i++){
+            properties[i] = new Property();
+        }
+
+        ArrayList<String> p1pois = new ArrayList<String>();
+        p1pois.add("school");
+        p1pois.add("shopping");
+
+        ArrayList<String> p2pois = new ArrayList<String>();
+        p2pois.add("park");
+
+        ArrayList<String> p3pois = new ArrayList<String>();
+        p3pois.add("school");
+        p3pois.add("park");
+        p3pois.add("shopping");
+
+        properties[0] = new Property("Port de commerce", 48.392151, -4.479032,
+                95000, 125, 7,
+                "Très bel appartement en bord de mer, proche de tous commerces",
+                "https://picsum.photos/200/200/?image=88", "vue du salon",
+                false, 20180201, 0, "appartment", 3, p1pois,
+                "4", "Glasgow", "4", "29200", "29", "Brest", "France");
+
+        properties[1] = new Property("Centre ville",48.380143,-4.487213,
+                250000,215,11,
+                "Au centre ville, maison de charme pour grande famille avec jardin",
+                "https://picsum.photos/200/200/?image=93", "vue du jardin",
+                false,20180401,0,"house", 1, p2pois,
+                "1", "Danton", "1", "29200", "29", "Brest", "France");
+
+        properties[2] = new Property( "Centre ville", 48.406232, -4.496259,
+                328000, 120, 4,
+                "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
+                "https://picsum.photos/200/200/?image=11", "vue de la terrasse",
+                true,20180131,20180401, "penthouse", 2, p3pois,
+                "2", "Jaurès", "0", "29200", "29", "Brest", "France");
+
+        for(int i = 0; i<properties.length;i++) {
+            this.propertyViewModel.createProperty(properties[i]);
+        }
     }
 
 }

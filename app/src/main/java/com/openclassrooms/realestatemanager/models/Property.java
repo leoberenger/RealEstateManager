@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 @Entity
 public class Property implements Parcelable {
 
@@ -21,9 +23,15 @@ public class Property implements Parcelable {
     public static String DATE_CREATED_KEY = "dateCreated";
     public static String DATE_SOLD_KEY = "dateSold";
     public static String TYPE_KEY = "type";
-    public static String POI_KEY = "poi";
     public static String AGENT_ID_KEY = "agentId";
-
+    public static String POIS_KEY = "pois";
+    public static String ADDRESS_STREET_NB_KEY = "streetNb";
+    public static String ADDRESS_STREET_NAME_KEY = "streetName";
+    public static String ADDRESS_APPT_NUMBER_KEY = "apptNb";
+    public static String ADDRESS_ZIP_CODE_KEY = "zipCode";
+    public static String ADDRESS_STATE_NB_KEY = "stateNb";
+    public static String ADDRESS_CITY_KEY = "city";
+    public static String ADDRESS_COUNTRY_KEY = "country";
 
     @PrimaryKey(autoGenerate = true) private long id;
     private String area;
@@ -39,8 +47,15 @@ public class Property implements Parcelable {
     private int dateCreated;
     private int dateSold;
     private String type;
-    private String poi;
     private int agentID;
+    private ArrayList<String> pois;
+    private String streetNb;
+    private String streetName;
+    private String apptNb;
+    private String zipCode;
+    private String stateNb;
+    private String city;
+    private String country;
 
     //---------------------------
     //CONSTRUCTORS
@@ -48,8 +63,10 @@ public class Property implements Parcelable {
 
     public Property() { }
 
-    public Property(String area, Double latitude, Double longitude, long price, int surface, int nbRooms, String description, String urlPhoto, String photoDescription, boolean isSold, int dateCreated, int dateSold, String type, String poi, int agentID) {
-        this.id = id;
+    public Property(String area, Double latitude, Double longitude, long price, int surface,
+                    int nbRooms, String description, String urlPhoto, String photoDescription,
+                    boolean isSold, int dateCreated, int dateSold, String type, int agentID, ArrayList<String> pois,
+                    String streetNb, String streetName, String apptNb, String zipCode, String stateNb, String city, String country) {
         this.area = area;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -63,8 +80,15 @@ public class Property implements Parcelable {
         this.dateCreated = dateCreated;
         this.dateSold = dateSold;
         this.type = type;
-        this.poi = poi;
         this.agentID = agentID;
+        this.pois = pois;
+        this.streetNb = streetNb;
+        this.streetName = streetName;
+        this.apptNb = apptNb;
+        this.zipCode = zipCode;
+        this.stateNb = stateNb;
+        this.city = city;
+        this.country = country;
     }
 
 
@@ -114,11 +138,32 @@ public class Property implements Parcelable {
     public String getType() {
         return type;
     }
-    public String getPoi() {
-        return poi;
-    }
     public int getAgentID() {
         return agentID;
+    }
+    public ArrayList<String> getPois() {
+        return pois;
+    }
+    public String getStreetNb() {
+        return streetNb;
+    }
+    public String getStreetName() {
+        return streetName;
+    }
+    public String getApptNb() {
+        return apptNb;
+    }
+    public String getZipCode() {
+        return zipCode;
+    }
+    public String getStateNb() {
+        return stateNb;
+    }
+    public String getCity() {
+        return city;
+    }
+    public String getCountry() {
+        return country;
     }
 
 
@@ -168,11 +213,32 @@ public class Property implements Parcelable {
     public void setType(String type) {
         this.type = type;
     }
-    public void setPoi(String poi) {
-        this.poi = poi;
-    }
     public void setAgentID(int agentID) {
         this.agentID = agentID;
+    }
+    public void setPois(ArrayList<String> pois) {
+        this.pois = pois;
+    }
+    public void setStreetNb(String streetNb) {
+        this.streetNb = streetNb;
+    }
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+    public void setApptNb(String apptNb) {
+        this.apptNb = apptNb;
+    }
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+    public void setStateNb(String stateNb) {
+        this.stateNb = stateNb;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public void setCountry(String country) {
+        this.country = country;
     }
 
 
@@ -201,8 +267,15 @@ public class Property implements Parcelable {
         out.writeInt(dateCreated);
         out.writeInt(dateSold);
         out.writeString(type);
-        out.writeString(poi);
         out.writeInt(agentID);
+        //ADD POIS LIST
+        out.writeString(streetNb);
+        out.writeString(streetName);
+        out.writeString(apptNb);
+        out.writeString(zipCode);
+        out.writeString(stateNb);
+        out.writeString(city);
+        out.writeString(country);
     }
 
     public static final Parcelable.Creator<Property> CREATOR
@@ -232,8 +305,15 @@ public class Property implements Parcelable {
         dateCreated = in.readInt();
         dateSold = in.readInt();
         type = in.readString();
-        poi = in.readString();
         agentID = in.readInt();
+        //ADD POIS LIST
+        streetNb = in.readString();
+        streetName = in.readString();
+        apptNb = in.readString();
+        zipCode = in.readString();
+        stateNb = in.readString();
+        city = in.readString();
+        country = in.readString();
     }
 
 
@@ -256,13 +336,8 @@ public class Property implements Parcelable {
         if (values.containsKey(DATE_CREATED_KEY)) property.setDateCreated(values.getAsInteger(DATE_CREATED_KEY));
         if (values.containsKey(DATE_SOLD_KEY)) property.setDateSold(values.getAsInteger(DATE_SOLD_KEY));
         if (values.containsKey(TYPE_KEY)) property.setType(values.getAsString(TYPE_KEY));
-        if (values.containsKey(POI_KEY)) property.setPoi(values.getAsString(POI_KEY));
         if (values.containsKey(AGENT_ID_KEY)) property.setAgentID(values.getAsInteger(AGENT_ID_KEY));
-
 
         return property;
     }
-
-
-
 }

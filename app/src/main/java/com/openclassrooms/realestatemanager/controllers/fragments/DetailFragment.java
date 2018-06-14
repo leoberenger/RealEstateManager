@@ -68,7 +68,8 @@ public class DetailFragment extends Fragment {
         specifics.setText(specs);
 
         //Address
-        String location = "Latitude : " + p.getLatitude() + " / Longitude : " + p.getLongitude();
+        String location = p.getStreetNb() + ", rue " + p.getStreetName() + ", appt " + p.getApptNb()
+                + ", " + p.getZipCode() + " " + p.getCity() + ", " + p.getCountry();
         address.setText(location);
 
     }
