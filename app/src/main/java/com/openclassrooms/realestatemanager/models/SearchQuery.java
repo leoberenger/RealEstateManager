@@ -16,15 +16,17 @@ public class SearchQuery implements Parcelable {
     private int nbPhotos;
     private boolean isSold;
     private int date;
-    private String [] propertyTypes;
-    //private ArrayList<String> pois;
+    private String propertyType;
+    private int [] propertyPOIs;
 
 
     //------------------------
     // CONSTRUCTOR
     //------------------------
 
-    public SearchQuery(String [] areas, long priceMin, long priceMax, int surfaceMin, int surfaceMax, int nbRooms, int nbPhotos, boolean isSold, int date, String [] propertyTypes){//, ArrayList<String> pois) {
+    public SearchQuery(String [] areas, long priceMin, long priceMax, int surfaceMin, int surfaceMax,
+                       int nbRooms, int nbPhotos, boolean isSold, int date, String propertyType,
+                       int [] propertyPOIs){
         this.areas = areas;
         this.priceMin = priceMin;
         this.priceMax = priceMax;
@@ -34,8 +36,8 @@ public class SearchQuery implements Parcelable {
         this.nbPhotos = nbPhotos;
         this.isSold = isSold;
         this.date = date;
-        this.propertyTypes = propertyTypes;
-        //this.pois = pois;
+        this.propertyType = propertyType;
+        this.propertyPOIs = propertyPOIs;
     }
 
 
@@ -69,14 +71,13 @@ public class SearchQuery implements Parcelable {
     public int getDate() {
         return date;
     }
-    public String [] getPropertyTypes() {
-        return propertyTypes;
+    public String getPropertyType() {
+        return propertyType;
     }
-    /*
-    public ArrayList<String> getPois() {
-        return pois;
+    public int [] getPropertyPOIs() {
+        return propertyPOIs;
     }
-    */
+
 
     //------------------------
     //SETTERS
@@ -108,14 +109,13 @@ public class SearchQuery implements Parcelable {
     public void setDate(int date) {
         this.date = date;
     }
-    public void setPropertyTypes(String [] propertyTypes) {
-        this.propertyTypes = propertyTypes;
+    public void setPropertyType(String propertyType) {
+        this.propertyType = propertyType;
     }
-    /*
-    public void setPois(ArrayList<String> pois) {
-        this.pois = pois;
+    public void setPois(int [] propertyPOIs) {
+        this.propertyPOIs = propertyPOIs;
     }
-    */
+
 
 
     //------------------------
@@ -137,8 +137,8 @@ public class SearchQuery implements Parcelable {
         out.writeInt(nbPhotos);
         out.writeInt(((isSold)?1:0));
         out.writeInt(date);
-        out.writeStringArray(propertyTypes);
-        //out.writeList(pois);
+        out.writeString(propertyType);
+        out.writeIntArray(propertyPOIs);
     }
 
     public static final Parcelable.Creator<SearchQuery> CREATOR
@@ -164,11 +164,8 @@ public class SearchQuery implements Parcelable {
         nbPhotos = in.readInt();
         isSold = in.readInt()!=0;
         date = in.readInt();
-        propertyTypes = new String[4];
-        in.readStringArray(propertyTypes);
-        //pois = new ArrayList<String>();
-        //in.readStringList(pois);
+        propertyType = in.readString();
+        propertyPOIs = new int[4];
+        in.readIntArray(propertyPOIs);
     }
-
-
 }

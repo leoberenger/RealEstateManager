@@ -21,10 +21,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -41,8 +39,8 @@ public class SearchFragment extends Fragment
     String TAG = "SearchFragment";
 
     //FOR DATA
-    String [] propertyTypes = new String [4];
-    ArrayList<String> pois = new ArrayList<String>();
+    String propertyType = "";
+    int [] propertyPOIs = new int[4];
     final boolean [] typesArray = {false, false, false, false};
     final boolean [] poisArray = {false, false, false, false};
     int selectedDate = 0;
@@ -57,10 +55,6 @@ public class SearchFragment extends Fragment
     SearchQuery query;
 
     //FOR DESIGN
-    @BindView(R.id.checkbox_house) CheckBox checkboxHouse;
-    @BindView(R.id.checkbox_apartment) CheckBox checkboxApartment;
-    @BindView(R.id.checkbox_duplex) CheckBox checkboxDuplex;
-    @BindView(R.id.checkbox_penthouse) CheckBox checkboxPenthouse;
     @BindView(R.id.checkbox_school) CheckBox checkboxSchool;
     @BindView(R.id.checkbox_metro) CheckBox checkboxMetro;
     @BindView(R.id.checkbox_shopping) CheckBox checkboxShopping;
@@ -69,6 +63,7 @@ public class SearchFragment extends Fragment
     @BindView(R.id.search_status) RadioGroup radioGroupStatus;
     @BindView(R.id.search_sold) RadioButton radioBtnSold;
     @BindView(R.id.search_not_sold) RadioButton radioBtnNotSold;
+    @BindView(R.id.search_type) Spinner spinnerType;
     @BindView(R.id.search_neighborhood) Spinner spinnerAreas;
     @BindView(R.id.search_priceMin) Spinner spinnerPriceMin;
     @BindView(R.id.search_priceMax) Spinner spinnerPriceMax;
@@ -102,6 +97,7 @@ public class SearchFragment extends Fragment
         this.configureRadioGroup();
         this.configureSearch();
 
+        this.configureSpinner(R.array.search_type, spinnerType);
         this.configureSpinner(R.array.search_neighborhood, spinnerAreas);
         this.configureSpinner(R.array.search_priceMin, spinnerPriceMin);
         this.configureSpinner(R.array.search_priceMax, spinnerPriceMax);
@@ -125,16 +121,14 @@ public class SearchFragment extends Fragment
                 Log.e(TAG, "selected date = " + selectedDate);
 
                 //Checkboxes
-                propertyTypes = checkboxesSelected(typesArray, Property.typesNames);
-                Log.e(TAG, "typesNames selected = " + propertyTypes[0]
-                        + propertyTypes[1] + propertyTypes[2] + propertyTypes[3]);
-                //pois = checkboxesSelected(poisArray, Property.poisNames);
-                //Log.e(TAG, "POI selected = " + pois);
+                propertyPOIs = checkboxesSelected(poisArray);
+                Log.e(TAG, "POI selected = " + propertyPOIs[0] + propertyPOIs[1] + propertyPOIs[2] + propertyPOIs[3]);
 
                 //RadioGroup
                 Log.e(TAG, "status sold? : " + statusSold);
 
                 //Spinners
+                Log.e(TAG, "type = " + propertyType);
                 Log.e(TAG, "price min = " + priceMin);
                 Log.e(TAG, "price max = " + priceMax );
                 Log.e(TAG, "surface min = " + surfaceMin );
@@ -145,7 +139,7 @@ public class SearchFragment extends Fragment
 
                 query = new SearchQuery(areas, Long.parseLong(priceMin), Long.parseLong(priceMax),
                         Integer.valueOf(surfaceMin), Integer.valueOf(surfaceMax), Integer.valueOf(nbRooms),
-                        Integer.valueOf(nbPhotos), statusSold, selectedDate, propertyTypes);
+                        Integer.valueOf(nbPhotos), statusSold, selectedDate, propertyType, propertyPOIs);
 
 
                 mCallback.onQuerySelected(query);
@@ -208,8 +202,7 @@ public class SearchFragment extends Fragment
 
     private void configureCheckboxes(){
 
-        CheckBox [] checkBoxes = {checkboxHouse, checkboxApartment, checkboxDuplex, checkboxPenthouse,
-                                    checkboxSchool, checkboxShopping, checkboxPark, checkboxMetro};
+        CheckBox [] checkBoxes = {checkboxSchool, checkboxShopping, checkboxPark, checkboxMetro};
 
         for (CheckBox checkBox : checkBoxes){
             checkBox.setOnCheckedChangeListener(this::onCheckedChanged);
@@ -217,32 +210,21 @@ public class SearchFragment extends Fragment
 
     }
 
-    public String [] checkboxesSelected(boolean [] array, String [] checkboxesNames){
+    public int [] checkboxesSelected(boolean [] array){
 
-        String [] strings = new String[4];
+        int [] propertyPOIs = new int [4];
 
-        for(int i = 0; i < array.length; i++) {
-            if (array[i]) {
-                strings[i] = checkboxesNames[i];
-            }
+        for (int i = 0; i<propertyPOIs.length; i++){
+            propertyPOIs [i] = (array[i])? 1:0;
         }
 
-        if(strings[0] == null && strings[1] == null && strings[2] == null && strings[3] == null)
-            strings = new String[]{checkboxesNames[0], checkboxesNames[1], checkboxesNames[2], checkboxesNames[3]};
-
-        return strings;
+        return propertyPOIs;
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         switch (buttonView.getId()){
-            //Types
-            case R.id.checkbox_house: typesArray[0] = isChecked; break;
-            case R.id.checkbox_apartment: typesArray[1] = isChecked; break;
-            case R.id.checkbox_duplex: typesArray[2] = isChecked; break;
-            case R.id.checkbox_penthouse: typesArray[3] = isChecked; break;
-
             //POI
             case R.id.checkbox_school: poisArray[0] = isChecked; break;
             case R.id.checkbox_park: poisArray[1] = isChecked; break;
@@ -291,6 +273,9 @@ public class SearchFragment extends Fragment
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         switch(parent.getId()){
+            case R.id.search_type:
+                propertyType = parent.getItemAtPosition(position).toString();
+                break;
             case R.id.search_priceMin:
                 priceMin = parent.getItemAtPosition(position).toString();
                 break;

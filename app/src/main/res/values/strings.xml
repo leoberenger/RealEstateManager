@@ -24,11 +24,6 @@
     <string name="search_surface_min">Surface min</string>
     <string name="search_surface_max">Surface max</string>
 
-    <string name="search_house">House</string>
-    <string name="search_apartment">Apartment</string>
-    <string name="search_duplex">Duplex</string>
-    <string name="search_penthouse">Penthouse</string>
-
     <string name="search_school">School</string>
     <string name="search_park">Park</string>
     <string name="search_shopping">Shopping</string>
@@ -36,6 +31,13 @@
 
     <string name="search_sold">Sold</string>
     <string name="search_not_sold">Not sold</string>
+
+    <string-array name="search_type">
+        <item>House</item>
+        <item>Apartment</item>
+        <item>Duplex</item>
+        <item>Penthouse</item>
+    </string-array>
 
     <string-array name="search_priceMin">
         <item>0</item>

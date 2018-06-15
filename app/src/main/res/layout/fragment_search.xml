@@ -8,9 +8,8 @@
     android:id="@+id/fragment_search_root_layout"
     android:orientation="vertical">
 
-    <!-- Type Checkbox-->
+    <!-- NbPhotos Spinners-->
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,26 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_types"/>
-
-        <CheckBox android:id="@+id/checkbox_house"
+        <Spinner
+            android:id="@+id/search_type"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_house"/>
-
-        <CheckBox android:id="@+id/checkbox_apartment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_apartment" />
-
-        <CheckBox android:id="@+id/checkbox_duplex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_duplex"/>
-
-        <CheckBox android:id="@+id/checkbox_penthouse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_penthouse"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

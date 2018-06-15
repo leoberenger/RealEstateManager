@@ -190,11 +190,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getSearchedProperties(SearchQuery query){
-        this.propertyViewModel.getSearchedProperties(query.getAreas(), query.getPriceMin(),
+        this.propertyViewModel.getSearchedProperties(
+                query.getAreas(), query.getPriceMin(),
                 query.getPriceMax(), query.getSurfaceMin(), query.getSurfaceMax(),
                 query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDate(),
-                query.getPropertyTypes()[0], query.getPropertyTypes()[1], query.getPropertyTypes()[2],
-                query.getPropertyTypes()[3])
+                query.getPropertyType(), query.getPropertyPOIs()[0], query.getPropertyPOIs()[1],
+                query.getPropertyPOIs()[2], query.getPropertyPOIs()[3]
+                )
             .observe(this, this::configureAndShowMainFragment);
     }
 
@@ -232,22 +234,6 @@ public class MainActivity extends AppCompatActivity
     //-----------------------------------
 
     private void createProperties(){
-
-        //-----------------------------------
-        //POIS
-        //-----------------------------------
-
-        ArrayList<String> p1pois = new ArrayList<String>();
-        p1pois.add(Property.poisNames[0]);
-        p1pois.add(Property.poisNames[1]);
-
-        ArrayList<String> p2pois = new ArrayList<String>();
-        p2pois.add(Property.poisNames[2]);
-
-        ArrayList<String> p3pois = new ArrayList<String>();
-        p3pois.add(Property.poisNames[0]);
-        p3pois.add(Property.poisNames[3]);
-        p3pois.add(Property.poisNames[1]);
 
         //-----------------------------------
         //PHOTOS
@@ -296,21 +282,21 @@ public class MainActivity extends AppCompatActivity
                 95000, 125, 7,
                 "Très bel appartement en bord de mer, proche de tous commerces",
                 p1PhotoUrls, p1PhotoDescriptions, p1PhotoUrls.size(),
-                false, 20180201, 0, Property.typesNames[1], 3, p1pois,
+                false, 20180201, 0, Property.typesNames[1], 3, 1, 1, 0, 0,
                 "4", "Glasgow", "4", "29200", "29", "Brest", "France");
 
         properties[1] = new Property("Centre ville",48.380143,-4.487213,
                 250000,215,11,
                 "Au centre ville, maison de charme pour grande famille avec jardin",
                 p2PhotoUrls, p2PhotoDescriptions, p2PhotoUrls.size(),
-                false,20180401,0, Property.typesNames[0], 1, p2pois,
+                false,20180401,0, Property.typesNames[0], 1, 0, 0, 1, 0,
                 "1", "Danton", "1", "29200", "29", "Brest", "France");
 
         properties[2] = new Property( "Centre ville", 48.406232, -4.496259,
                 328000, 120, 4,
                 "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
                 p3PhotoUrls, p3PhotoDescriptions, p3PhotoUrls.size(),
-                true,20180131,20180401, Property.typesNames[3], 2, p3pois,
+                true,20180131,20180401, Property.typesNames[3], 2, 1, 1, 0, 1,
                 "2", "Jaurès", "0", "29200", "29", "Brest", "France");
 
         for(int i = 0; i<properties.length;i++) {

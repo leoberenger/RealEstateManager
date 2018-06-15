@@ -37,6 +37,10 @@ public class Property implements Parcelable {
     public static String ADDRESS_STATE_NB_KEY = "stateNb";
     public static String ADDRESS_CITY_KEY = "city";
     public static String ADDRESS_COUNTRY_KEY = "country";
+    public static String POI_SCHOOL__KEY = "poiSchool";
+    public static String POI_PARK_KEY = "poiPark";
+    public static String POI_SHOPPING_KEY = "poiShopping";
+    public static String POI_METRO_KEY = "poiMetro";
 
     public static final String [] poisNames = {"School", "Park", "Shopping", "Metro"};
     public static final String [] typesNames = {"House", "Apartment", "Duplex", "Penthouse"};
@@ -59,7 +63,11 @@ public class Property implements Parcelable {
     private int dateSold;
     private String type;
     private int agentID;
-    private ArrayList<String> pois;
+
+    private int poiSchool;
+    private int poiPark;
+    private int poiShopping;
+    private int poiMetro;
 
     private String streetNb;
     private String streetName;
@@ -75,10 +83,7 @@ public class Property implements Parcelable {
 
     public Property() { }
 
-    public Property(String area, Double latitude, Double longitude, long price, int surface,
-                    int nbRooms, String description, ArrayList<String> photoUrls, ArrayList<String>photoDescriptions, int nbPhotos,
-                    boolean isSold, int dateCreated, int dateSold, String type, int agentID, ArrayList<String> pois,
-                    String streetNb, String streetName, String apptNb, String zipCode, String stateNb, String city, String country) {
+    public Property(String area, Double latitude, Double longitude, long price, int surface, int nbRooms, String description, ArrayList<String> photoUrls, ArrayList<String> photoDescriptions, int nbPhotos, boolean isSold, int dateCreated, int dateSold, String type, int agentID, int poiSchool, int poiPark, int poiShopping, int poiMetro, String streetNb, String streetName, String apptNb, String zipCode, String stateNb, String city, String country) {
         this.area = area;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -94,7 +99,10 @@ public class Property implements Parcelable {
         this.dateSold = dateSold;
         this.type = type;
         this.agentID = agentID;
-        this.pois = pois;
+        this.poiSchool = poiSchool;
+        this.poiPark = poiPark;
+        this.poiShopping = poiShopping;
+        this.poiMetro = poiMetro;
         this.streetNb = streetNb;
         this.streetName = streetName;
         this.apptNb = apptNb;
@@ -157,8 +165,17 @@ public class Property implements Parcelable {
     public int getAgentID() {
         return agentID;
     }
-    public ArrayList<String> getPois() {
-        return pois;
+    public int getPoiSchool() {
+        return poiSchool;
+    }
+    public int getPoiPark() {
+        return poiPark;
+    }
+    public int getPoiShopping() {
+        return poiShopping;
+    }
+    public int getPoiMetro() {
+        return poiMetro;
     }
     public String getStreetNb() {
         return streetNb;
@@ -235,8 +252,17 @@ public class Property implements Parcelable {
     public void setAgentID(int agentID) {
         this.agentID = agentID;
     }
-    public void setPois(ArrayList<String> pois) {
-        this.pois = pois;
+    public void setPoiSchool(int poiSchool) {
+        this.poiSchool = poiSchool;
+    }
+    public void setPoiPark(int poiPark) {
+        this.poiPark = poiPark;
+    }
+    public void setPoiShopping(int poiShopping) {
+        this.poiShopping = poiShopping;
+    }
+    public void setPoiMetro(int poiMetro) {
+        this.poiMetro = poiMetro;
     }
     public void setStreetNb(String streetNb) {
         this.streetNb = streetNb;
@@ -288,7 +314,10 @@ public class Property implements Parcelable {
         out.writeInt(dateSold);
         out.writeString(type);
         out.writeInt(agentID);
-        out.writeList(pois);
+        out.writeInt(poiSchool);
+        out.writeInt(poiPark);
+        out.writeInt(poiShopping);
+        out.writeInt(poiMetro);
         out.writeString(streetNb);
         out.writeString(streetName);
         out.writeString(apptNb);
@@ -329,8 +358,11 @@ public class Property implements Parcelable {
         dateSold = in.readInt();
         type = in.readString();
         agentID = in.readInt();
-        pois = new ArrayList<String>();
-        in.readStringList(pois);
+        poiSchool = in.readInt();
+        poiPark = in.readInt();
+        poiShopping = in.readInt();
+        poiMetro = in.readInt();
+
         streetNb = in.readString();
         streetName = in.readString();
         apptNb = in.readString();
