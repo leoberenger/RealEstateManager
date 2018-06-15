@@ -83,7 +83,13 @@ public class Property implements Parcelable {
 
     public Property() { }
 
-    public Property(String area, Double latitude, Double longitude, long price, int surface, int nbRooms, String description, ArrayList<String> photoUrls, ArrayList<String> photoDescriptions, int nbPhotos, boolean isSold, int dateCreated, int dateSold, String type, int agentID, int poiSchool, int poiPark, int poiShopping, int poiMetro, String streetNb, String streetName, String apptNb, String zipCode, String stateNb, String city, String country) {
+    public Property(String area, Double latitude, Double longitude, long price, int surface,
+                    int nbRooms, String description, ArrayList<String> photoUrls,
+                    ArrayList<String> photoDescriptions, int nbPhotos, boolean isSold,
+                    int dateCreated, int dateSold, String type, int agentID,
+                    int poiSchool, int poiPark, int poiShopping, int poiMetro,
+                    String streetNb, String streetName, String apptNb, String zipCode,
+                    String stateNb, String city, String country) {
         this.area = area;
         this.latitude = latitude;
         this.longitude = longitude;

@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -95,16 +96,8 @@ public class SearchFragment extends Fragment
         this.configureCheckboxes();
         this.configureDatePicker(datePicker);
         this.configureRadioGroup();
+        this.configureAllSpinners();
         this.configureSearch();
-
-        this.configureSpinner(R.array.search_type, spinnerType);
-        this.configureSpinner(R.array.search_neighborhood, spinnerAreas);
-        this.configureSpinner(R.array.search_priceMin, spinnerPriceMin);
-        this.configureSpinner(R.array.search_priceMax, spinnerPriceMax);
-        this.configureSpinner(R.array.search_surfaceMin, spinnerSurfaceMin);
-        this.configureSpinner(R.array.search_surfaceMax, spinnerSurfaceMax);
-        this.configureSpinner(R.array.search_nbRooms, spinnerNbRooms);
-        this.configureSpinner(R.array.search_nbPhotos, spinnerNbPhotos);
 
         return view;
     }
@@ -240,6 +233,7 @@ public class SearchFragment extends Fragment
 
     private void configureRadioGroup(){
         radioGroupStatus.setOnCheckedChangeListener(this::onCheckedChanged);
+        radioBtnNotSold.setChecked(true);
     }
 
     @Override
@@ -258,6 +252,17 @@ public class SearchFragment extends Fragment
     //-----------------------------------
     // SPINNERS
     //-----------------------------------
+
+    private void configureAllSpinners(){
+        this.configureSpinner(R.array.search_type, spinnerType);
+        this.configureSpinner(R.array.search_neighborhood, spinnerAreas);
+        this.configureSpinner(R.array.search_priceMin, spinnerPriceMin);
+        this.configureSpinner(R.array.search_priceMax, spinnerPriceMax);
+        this.configureSpinner(R.array.search_surfaceMin, spinnerSurfaceMin);
+        this.configureSpinner(R.array.search_surfaceMax, spinnerSurfaceMax);
+        this.configureSpinner(R.array.search_nbRooms, spinnerNbRooms);
+        this.configureSpinner(R.array.search_nbPhotos, spinnerNbPhotos);
+    }
 
     private void configureSpinner(int idRStringArray, Spinner spinner){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
