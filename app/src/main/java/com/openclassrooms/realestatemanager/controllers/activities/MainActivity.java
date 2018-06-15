@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
@@ -29,7 +28,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity
         implements MainFragment.OnPropertiesListSelectedListener {
@@ -192,9 +190,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getSearchedProperties(SearchQuery query){
-        this.propertyViewModel.getSearchedProperties(query.getArea(), query.getPriceMin(),
+        this.propertyViewModel.getSearchedProperties(query.getAreas(), query.getPriceMin(),
                 query.getPriceMax(), query.getSurfaceMin(), query.getSurfaceMax(),
-                query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDate(), query.getPropertyTypes())
+                query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDate(),
+                query.getPropertyTypes()[0], query.getPropertyTypes()[1], query.getPropertyTypes()[2],
+                query.getPropertyTypes()[3])
             .observe(this, this::configureAndShowMainFragment);
     }
 

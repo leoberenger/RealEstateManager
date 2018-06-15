@@ -26,11 +26,13 @@ public class PropertyDataRepository {
         return this.propertyDAO.getAllProperties();
     }
 
-    public LiveData<List<Property>> getSearchedProperties(String area, long priceMin, long priceMax,
+    public LiveData<List<Property>> getSearchedProperties(String [] areas, long priceMin, long priceMax,
                                                           int surfaceMin, int surfaceMax, int nbRooms,
-                                                          int nbPhotos, boolean isSold, int date, String [] propertyTypes){
-        return this.propertyDAO.getSearchedProperties(area, priceMin, priceMax, surfaceMin, surfaceMax,
-                nbRooms, nbPhotos, isSold, date, propertyTypes);
+                                                          int nbPhotos, boolean isSold, int date,
+                                                          String propertyTypes0, String propertyTypes1,
+                                                          String propertyTypes2, String propertyTypes3){
+        return this.propertyDAO.getSearchedProperties(areas, priceMin, priceMax, surfaceMin, surfaceMax,
+                nbRooms, nbPhotos, isSold, date, propertyTypes0, propertyTypes1, propertyTypes2, propertyTypes3);
     }
 
 

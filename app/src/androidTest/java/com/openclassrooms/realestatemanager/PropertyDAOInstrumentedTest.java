@@ -53,7 +53,7 @@ public class PropertyDAOInstrumentedTest {
         this.database.propertyDao().insertProperty(PROPERTY_DEMO);
         Property property =
                 LiveDataTestUtil.getValue(this.database.propertyDao().getProperty(PROPERTY_ID));
-        assertTrue(property.getArea().equals(PROPERTY_DEMO.getArea()) && property.getId() == PROPERTY_ID);
+        assertTrue(property.getAreas().equals(PROPERTY_DEMO.getAreas()) && property.getId() == PROPERTY_ID);
     }
 */
 

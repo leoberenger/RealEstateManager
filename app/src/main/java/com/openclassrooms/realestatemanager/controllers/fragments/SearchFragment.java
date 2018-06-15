@@ -47,7 +47,7 @@ public class SearchFragment extends Fragment
     final boolean [] poisArray = {false, false, false, false};
     int selectedDate = 0;
     boolean statusSold = false;
-    String selectedNeighborhood = "";
+    String [] areas;
     String priceMin = "";
     String priceMax = "";
     String surfaceMin = "";
@@ -69,7 +69,7 @@ public class SearchFragment extends Fragment
     @BindView(R.id.search_status) RadioGroup radioGroupStatus;
     @BindView(R.id.search_sold) RadioButton radioBtnSold;
     @BindView(R.id.search_not_sold) RadioButton radioBtnNotSold;
-    @BindView(R.id.search_neighborhood) Spinner spinnerNeighborhood;
+    @BindView(R.id.search_neighborhood) Spinner spinnerAreas;
     @BindView(R.id.search_priceMin) Spinner spinnerPriceMin;
     @BindView(R.id.search_priceMax) Spinner spinnerPriceMax;
     @BindView(R.id.search_surfaceMin) Spinner spinnerSurfaceMin;
@@ -102,7 +102,7 @@ public class SearchFragment extends Fragment
         this.configureRadioGroup();
         this.configureSearch();
 
-        this.configureSpinner(R.array.search_neighborhood, spinnerNeighborhood);
+        this.configureSpinner(R.array.search_neighborhood, spinnerAreas);
         this.configureSpinner(R.array.search_priceMin, spinnerPriceMin);
         this.configureSpinner(R.array.search_priceMax, spinnerPriceMax);
         this.configureSpinner(R.array.search_surfaceMin, spinnerSurfaceMin);
@@ -126,7 +126,8 @@ public class SearchFragment extends Fragment
 
                 //Checkboxes
                 propertyTypes = checkboxesSelected(typesArray, Property.typesNames);
-                Log.e(TAG, "typesNames selected = " + propertyTypes);
+                Log.e(TAG, "typesNames selected = " + propertyTypes[0]
+                        + propertyTypes[1] + propertyTypes[2] + propertyTypes[3]);
                 //pois = checkboxesSelected(poisArray, Property.poisNames);
                 //Log.e(TAG, "POI selected = " + pois);
 
@@ -140,9 +141,9 @@ public class SearchFragment extends Fragment
                 Log.e(TAG, "surface max = " + surfaceMax );
                 Log.e(TAG, "nb rooms = " + nbRooms);
                 Log.e(TAG, "nb photos = " + nbPhotos);
-                Log.e(TAG, "neighborhood selected = " + selectedNeighborhood);
+                Log.e(TAG, "neighborhood selected = " + areas[0] + areas[1] + areas[2]);
 
-                query = new SearchQuery(selectedNeighborhood, Long.parseLong(priceMin), Long.parseLong(priceMax),
+                query = new SearchQuery(areas, Long.parseLong(priceMin), Long.parseLong(priceMax),
                         Integer.valueOf(surfaceMin), Integer.valueOf(surfaceMax), Integer.valueOf(nbRooms),
                         Integer.valueOf(nbPhotos), statusSold, selectedDate, propertyTypes);
 
@@ -226,6 +227,9 @@ public class SearchFragment extends Fragment
             }
         }
 
+        if(strings[0] == null && strings[1] == null && strings[2] == null && strings[3] == null)
+            strings = new String[]{checkboxesNames[0], checkboxesNames[1], checkboxesNames[2], checkboxesNames[3]};
+
         return strings;
     }
 
@@ -303,7 +307,10 @@ public class SearchFragment extends Fragment
                 nbRooms = parent.getItemAtPosition(position).toString();
                 break;
             case R.id.search_neighborhood:
-                selectedNeighborhood = parent.getItemAtPosition(position).toString();
+                if(position == 0)
+                    areas = new String []{"Centre ville", "Port de commerce", "St Martin"};
+                else
+                    areas = new String []{parent.getItemAtPosition(position).toString(), null, null};
                 break;
             case R.id.search_nbPhotos:
                 nbPhotos = parent.getItemAtPosition(position).toString();

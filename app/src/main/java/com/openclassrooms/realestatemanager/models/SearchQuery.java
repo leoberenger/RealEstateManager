@@ -3,13 +3,11 @@ package com.openclassrooms.realestatemanager.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 public class SearchQuery implements Parcelable {
 
     public static String SEARCH_QUERY_KEY = "query";
 
-    private String area;
+    private String [] areas;
     private long priceMin;
     private long priceMax;
     private int surfaceMin;
@@ -26,8 +24,8 @@ public class SearchQuery implements Parcelable {
     // CONSTRUCTOR
     //------------------------
 
-    public SearchQuery(String area, long priceMin, long priceMax, int surfaceMin, int surfaceMax, int nbRooms, int nbPhotos, boolean isSold, int date, String [] propertyTypes){//, ArrayList<String> pois) {
-        this.area = area;
+    public SearchQuery(String [] areas, long priceMin, long priceMax, int surfaceMin, int surfaceMax, int nbRooms, int nbPhotos, boolean isSold, int date, String [] propertyTypes){//, ArrayList<String> pois) {
+        this.areas = areas;
         this.priceMin = priceMin;
         this.priceMax = priceMax;
         this.surfaceMin = surfaceMin;
@@ -44,8 +42,8 @@ public class SearchQuery implements Parcelable {
     //------------------------
     //GETTERS
     //------------------------
-    public String getArea() {
-        return area;
+    public String [] getAreas() {
+        return areas;
     }
     public long getPriceMin() {
         return priceMin;
@@ -84,8 +82,8 @@ public class SearchQuery implements Parcelable {
     //SETTERS
     //------------------------
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setAreas(String [] areas) {
+        this.areas = areas;
     }    public void setPriceMin(long priceMin) {
         this.priceMin = priceMin;
     }
@@ -130,7 +128,7 @@ public class SearchQuery implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeString(area);
+        out.writeStringArray(areas);
         out.writeLong(priceMin);
         out.writeLong(priceMax);
         out.writeInt(surfaceMin);
@@ -156,7 +154,8 @@ public class SearchQuery implements Parcelable {
     };
 
     private SearchQuery(Parcel in) {
-        area = in.readString();
+        areas = new String [3];
+        in.readStringArray(areas);
         priceMin = in.readLong();
         priceMax = in.readLong();
         surfaceMin = in.readInt();
