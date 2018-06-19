@@ -29,11 +29,11 @@ public class PropertyDataRepository {
     public LiveData<List<Property>> getSearchedProperties(
         String [] areas, long priceMin, long priceMax,
         int surfaceMin, int surfaceMax, int nbRooms,
-        int nbPhotos, boolean isSold, int date,
+        int nbPhotos, boolean isSold, int dateCreated, int dateSold,
         String propertyType, int poi0, int poi1, int poi2, int poi3){
         return this.propertyDAO.getSearchedProperties(
                 areas, priceMin, priceMax, surfaceMin, surfaceMax,
-                nbRooms, nbPhotos, isSold, date, propertyType,
+                nbRooms, nbPhotos, isSold, dateCreated, dateSold, propertyType,
                 poi0, poi1, poi2, poi3
                 );
     }

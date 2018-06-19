@@ -28,7 +28,8 @@ public interface PropertyDAO {
             "AND poiPark >= :poi1 " +
             "AND poiShopping >= :poi2 " +
             "AND poiMetro >= :poi3 " +
-            "AND dateCreated >= :date " +
+            "AND dateCreated >= :dateCreated " +
+            "AND dateSold >= :dateSold " +
             "AND isSold = :isSold " +
             "AND type = :propertyType "
             )
@@ -36,7 +37,7 @@ public interface PropertyDAO {
     LiveData<List<Property>> getSearchedProperties(
             String [] areas, long priceMin, long priceMax,
             int surfaceMin, int surfaceMax, int nbRooms,
-            int nbPhotos, boolean isSold, int date,
+            int nbPhotos, boolean isSold, int dateCreated, int dateSold,
             String propertyType, int poi0, int poi1, int poi2, int poi3
     );
 

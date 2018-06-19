@@ -23,7 +23,6 @@ import android.widget.Spinner;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -44,7 +43,9 @@ public class SearchFragment extends Fragment
     int [] propertyPOIs = new int[4];
     final boolean [] typesArray = {false, false, false, false};
     final boolean [] poisArray = {false, false, false, false};
-    int selectedDate = 0;
+    int dateSelected = 0;
+    int dateSold = 0;
+    int dateCreated = 0;
     boolean statusSold = false;
     String [] areas;
     String priceMin = "";
@@ -108,10 +109,10 @@ public class SearchFragment extends Fragment
             public void onClick(View v) {
 
                 //Date Picker
-                selectedDate = (!datePicker.getText().toString().isEmpty()) ?
+                dateSelected = (!datePicker.getText().toString().isEmpty()) ?
                         transformDateFormat(datePicker) :
                         0 ;
-                Log.e(TAG, "selected date = " + selectedDate);
+                Log.e(TAG, "selected date = " + dateSelected);
 
                 //Checkboxes
                 propertyPOIs = checkboxesSelected(poisArray);
@@ -130,9 +131,19 @@ public class SearchFragment extends Fragment
                 Log.e(TAG, "nb photos = " + nbPhotos);
                 Log.e(TAG, "neighborhood selected = " + areas[0] + areas[1] + areas[2]);
 
+
+                if(statusSold){
+                    dateSold = dateSelected;
+                    dateCreated = 0;
+                }else{
+                    dateCreated = dateSelected;
+                    dateSold = 0;
+                }
+
+
                 query = new SearchQuery(areas, Long.parseLong(priceMin), Long.parseLong(priceMax),
                         Integer.valueOf(surfaceMin), Integer.valueOf(surfaceMax), Integer.valueOf(nbRooms),
-                        Integer.valueOf(nbPhotos), statusSold, selectedDate, propertyType, propertyPOIs);
+                        Integer.valueOf(nbPhotos), statusSold, dateSelected, dateSold, propertyType, propertyPOIs);
 
 
                 mCallback.onQuerySelected(query);

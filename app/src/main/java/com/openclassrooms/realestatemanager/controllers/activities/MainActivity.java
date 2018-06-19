@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity
         this.propertyViewModel.getSearchedProperties(
                 query.getAreas(), query.getPriceMin(),
                 query.getPriceMax(), query.getSurfaceMin(), query.getSurfaceMax(),
-                query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDate(),
+                query.getNbRooms(), query.getNbPhotos(), query.isSold(), query.getDateCreated(), query.getDateSold(),
                 query.getPropertyType(), query.getPropertyPOIs()[0], query.getPropertyPOIs()[1],
                 query.getPropertyPOIs()[2], query.getPropertyPOIs()[3]
                 )
