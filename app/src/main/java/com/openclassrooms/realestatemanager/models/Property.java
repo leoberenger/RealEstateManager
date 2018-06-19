@@ -57,7 +57,7 @@ public class Property implements Parcelable {
     private ArrayList<String> photoUrls;
     private ArrayList<String> photoDescriptions;
     private int nbPhotos;
-    private boolean isSold;
+    private int isSold;
 
     private int dateCreated;
     private int dateSold;
@@ -85,7 +85,7 @@ public class Property implements Parcelable {
 
     public Property(String area, Double latitude, Double longitude, long price, int surface,
                     int nbRooms, String description, ArrayList<String> photoUrls,
-                    ArrayList<String> photoDescriptions, int nbPhotos, boolean isSold,
+                    ArrayList<String> photoDescriptions, int nbPhotos, int isSold,
                     int dateCreated, int dateSold, String type, int agentID,
                     int poiSchool, int poiPark, int poiShopping, int poiMetro,
                     String streetNb, String streetName, String apptNb, String zipCode,
@@ -156,7 +156,7 @@ public class Property implements Parcelable {
     public int getNbPhotos() {
         return nbPhotos;
     }
-    public boolean isSold() {
+    public int isSold() {
         return isSold;
     }
     public int getDateCreated() {
@@ -243,8 +243,8 @@ public class Property implements Parcelable {
     public void setNbPhotos(int nbPhotos) {
         this.nbPhotos = nbPhotos;
     }
-    public void setSold(boolean sold) {
-        isSold = sold;
+    public void setIsSold(int isSold) {
+        this.isSold = isSold;
     }
     public void setDateCreated(int dateCreated) {
         this.dateCreated = dateCreated;
@@ -311,19 +311,20 @@ public class Property implements Parcelable {
         out.writeLong(price);
         out.writeInt(surface);
         out.writeInt(nbRooms);
+
         out.writeString(description);
-        out.writeList(photoUrls);
-        out.writeList(photoDescriptions);
         out.writeInt(nbPhotos);
-        out.writeInt((isSold)?1:0);
+        out.writeInt(isSold);
         out.writeInt(dateCreated);
         out.writeInt(dateSold);
         out.writeString(type);
         out.writeInt(agentID);
+
         out.writeInt(poiSchool);
         out.writeInt(poiPark);
         out.writeInt(poiShopping);
         out.writeInt(poiMetro);
+
         out.writeString(streetNb);
         out.writeString(streetName);
         out.writeString(apptNb);
@@ -331,6 +332,9 @@ public class Property implements Parcelable {
         out.writeString(stateNb);
         out.writeString(city);
         out.writeString(country);
+
+        out.writeList(photoUrls);
+        out.writeList(photoDescriptions);
     }
 
     public static final Parcelable.Creator<Property> CREATOR
@@ -353,17 +357,15 @@ public class Property implements Parcelable {
         price = in.readLong();
         surface = in.readInt();
         nbRooms = in.readInt();
+
         description = in.readString();
-        photoUrls = new ArrayList<String>();
-        in.readStringList(photoUrls);
-        photoDescriptions = new ArrayList<String>();
-        in.readStringList(photoDescriptions);
         nbPhotos = in.readInt();
-        isSold = in.readInt()!=0;
+        isSold = in.readInt();
         dateCreated = in.readInt();
         dateSold = in.readInt();
         type = in.readString();
         agentID = in.readInt();
+
         poiSchool = in.readInt();
         poiPark = in.readInt();
         poiShopping = in.readInt();
@@ -376,6 +378,12 @@ public class Property implements Parcelable {
         stateNb = in.readString();
         city = in.readString();
         country = in.readString();
+
+        photoUrls = new ArrayList<String>();
+        in.readStringList(photoUrls);
+        photoDescriptions = new ArrayList<String>();
+        in.readStringList(photoDescriptions);
+
     }
 
 
@@ -394,7 +402,7 @@ public class Property implements Parcelable {
         if (values.containsKey(DESCRIPTION_KEY)) property.setDescription(values.getAsString(DESCRIPTION_KEY));
         //if (values.containsKey(PHOTO_URL_KEY)) property.setPhotoUrls(values.getAsString(PHOTO_URL_KEY));
         //if (values.containsKey(PHOTO_DESCRIPTION_KEY)) property.setPhotoDescriptions(values.getAsString(PHOTO_DESCRIPTION_KEY));
-        if (values.containsKey(IS_SOLD_KEY)) property.setSold(values.getAsBoolean(IS_SOLD_KEY));
+        //if (values.containsKey(IS_SOLD_KEY)) property.setSold(values.getAsBoolean(IS_SOLD_KEY));
         if (values.containsKey(DATE_CREATED_KEY)) property.setDateCreated(values.getAsInteger(DATE_CREATED_KEY));
         if (values.containsKey(DATE_SOLD_KEY)) property.setDateSold(values.getAsInteger(DATE_SOLD_KEY));
         if (values.containsKey(TYPE_KEY)) property.setType(values.getAsString(TYPE_KEY));

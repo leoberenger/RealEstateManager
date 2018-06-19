@@ -210,6 +210,8 @@ public class MainActivity extends AppCompatActivity
             public void onChanged(@Nullable Property property) {
                 Intent intentEdit = new Intent(getApplicationContext(), EditionActivity.class);
                 intentEdit.putExtra(Property.PROPERTY_KEY, property);
+
+                Log.e(TAG, "sold?" + property.isSold());
                 startActivity(intentEdit);
             }
         });
@@ -282,21 +284,21 @@ public class MainActivity extends AppCompatActivity
                 95000, 125, 7,
                 "Très bel appartement en bord de mer, proche de tous commerces",
                 p1PhotoUrls, p1PhotoDescriptions, p1PhotoUrls.size(),
-                false, 20180201, 0, Property.typesNames[1], 3, 1, 1, 0, 0,
+                0, 20180201, 0, Property.typesNames[1], 3, 1, 1, 0, 0,
                 "4", "Glasgow", "4", "29200", "29", "Brest", "France");
 
         properties[1] = new Property("Centre ville",48.380143,-4.487213,
                 250000,215,11,
                 "Au centre ville, maison de charme pour grande famille avec jardin",
                 p2PhotoUrls, p2PhotoDescriptions, p2PhotoUrls.size(),
-                false,20180401,0, Property.typesNames[0], 1, 0, 0, 1, 0,
+                0,20180401,0, Property.typesNames[0], 1, 0, 0, 1, 0,
                 "1", "Danton", "1", "29200", "29", "Brest", "France");
 
         properties[2] = new Property( "Centre ville", 48.406232, -4.496259,
                 328000, 120, 4,
                 "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
                 p3PhotoUrls, p3PhotoDescriptions, p3PhotoUrls.size(),
-                true,20180131,20180401, Property.typesNames[3], 2, 1, 1, 0, 1,
+                1,20180131,20180401, Property.typesNames[3], 2, 1, 1, 0, 1,
                 "2", "Jaurès", "0", "29200", "29", "Brest", "France");
 
         for(int i = 0; i<properties.length;i++) {

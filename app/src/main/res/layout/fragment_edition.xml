@@ -8,12 +8,191 @@
     android:id="@+id/fragment_edition_layout"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/fragment_edition_area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="Area"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_type"/>
+
+        <EditText
+            android:id="@+id/fragment_edition_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_area"/>
+
+        <EditText
+            android:id="@+id/fragment_edition_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_price"/>
+
+        <EditText
+            android:id="@+id/fragment_edition_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_surface"/>
+
+        <EditText
+            android:id="@+id/fragment_edition_surface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_nbRooms"/>
+
+        <EditText
+            android:id="@+id/fragment_edition_nbRooms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_description"/>
+
+        <EditText
+            android:id="@+id/fragment_edition_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/edition_status">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edition_status"/>
+            <RadioButton android:id="@+id/edition_sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_sold"/>
+            <RadioButton android:id="@+id/edition_not_sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_not_sold"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_agentID"/>
+
+        <EditText
+            android:id="@+id/fragment_edition_agentID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edition_pois"/>
+
+        <CheckBox android:id="@+id/edition_checkbox_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_school"/>
+
+        <CheckBox android:id="@+id/edition_checkbox_park"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_park" />
+
+        <CheckBox android:id="@+id/edition_checkbox_shopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_shopping"/>
+
+        <CheckBox android:id="@+id/edition_checkbox_metro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_metro"/>
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/edition_image_preview"

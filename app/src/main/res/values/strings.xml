@@ -92,6 +92,30 @@
     <string name="edition_update">Update / Create</string>
     <string name="popup_title_permission_files_access">Authorize access to your photos</string>
 
+    <string name="edition_area">Area : </string>
+    <string name="edition_price">Price : </string>
+    <string name="edition_surface">Surface : </string>
+    <string name="edition_nbRooms">Nb Rooms : </string>
+    <string name="edition_description">Description : </string>
+    <string name="edition_status">Status : </string>
+    <string name="edition_type">Type : </string>
+    <string name="edition_agentID">Agent ID : </string>
+    <string name="edition_pois">Points of Interest : </string>
+
+    <string name="edition_photos">Photos : </string>
+    <string name="edition_photos_descriptions">Photos descriptions : </string>
+
+    <string name="edition_address">Address : </string>
+    <string name="edition_address_streetNb">Street Nb : </string>
+    <string name="edition_address_streetName">Street Name : </string>
+    <string name="edition_address_apptNb">Appt Nb : </string>
+    <string name="edition_address_zip">Zip Code : </string>
+    <string name="edition_address_state">State : </string>
+    <string name="edition_address_city">City : </string>
+    <string name="edition_address_country">Country : </string>
+    <string name="edition_address_latitude">Latitude : </string>
+    <string name="edition_address_longitude">Longitude : </string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
