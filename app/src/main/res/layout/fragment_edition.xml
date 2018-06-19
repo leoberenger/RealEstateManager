@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controllers.fragments.EditionFragment"
-    android:id="@+id/fragment_edition_layout">
+    android:id="@+id/fragment_edition_layout"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/fragment_edition_area"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:inputType="text"
         android:hint="Area"/>
+
+    <ImageView
+        android:id="@+id/edition_image_preview"
+        android:layout_width="50dip"
+        android:layout_height="50dip"/>
+
+    <Button
+        android:id="@+id/edition_add_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Photo"/>
 
     <!-- Button Update/Create -->
     <Button
         android:id="@+id/edition_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:padding="15dip"
         android:text="@string/edition_update"
         android:textColor="#FFF"
         android:background="@color/colorPrimary"
         android:textStyle="bold"/>
 
-</FrameLayout>
+</LinearLayout>

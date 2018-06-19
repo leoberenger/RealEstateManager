@@ -90,6 +90,7 @@
 
     <!-- EDITION -->
     <string name="edition_update">Update / Create</string>
+    <string name="popup_title_permission_files_access">Authorize access to your photos</string>
 
 
 
