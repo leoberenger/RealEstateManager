@@ -103,7 +103,10 @@
     <string name="edition_pois">Points of Interest : </string>
 
     <string name="edition_photos">Photos : </string>
-    <string name="edition_photos_descriptions">Photos descriptions : </string>
+    <string name="edition_photos_hint">Add a photo</string>
+    <string name="edition_photos_descriptions">Photo description : </string>
+    <string name="edition_photos_descriptions_hint">Describe the photo</string>
+
 
     <string name="edition_address">Address : </string>
     <string name="edition_address_streetNb">Street Nb : </string>

@@ -27,6 +27,11 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.activities.EditionActivity;
 import com.openclassrooms.realestatemanager.models.Property;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -61,6 +66,38 @@ public class EditionFragment extends Fragment
     private boolean isEditionMode;
     private boolean [] poisArray = {false, false, false, false};
     private int statusSold;
+    private int dateSold;
+
+    String area = "";
+    long price = 0;
+    int surface = 0;
+    int nbRooms = 0;
+    String description = "";
+
+    String photoUrl = "";
+    String photoDescription = "";
+    int nbPhotos = 0;
+
+    int isSold = 0;
+    int dateOfSelling = 0;
+    String type = "";
+    int agentID = 0;
+
+    int poiSchool = 0;
+    int poiPark = 0;
+    int poiShopping= 0;
+    int poiMetro= 0;
+
+    Double latitude = 0d;
+    Double longitude = 0d;
+
+    String streetNb = "";
+    String streetName = "";
+    String apptNb = "";
+    String zipCode = "";
+    String stateNb = "";
+    String city = "";
+    String country = "";
 
     //STATIC DATA FOR PICTURE
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -85,6 +122,17 @@ public class EditionFragment extends Fragment
     @BindView(R.id.edition_sold) RadioButton radioBtnSold;
     @BindView(R.id.edition_not_sold) RadioButton radioBtnNotSold;
     @BindView(R.id.edition_button) Button editionButton;
+    @BindView(R.id.edition_photo_description) EditText editTextPhotoDescription;
+    @BindView(R.id.edition_address_streetNb) EditText editTextStreetNb;
+    @BindView(R.id.edition_address_streetName) EditText editTextStreetName;
+    @BindView(R.id.edition_address_zipCode) EditText editTextZipCode;
+    @BindView(R.id.edition_address_apptNb) EditText editTextApptNb;
+    @BindView(R.id.edition_address_state) EditText editTextState;
+    @BindView(R.id.edition_address_city) EditText editTextCity;
+    @BindView(R.id.edition_address_country) EditText editTextCountry;
+    @BindView(R.id.edition_address_latitude) EditText editTextLatitude;
+    @BindView(R.id.edition_address_longitude) EditText editTextLongitude;
+
 
 
 
@@ -101,6 +149,8 @@ public class EditionFragment extends Fragment
             this.showPropertyCurrentValues(property);
         }
 
+        this.configureRadioGroup();
+        this.configureCheckboxes();
         this.configureEditionButton();
 
         return view;
@@ -111,18 +161,53 @@ public class EditionFragment extends Fragment
         editionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isEditionMode){
-                    property.setArea(editTextArea.getText().toString());
-                    propertyEdited = property;
-                }else {
-                    /*
-                    String area = editTextArea.getText().toString();
-                    long id = 25;
-                    double latitude = 48.300000;
-                    double longitude = -4.470000;
 
-                    propertyEdited = new Property(id, area, latitude, longitude);
-                    */
+                getDataFromUserInput();
+
+                if(isEditionMode){
+
+                    property.setArea(area);
+                    property.setPrice(price);
+                    property.setSurface(surface);
+                    property.setNbRooms(nbRooms);
+                    property.setDescription(description);
+
+                    property.setType(type);
+                    property.setPhotoUrl(photoUrl);
+                    property.setPhotoDescription(photoDescription);
+                    property.setNbPhotos(nbPhotos);
+
+                    property.setIsSold(isSold);
+                    property.setDateSold(dateOfSelling);
+                    property.setAgentID(agentID);
+
+                    property.setPoiSchool(poiSchool);
+                    property.setPoiPark(poiPark);
+                    property.setPoiShopping(poiShopping);
+                    property.setPoiMetro(poiMetro);
+
+                    property.setLatitude(latitude);
+                    property.setLongitude(longitude);
+
+                    property.setStreetNb(streetNb);
+                    property.setStreetName(streetName);
+                    property.setApptNb(apptNb);
+                    property.setZipCode(zipCode);
+                    property.setStateNb(stateNb);
+                    property.setCity(city);
+                    property.setCountry(country);
+
+                    propertyEdited = property;
+
+                }else {
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd", Locale.FRANCE).format(Calendar.getInstance().getTime());
+                    int dateCreated = Integer.valueOf(timeStamp);
+
+                    propertyEdited = new Property(area, latitude, longitude, price, surface,
+                            nbRooms, description, photoUrl, photoDescription, nbPhotos, isSold,
+                            dateCreated, dateOfSelling, type, agentID, poiSchool, poiPark, poiShopping, poiMetro,
+                            streetNb, streetName, apptNb, zipCode, stateNb, city, country
+                            );
                 }
 
                 mCallback.onPropertyEdited(propertyEdited);
@@ -139,37 +224,64 @@ public class EditionFragment extends Fragment
         editTextNbRooms.setText(String.valueOf(p.getNbRooms()));
         editTextDescription.setText(p.getDescription());
 
-        this.configureRadioGroup();
-        if(p.isSold() == 1){
-            radioBtnSold.setChecked(true);
-        }else{
-            radioBtnNotSold.setChecked(true);
-        }
+        Glide.with(this)
+                .load(p.getPhotoUrl())
+                .into(this.imageViewPreview);
+        uriImageSelected = Uri.parse(p.getPhotoUrl());
 
-        this.configureCheckboxes();
+        editTextPhotoDescription.setText(p.getPhotoDescription());
+
+        if(p.isSold() == 1){ radioBtnSold.setChecked(true);
+        }else{ radioBtnNotSold.setChecked(true); }
 
         if(p.getPoiSchool() != 0) checkboxSchool.setChecked(true);
         if(p.getPoiPark() != 0) checkboxPark.setChecked(true);
         if(p.getPoiShopping() != 0) checkboxShopping.setChecked(true);
         if(p.getPoiMetro() != 0) checkboxMetro.setChecked(true);
+
+        editTextStreetNb.setText(p.getStreetNb());
+        editTextStreetName.setText(p.getStreetName());
+        editTextApptNb.setText(p.getApptNb());
+        editTextZipCode.setText(p.getZipCode());
+        editTextState.setText(p.getStateNb());
+        editTextCity.setText(p.getCity());
+        editTextCountry.setText(p.getCountry());
+
+        editTextLatitude.setText(String.valueOf(p.getLatitude()));
+        editTextLongitude.setText(String.valueOf(p.getLongitude()));
     }
 
+    private void getDataFromUserInput(){
+        area = editTextArea.getText().toString();
+        price = Long.valueOf(editTextPrice.getText().toString());
+        surface = Integer.valueOf(editTextSurface.getText().toString());
+        nbRooms = Integer.valueOf(editTextNbRooms.getText().toString());
+        description = editTextDescription.getText().toString();
 
+        photoUrl = uriImageSelected.toString();
+        photoDescription = editTextPhotoDescription.getText().toString();
+        nbPhotos = 1;
 
-    // -------------------------
-    // COMMUNICATE WITH ACTIVITY
-    // -------------------------
+        isSold = statusSold;
+        dateOfSelling = dateSold;
+        type = editTextType.getText().toString();
+        agentID = Integer.valueOf(editTextAgentID.getText().toString());
 
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
+        poiSchool = (poisArray[0])?1:0;
+        poiPark = (poisArray[1])?1:0;
+        poiShopping= (poisArray[2])?1:0;
+        poiMetro= (poisArray[3])?1:0;
 
-        try {
-            mCallback = (EditionFragment.OnEditionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnPropertiesListSelectedListener");
-        }
+        latitude = Double.valueOf(editTextLatitude.getText().toString());
+        longitude = Double.valueOf(editTextLongitude.getText().toString());
+
+        streetNb = editTextStreetNb.getText().toString();
+        streetName = editTextStreetName.getText().toString();
+        apptNb = editTextApptNb.getText().toString();
+        zipCode = editTextZipCode.getText().toString();
+        stateNb = editTextState.getText().toString();
+        city = editTextCity.getText().toString();
+        country = editTextCountry.getText().toString();
     }
 
 
@@ -187,26 +299,14 @@ public class EditionFragment extends Fragment
 
     }
 
-    public int [] checkboxesSelected(boolean [] array){
-
-        int [] propertyPOIs = new int [4];
-
-        for (int i = 0; i<propertyPOIs.length; i++){
-            propertyPOIs [i] = (array[i])? 1:0;
-        }
-
-        return propertyPOIs;
-    }
-
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         switch (buttonView.getId()){
-            //POI
-            case R.id.checkbox_school: poisArray[0] = isChecked; break;
-            case R.id.checkbox_park: poisArray[1] = isChecked; break;
-            case R.id.checkbox_shopping: poisArray[2] = isChecked; break;
-            case R.id.checkbox_metro: poisArray[3] = isChecked; break;
+            case R.id.edition_checkbox_school: poisArray[0] = isChecked; break;
+            case R.id.edition_checkbox_park: poisArray[1] = isChecked; break;
+            case R.id.edition_checkbox_shopping: poisArray[2] = isChecked; break;
+            case R.id.edition_checkbox_metro: poisArray[3] = isChecked; break;
         }
     }
 
@@ -222,11 +322,16 @@ public class EditionFragment extends Fragment
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch(checkedId) {
-            case R.id.search_sold:
-                //statusSold = true;
+            case R.id.edition_sold:
+                statusSold = 1;
+                String timeStamp = new SimpleDateFormat("yyyyMMdd", Locale.FRANCE).format(Calendar.getInstance().getTime());
+                dateSold = Integer.valueOf(timeStamp);
                 break;
-            case R.id.search_not_sold:
-                //statusSold = false;
+
+            case R.id.edition_not_sold:
+                statusSold = 0;
+                dateSold = 0;
+                Log.e(TAG, "oncheckedchanged : sold?" + statusSold);
                 break;
         }
     }
@@ -281,6 +386,22 @@ public class EditionFragment extends Fragment
             } else {
                 Toast.makeText(getContext(), "No photo selected", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    // -------------------------
+    // COMMUNICATE WITH ACTIVITY
+    // -------------------------
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+
+        try {
+            mCallback = (EditionFragment.OnEditionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnPropertiesListSelectedListener");
         }
     }
 }

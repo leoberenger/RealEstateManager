@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()){
 
             case R.id.menu_search:
-                Log.e("MainActivity", "Search Btn clicked");
                 Intent intentSearch = new Intent(this, SearchActivity.class);
                 startActivity(intentSearch);
                 return true;
@@ -211,7 +210,6 @@ public class MainActivity extends AppCompatActivity
                 Intent intentEdit = new Intent(getApplicationContext(), EditionActivity.class);
                 intentEdit.putExtra(Property.PROPERTY_KEY, property);
 
-                Log.e(TAG, "sold?" + property.isSold());
                 startActivity(intentEdit);
             }
         });
@@ -237,44 +235,6 @@ public class MainActivity extends AppCompatActivity
 
     private void createProperties(){
 
-        //-----------------------------------
-        //PHOTOS
-        //-----------------------------------
-
-        ArrayList<String> p1PhotoUrls = new ArrayList<String>();
-        p1PhotoUrls.add("https://picsum.photos/200/200/?image=11");
-        p1PhotoUrls.add("https://picsum.photos/200/200/?image=104");
-
-        ArrayList<String> p2PhotoUrls = new ArrayList<String>();
-        p2PhotoUrls.add("https://picsum.photos/200/200/?image=122");
-        p2PhotoUrls.add("https://picsum.photos/200/200/?image=12");
-        p2PhotoUrls.add("https://picsum.photos/200/200/?image=23");
-        p2PhotoUrls.add("https://picsum.photos/200/200/?image=20");
-
-        ArrayList<String> p3PhotoUrls = new ArrayList<String>();
-        p3PhotoUrls.add("https://picsum.photos/200/200/?image=10");
-        p3PhotoUrls.add("https://picsum.photos/200/200/?image=102");
-        p3PhotoUrls.add("https://picsum.photos/200/200/?image=13");
-
-        ArrayList<String> p1PhotoDescriptions = new ArrayList<String>();
-        p1PhotoDescriptions.add("Garden");
-        p1PhotoDescriptions.add("Sun");
-
-        ArrayList<String> p2PhotoDescriptions = new ArrayList<String>();
-        p2PhotoDescriptions.add("Tower");
-        p2PhotoDescriptions.add("Beach");
-        p2PhotoDescriptions.add("Kitchen");
-        p2PhotoDescriptions.add("Desk");
-
-        ArrayList<String> p3PhotoDescriptions = new ArrayList<String>();
-        p3PhotoDescriptions.add("View");
-        p3PhotoDescriptions.add("Cake");
-        p3PhotoDescriptions.add("Snow");
-
-        //-----------------------------------
-        //CREATION OF PROPERTIES
-        //-----------------------------------
-
         Property [] properties = new Property[3];
         for (int i = 0; i<properties.length; i++){
             properties[i] = new Property();
@@ -283,21 +243,21 @@ public class MainActivity extends AppCompatActivity
         properties[0] = new Property("Port de commerce", 48.392151, -4.479032,
                 95000, 125, 7,
                 "Très bel appartement en bord de mer, proche de tous commerces",
-                p1PhotoUrls, p1PhotoDescriptions, p1PhotoUrls.size(),
+                "https://picsum.photos/200/200/?image=11", "Garden", 1,
                 0, 20180201, 0, Property.typesNames[1], 3, 1, 1, 0, 0,
                 "4", "Glasgow", "4", "29200", "29", "Brest", "France");
 
         properties[1] = new Property("Centre ville",48.380143,-4.487213,
                 250000,215,11,
                 "Au centre ville, maison de charme pour grande famille avec jardin",
-                p2PhotoUrls, p2PhotoDescriptions, p2PhotoUrls.size(),
+                "https://picsum.photos/200/200/?image=122", "Tower", 1,
                 0,20180401,0, Property.typesNames[0], 1, 0, 0, 1, 0,
                 "1", "Danton", "1", "29200", "29", "Brest", "France");
 
         properties[2] = new Property( "Centre ville", 48.406232, -4.496259,
                 328000, 120, 4,
                 "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
-                p3PhotoUrls, p3PhotoDescriptions, p3PhotoUrls.size(),
+                "https://picsum.photos/200/200/?image=10", "View", 1,
                 1,20180131,20180401, Property.typesNames[3], 2, 1, 1, 0, 1,
                 "2", "Jaurès", "0", "29200", "29", "Brest", "France");
 

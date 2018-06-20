@@ -5,8 +5,6 @@ import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 @Entity
 public class Property implements Parcelable {
 
@@ -54,8 +52,8 @@ public class Property implements Parcelable {
 
     private int nbRooms;
     private String description;
-    private ArrayList<String> photoUrls;
-    private ArrayList<String> photoDescriptions;
+    private String photoUrl;
+    private String photoDescription;
     private int nbPhotos;
     private int isSold;
 
@@ -84,8 +82,8 @@ public class Property implements Parcelable {
     public Property() { }
 
     public Property(String area, Double latitude, Double longitude, long price, int surface,
-                    int nbRooms, String description, ArrayList<String> photoUrls,
-                    ArrayList<String> photoDescriptions, int nbPhotos, int isSold,
+                    int nbRooms, String description, String photoUrl,
+                    String photoDescription, int nbPhotos, int isSold,
                     int dateCreated, int dateSold, String type, int agentID,
                     int poiSchool, int poiPark, int poiShopping, int poiMetro,
                     String streetNb, String streetName, String apptNb, String zipCode,
@@ -97,8 +95,8 @@ public class Property implements Parcelable {
         this.surface = surface;
         this.nbRooms = nbRooms;
         this.description = description;
-        this.photoUrls = photoUrls;
-        this.photoDescriptions = photoDescriptions;
+        this.photoUrl = photoUrl;
+        this.photoDescription = photoDescription;
         this.nbPhotos = nbPhotos;
         this.isSold = isSold;
         this.dateCreated = dateCreated;
@@ -147,11 +145,11 @@ public class Property implements Parcelable {
     public String getDescription() {
         return description;
     }
-    public ArrayList<String> getPhotoUrls() {
-        return photoUrls;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
-    public ArrayList<String> getPhotoDescriptions() {
-        return photoDescriptions;
+    public String getPhotoDescription() {
+        return photoDescription;
     }
     public int getNbPhotos() {
         return nbPhotos;
@@ -234,11 +232,11 @@ public class Property implements Parcelable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setPhotoUrls(ArrayList<String> photoUrls) {
-        this.photoUrls = photoUrls;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
-    public void setPhotoDescriptions(ArrayList<String> photoDescriptions) {
-        this.photoDescriptions = photoDescriptions;
+    public void setPhotoDescription(String photoDescription) {
+        this.photoDescription = photoDescription;
     }
     public void setNbPhotos(int nbPhotos) {
         this.nbPhotos = nbPhotos;
@@ -333,8 +331,8 @@ public class Property implements Parcelable {
         out.writeString(city);
         out.writeString(country);
 
-        out.writeList(photoUrls);
-        out.writeList(photoDescriptions);
+        out.writeString(photoUrl);
+        out.writeString(photoDescription);
     }
 
     public static final Parcelable.Creator<Property> CREATOR
@@ -379,11 +377,8 @@ public class Property implements Parcelable {
         city = in.readString();
         country = in.readString();
 
-        photoUrls = new ArrayList<String>();
-        in.readStringList(photoUrls);
-        photoDescriptions = new ArrayList<String>();
-        in.readStringList(photoDescriptions);
-
+        photoUrl = in.readString();
+        photoDescription = in.readString();
     }
 
 

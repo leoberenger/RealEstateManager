@@ -100,7 +100,7 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
     private void updateShownProperty(Property p){
 
         //Img
-        Glide.with(this).load(p.getPhotoUrls().get(0)).into(photo);
+        Glide.with(this).load(p.getPhotoUrl()).into(photo);
 
         //Description
         description.setText(p.getDescription());

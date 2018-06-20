@@ -40,6 +40,6 @@ public class PropertiesViewHolder extends RecyclerView.ViewHolder{
         this.itemPrice.setText(price);
 
         //Img
-        glide.load(property.getPhotoUrls().get(0)).into(itemImg);
+        glide.load(property.getPhotoUrl()).into(itemImg);
     }
 }
