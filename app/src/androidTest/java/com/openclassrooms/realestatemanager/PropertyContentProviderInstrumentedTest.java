@@ -33,7 +33,7 @@ public class PropertyContentProviderInstrumentedTest {
     private ContentResolver mContentResolver;
 
     // DATA SET FOR TEST
-    private static long PROPERTY_ID = 100;
+    private static long PROPERTY_ID = 101;
 
     @Before
     public void setUp() {
@@ -87,6 +87,7 @@ public class PropertyContentProviderInstrumentedTest {
         values.put(Property.ADDRESS_STREET_NAME_KEY, "Glasgow");
         values.put(Property.ADDRESS_APPT_NUMBER_KEY, "20");
         values.put(Property.ADDRESS_STATE_NB_KEY, "Bretagne");
+        values.put(Property.ADDRESS_ZIP_CODE_KEY, "29200");
         values.put(Property.ADDRESS_CITY_KEY, "Brest");
         values.put(Property.ADDRESS_COUNTRY_KEY, "France");
 

@@ -406,18 +406,18 @@ public class Property implements Parcelable {
         if (values.containsKey(TYPE_KEY)) property.setType(values.getAsString(TYPE_KEY));
         if (values.containsKey(AGENT_ID_KEY)) property.setAgentID(values.getAsInteger(AGENT_ID_KEY));
 
-        if (values.containsKey(POI_SCHOOL_KEY)) property.setAgentID(values.getAsInteger(POI_SCHOOL_KEY));
-        if (values.containsKey(POI_PARK_KEY)) property.setAgentID(values.getAsInteger(POI_PARK_KEY));
-        if (values.containsKey(POI_SHOPPING_KEY)) property.setAgentID(values.getAsInteger(POI_SHOPPING_KEY));
-        if (values.containsKey(POI_METRO_KEY)) property.setAgentID(values.getAsInteger(POI_METRO_KEY));
+        if (values.containsKey(POI_SCHOOL_KEY)) property.setPoiSchool(values.getAsInteger(POI_SCHOOL_KEY));
+        if (values.containsKey(POI_PARK_KEY)) property.setPoiPark(values.getAsInteger(POI_PARK_KEY));
+        if (values.containsKey(POI_SHOPPING_KEY)) property.setPoiShopping(values.getAsInteger(POI_SHOPPING_KEY));
+        if (values.containsKey(POI_METRO_KEY)) property.setPoiMetro(values.getAsInteger(POI_METRO_KEY));
 
-        if (values.containsKey(ADDRESS_STREET_NB_KEY)) property.setType(values.getAsString(ADDRESS_STREET_NB_KEY));
-        if (values.containsKey(ADDRESS_STREET_NAME_KEY)) property.setType(values.getAsString(ADDRESS_STREET_NAME_KEY));
-        if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) property.setType(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
-        if (values.containsKey(ADDRESS_ZIP_CODE_KEY)) property.setType(values.getAsString(ADDRESS_ZIP_CODE_KEY));
-        if (values.containsKey(ADDRESS_STATE_NB_KEY)) property.setType(values.getAsString(ADDRESS_STATE_NB_KEY));
-        if (values.containsKey(ADDRESS_CITY_KEY)) property.setType(values.getAsString(ADDRESS_CITY_KEY));
-        if (values.containsKey(ADDRESS_COUNTRY_KEY)) property.setType(values.getAsString(ADDRESS_COUNTRY_KEY));
+        if (values.containsKey(ADDRESS_STREET_NB_KEY)) property.setStreetNb(values.getAsString(ADDRESS_STREET_NB_KEY));
+        if (values.containsKey(ADDRESS_STREET_NAME_KEY)) property.setStreetName(values.getAsString(ADDRESS_STREET_NAME_KEY));
+        if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) property.setApptNb(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
+        if (values.containsKey(ADDRESS_ZIP_CODE_KEY)) property.setZipCode(values.getAsString(ADDRESS_ZIP_CODE_KEY));
+        if (values.containsKey(ADDRESS_STATE_NB_KEY)) property.setStateNb(values.getAsString(ADDRESS_STATE_NB_KEY));
+        if (values.containsKey(ADDRESS_CITY_KEY)) property.setCity(values.getAsString(ADDRESS_CITY_KEY));
+        if (values.containsKey(ADDRESS_COUNTRY_KEY)) property.setCountry(values.getAsString(ADDRESS_COUNTRY_KEY));
 
         return property;
     }
