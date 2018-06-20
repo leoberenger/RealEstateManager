@@ -13,7 +13,7 @@
     <string name="search">SEARCH</string>
 
     <string name="search_date_picker">SINCE</string>
-    <string name="search_types">Types : </string>
+    <string name="search_types">Type : </string>
     <string name="search_poi">POI : </string>
     <string name="search_status">Status : </string>
     <string name="search_neighborhood_selection">Neighborhood : </string>
@@ -31,6 +31,7 @@
 
     <string name="search_sold">Sold</string>
     <string name="search_not_sold">Not sold</string>
+    <string name="search_pick_date">Pick a date</string>
 
     <string-array name="search_type">
         <item>House</item>
