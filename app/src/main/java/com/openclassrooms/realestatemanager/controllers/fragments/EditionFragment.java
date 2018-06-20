@@ -103,7 +103,7 @@ public class EditionFragment extends Fragment
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
     private static final int RC_IMAGE_PERMS = 100;
     private static final int RC_CHOOSE_PHOTO = 200;
-    private Uri uriImageSelected;
+    private Uri uriImageSelected = null;
 
     //FOR DESIGN
     @BindView(R.id.edition_image_preview) ImageView imageViewPreview;
@@ -252,28 +252,42 @@ public class EditionFragment extends Fragment
     }
 
     private void getDataFromUserInput(){
-        area = editTextArea.getText().toString();
-        price = Long.valueOf(editTextPrice.getText().toString());
-        surface = Integer.valueOf(editTextSurface.getText().toString());
-        nbRooms = Integer.valueOf(editTextNbRooms.getText().toString());
+        area = (editTextArea.getText().toString());
+        price = (!editTextPrice.getText().toString().isEmpty())?
+                (Long.valueOf(editTextPrice.getText().toString()))
+                :0L;
+        surface = (!editTextSurface.getText().toString().isEmpty())?
+                Integer.valueOf(editTextSurface.getText().toString()):
+                0;
+        nbRooms = (!editTextNbRooms.getText().toString().isEmpty())?
+                Integer.valueOf(editTextNbRooms.getText().toString()):
+                0;
         description = editTextDescription.getText().toString();
 
-        photoUrl = uriImageSelected.toString();
+        photoUrl = (uriImageSelected !=null)?
+                uriImageSelected.toString():
+                "";
         photoDescription = editTextPhotoDescription.getText().toString();
         nbPhotos = 1;
 
         isSold = statusSold;
         dateOfSelling = dateSold;
         type = editTextType.getText().toString();
-        agentID = Integer.valueOf(editTextAgentID.getText().toString());
+        agentID = (!editTextAgentID.getText().toString().isEmpty())?
+                Integer.valueOf(editTextAgentID.getText().toString()):
+                0;
 
         poiSchool = (poisArray[0])?1:0;
         poiPark = (poisArray[1])?1:0;
         poiShopping= (poisArray[2])?1:0;
         poiMetro= (poisArray[3])?1:0;
 
-        latitude = Double.valueOf(editTextLatitude.getText().toString());
-        longitude = Double.valueOf(editTextLongitude.getText().toString());
+        latitude = (!editTextLatitude.getText().toString().isEmpty())?
+                Double.valueOf(editTextLatitude.getText().toString()):
+                0;
+        longitude = (!editTextLongitude.getText().toString().isEmpty())?
+                Double.valueOf(editTextLongitude.getText().toString()):
+                0;
 
         streetNb = editTextStreetNb.getText().toString();
         streetName = editTextStreetName.getText().toString();
