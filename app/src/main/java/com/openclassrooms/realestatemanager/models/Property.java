@@ -21,13 +21,18 @@ public class Property implements Parcelable {
     public static String DESCRIPTION_KEY = "description";
     public static String PHOTO_URL_KEY = "photoUrls";
     public static String PHOTO_DESCRIPTION_KEY = "photoDescriptions";
-    public static String PHOTO_NUMBER_KEY = "nbPhotos";
+    public static String NB_PHOTOS_KEY = "nbPhotos";
+
     public static String IS_SOLD_KEY = "isSold";
     public static String DATE_CREATED_KEY = "dateCreated";
     public static String DATE_SOLD_KEY = "dateSold";
     public static String TYPE_KEY = "type";
     public static String AGENT_ID_KEY = "agentId";
-    public static String POIS_KEY = "poisNames";
+    public static String POI_SCHOOL_KEY = "poiSchool";
+    public static String POI_PARK_KEY = "poiPark";
+    public static String POI_SHOPPING_KEY = "poiShopping";
+    public static String POI_METRO_KEY = "poiMetro";
+
     public static String ADDRESS_STREET_NB_KEY = "streetNb";
     public static String ADDRESS_STREET_NAME_KEY = "streetName";
     public static String ADDRESS_APPT_NUMBER_KEY = "apptNb";
@@ -35,10 +40,6 @@ public class Property implements Parcelable {
     public static String ADDRESS_STATE_NB_KEY = "stateNb";
     public static String ADDRESS_CITY_KEY = "city";
     public static String ADDRESS_COUNTRY_KEY = "country";
-    public static String POI_SCHOOL__KEY = "poiSchool";
-    public static String POI_PARK_KEY = "poiPark";
-    public static String POI_SHOPPING_KEY = "poiShopping";
-    public static String POI_METRO_KEY = "poiMetro";
 
     public static final String [] poisNames = {"School", "Park", "Shopping", "Metro"};
     public static final String [] typesNames = {"House", "Apartment", "Duplex", "Penthouse"};
@@ -395,13 +396,28 @@ public class Property implements Parcelable {
         if (values.containsKey(SURFACE_KEY)) property.setSurface(values.getAsInteger(SURFACE_KEY));
         if (values.containsKey(NB_ROOMS_KEY)) property.setNbRooms(values.getAsInteger(NB_ROOMS_KEY));
         if (values.containsKey(DESCRIPTION_KEY)) property.setDescription(values.getAsString(DESCRIPTION_KEY));
-        //if (values.containsKey(PHOTO_URL_KEY)) property.setPhotoUrls(values.getAsString(PHOTO_URL_KEY));
-        //if (values.containsKey(PHOTO_DESCRIPTION_KEY)) property.setPhotoDescriptions(values.getAsString(PHOTO_DESCRIPTION_KEY));
-        //if (values.containsKey(IS_SOLD_KEY)) property.setSold(values.getAsBoolean(IS_SOLD_KEY));
+        if (values.containsKey(PHOTO_URL_KEY)) property.setPhotoUrl(values.getAsString(PHOTO_URL_KEY));
+        if (values.containsKey(PHOTO_DESCRIPTION_KEY)) property.setPhotoDescription(values.getAsString(PHOTO_DESCRIPTION_KEY));
+        if (values.containsKey(NB_PHOTOS_KEY)) property.setNbPhotos(values.getAsInteger(NB_PHOTOS_KEY));
+
+        if (values.containsKey(IS_SOLD_KEY)) property.setIsSold(values.getAsInteger(IS_SOLD_KEY));
         if (values.containsKey(DATE_CREATED_KEY)) property.setDateCreated(values.getAsInteger(DATE_CREATED_KEY));
         if (values.containsKey(DATE_SOLD_KEY)) property.setDateSold(values.getAsInteger(DATE_SOLD_KEY));
         if (values.containsKey(TYPE_KEY)) property.setType(values.getAsString(TYPE_KEY));
         if (values.containsKey(AGENT_ID_KEY)) property.setAgentID(values.getAsInteger(AGENT_ID_KEY));
+
+        if (values.containsKey(POI_SCHOOL_KEY)) property.setAgentID(values.getAsInteger(POI_SCHOOL_KEY));
+        if (values.containsKey(POI_PARK_KEY)) property.setAgentID(values.getAsInteger(POI_PARK_KEY));
+        if (values.containsKey(POI_SHOPPING_KEY)) property.setAgentID(values.getAsInteger(POI_SHOPPING_KEY));
+        if (values.containsKey(POI_METRO_KEY)) property.setAgentID(values.getAsInteger(POI_METRO_KEY));
+
+        if (values.containsKey(ADDRESS_STREET_NB_KEY)) property.setType(values.getAsString(ADDRESS_STREET_NB_KEY));
+        if (values.containsKey(ADDRESS_STREET_NAME_KEY)) property.setType(values.getAsString(ADDRESS_STREET_NAME_KEY));
+        if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) property.setType(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
+        if (values.containsKey(ADDRESS_ZIP_CODE_KEY)) property.setType(values.getAsString(ADDRESS_ZIP_CODE_KEY));
+        if (values.containsKey(ADDRESS_STATE_NB_KEY)) property.setType(values.getAsString(ADDRESS_STATE_NB_KEY));
+        if (values.containsKey(ADDRESS_CITY_KEY)) property.setType(values.getAsString(ADDRESS_CITY_KEY));
+        if (values.containsKey(ADDRESS_COUNTRY_KEY)) property.setType(values.getAsString(ADDRESS_COUNTRY_KEY));
 
         return property;
     }
