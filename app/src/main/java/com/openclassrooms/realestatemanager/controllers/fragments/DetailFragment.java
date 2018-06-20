@@ -40,10 +40,16 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
     MapView mapView;
 
     //FOR DESIGN
-    @BindView(R.id.fragment_detail_description) TextView description;
-    @BindView(R.id.fragment_detail_specifics) TextView specifics;
-    @BindView(R.id.fragment_detail_address) TextView address;
+    @BindView(R.id.fragment_detail_description) TextView textViewDescription;
+    @BindView(R.id.fragment_detail_surface) TextView textViewSurface;
+    @BindView(R.id.fragment_detail_nbRooms) TextView textViewNbRooms;
+    @BindView(R.id.fragment_detail_pois) TextView textViewPOIs;
+    @BindView(R.id.fragment_detail_address_street) TextView textViewAddressStreet;
+    @BindView(R.id.fragment_detail_address_appt) TextView textViewAddressAppt;
+    @BindView(R.id.fragment_detail_address_city) TextView textViewAddressCity;
+    @BindView(R.id.fragment_detail_address_country) TextView textViewAddressCountry;
     @BindView(R.id.fragment_detail_photo) ImageView photo;
+    @BindView(R.id.fragment_detail_photo_description) TextView textViewPhotoDescription;
 
     public DetailFragment() { }
 
@@ -101,18 +107,31 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
 
         //Img
         Glide.with(this).load(p.getPhotoUrl()).into(photo);
+        textViewPhotoDescription.setText(p.getPhotoDescription());
 
         //Description
-        description.setText(p.getDescription());
+        textViewDescription.setText(p.getDescription());
 
         //Specifics
-        String specs = "Surface : " + p.getSurface() + " / Number of rooms : " + p.getNbRooms();
-        specifics.setText(specs);
+        String surface = String.valueOf(p.getSurface()) + "m²";
+        textViewSurface.setText(surface);
+        textViewNbRooms.setText(String.valueOf(p.getNbRooms()));
+
+        String school = (p.getPoiSchool()==1)?"School":"";
+        String park = (p.getPoiPark()==1)?"Park":"";
+        String shopping = (p.getPoiShopping()==1)?"Shopping":"";
+        String metro = (p.getPoiMetro()==1)?"Metro":"";
+
+        String pois = school + " " + park + " " + shopping + " " + metro;
+        textViewPOIs.setText(pois);
 
         //Address
-        String location = p.getStreetNb() + ", rue " + p.getStreetName() + ", appt " + p.getApptNb()
-                + ", " + p.getZipCode() + " " + p.getCity() + ", " + p.getCountry();
-        address.setText(location);
-
+        String street = p.getStreetNb() + ", rue " + p.getStreetName();
+        String city = p.getZipCode() + " " + p.getCity();
+        String appt = "Appt " + p.getApptNb();
+        textViewAddressStreet.setText(street);
+        textViewAddressAppt.setText(appt);
+        textViewAddressCity.setText(city);
+        textViewAddressCountry.setText(p.getCountry());
     }
 }
