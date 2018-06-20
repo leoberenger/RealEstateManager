@@ -200,6 +200,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getPropertyToShow(long propertyId){
+
         this.propertyViewModel.getProperty(propertyId).observe(this, this::configureAndShowDetailFragment);
     }
 

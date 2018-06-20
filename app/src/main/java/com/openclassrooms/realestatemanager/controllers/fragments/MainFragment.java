@@ -39,7 +39,6 @@ public class MainFragment extends Fragment {
     }
 
     //FOR DATA
-    String PROPERTY_ID = "PROPERTY_ID";
     long propertyId = -1;
 
     // FOR DESIGN
@@ -62,8 +61,6 @@ public class MainFragment extends Fragment {
 
         mPropertyArrayList = getArguments().getParcelableArrayList("properties");
         if(mPropertyArrayList.size() != 0) {
-            Log.e(TAG, "property0 area = " + mPropertyArrayList.get(0).getArea());
-
             this.updatePropertiesList(mPropertyArrayList);
         }
         return view;
@@ -86,10 +83,7 @@ public class MainFragment extends Fragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
                         propertyId = adapter.getResult(position).getId();
-                        Log.e("MainFragment onItemClik", "clicked property id = " + propertyId);
-
                         mCallback.onPropertySelected(propertyId);
                     }
                 });
