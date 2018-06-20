@@ -64,8 +64,10 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
         if(getArguments() != null) {
             property = getArguments().getParcelable(Property.PROPERTY_KEY);
             propertyCoordinates = new LatLng(property.getLatitude(), property.getLongitude());
-            propertyTitle = property.getStreetNb() + " rue " + property.getStreetName() + ", " + property.getCity();
-            this.configureMap(view);
+            if(propertyCoordinates.latitude != 0 && propertyCoordinates.longitude !=0){
+                propertyTitle = property.getStreetNb() + " rue " + property.getStreetName() + ", " + property.getCity();
+                this.configureMap(view);
+            }
             updateShownProperty(property);
         }
 
@@ -92,11 +94,13 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
         MapsInitializer.initialize(getContext());
         mMap = googleMap;
         // Center camera on marker
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(propertyCoordinates, 20f));
+
         mMap.addMarker(new MarkerOptions()
-                .position(propertyCoordinates)
-                .title(propertyTitle))
-                .showInfoWindow();
+            .position(propertyCoordinates)
+            .title(propertyTitle))
+            .showInfoWindow();
     }
 
     // -----------------
@@ -106,32 +110,54 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
     private void updateShownProperty(Property p){
 
         //Img
-        Glide.with(this).load(p.getPhotoUrl()).into(photo);
-        textViewPhotoDescription.setText(p.getPhotoDescription());
+        if(!p.getPhotoUrl().isEmpty()) {
+            Glide.with(this).load(p.getPhotoUrl()).into(photo);
+            textViewPhotoDescription.setText(p.getPhotoDescription());
+        }else
+            textViewPhotoDescription.setText("No photo");
 
         //Description
-        textViewDescription.setText(p.getDescription());
+        if(!p.getDescription().isEmpty()){
+            textViewDescription.setText(p.getDescription());
+        }
 
         //Specifics
-        String surface = String.valueOf(p.getSurface()) + "m²";
+        String surface = (p.getSurface() != 0)?
+                String.valueOf(p.getSurface()) + "m²":
+                "No information";
         textViewSurface.setText(surface);
-        textViewNbRooms.setText(String.valueOf(p.getNbRooms()));
+
+        String nbRooms = (p.getNbRooms() != 0)?
+                String.valueOf(p.getNbRooms()):
+                "No information";
+        textViewNbRooms.setText(nbRooms);
 
         String school = (p.getPoiSchool()==1)?"School":"";
         String park = (p.getPoiPark()==1)?"Park":"";
         String shopping = (p.getPoiShopping()==1)?"Shopping":"";
         String metro = (p.getPoiMetro()==1)?"Metro":"";
 
-        String pois = school + " " + park + " " + shopping + " " + metro;
+        String pois = (!((school.isEmpty()) && (park.isEmpty()) && (shopping.isEmpty()) && (metro.isEmpty())))?
+                school + " " + park + " " + shopping + " " + metro:
+                "No information";
         textViewPOIs.setText(pois);
 
         //Address
-        String street = p.getStreetNb() + ", rue " + p.getStreetName();
-        String city = p.getZipCode() + " " + p.getCity();
-        String appt = "Appt " + p.getApptNb();
+        String street = (!(p.getStreetNb().isEmpty()) && (p.getStreetName().isEmpty()))?
+                p.getStreetNb() + ", rue " + p.getStreetName():
+                "No information";
+        String city = (!(p.getZipCode().isEmpty()) && (p.getCity().isEmpty()))?
+                p.getZipCode() + " " + p.getCity():
+                "";
+        String appt = (!p.getApptNb().isEmpty())?
+                "Appt " + p.getApptNb():
+                "";
+        String country = (!p.getCountry().isEmpty())?
+                            p.getCountry():
+                            "";
         textViewAddressStreet.setText(street);
         textViewAddressAppt.setText(appt);
         textViewAddressCity.setText(city);
-        textViewAddressCountry.setText(p.getCountry());
+        textViewAddressCountry.setText(country);
     }
 }
