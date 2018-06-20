@@ -143,10 +143,10 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
         textViewPOIs.setText(pois);
 
         //Address
-        String street = (!(p.getStreetNb().isEmpty()) && (p.getStreetName().isEmpty()))?
+        String street = (!((p.getStreetNb().isEmpty()) && (p.getStreetName().isEmpty())))?
                 p.getStreetNb() + ", rue " + p.getStreetName():
                 "No information";
-        String city = (!(p.getZipCode().isEmpty()) && (p.getCity().isEmpty()))?
+        String city = (!((p.getZipCode().isEmpty()) && (p.getCity().isEmpty())))?
                 p.getZipCode() + " " + p.getCity():
                 "";
         String appt = (!p.getApptNb().isEmpty())?
