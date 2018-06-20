@@ -234,10 +234,22 @@ public class EditionFragment extends Fragment
         if(p.isSold() == 1){ radioBtnSold.setChecked(true);
         }else{ radioBtnNotSold.setChecked(true); }
 
-        if(p.getPoiSchool() != 0) checkboxSchool.setChecked(true);
-        if(p.getPoiPark() != 0) checkboxPark.setChecked(true);
-        if(p.getPoiShopping() != 0) checkboxShopping.setChecked(true);
-        if(p.getPoiMetro() != 0) checkboxMetro.setChecked(true);
+        if(p.getPoiSchool() != 0) {
+            checkboxSchool.setChecked(true);
+            poisArray[0] = true;
+        }
+        if(p.getPoiPark() != 0){
+            checkboxPark.setChecked(true);
+            poisArray[1] = true;
+        }
+        if(p.getPoiShopping() != 0) {
+            checkboxShopping.setChecked(true);
+            poisArray[2] = true;
+        }
+        if(p.getPoiMetro() != 0) {
+            checkboxMetro.setChecked(true);
+            poisArray[3] = true;
+        }
 
         editTextStreetNb.setText(p.getStreetNb());
         editTextStreetName.setText(p.getStreetName());
