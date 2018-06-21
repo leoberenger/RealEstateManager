@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.menu_calculator:
-                Log.e("MainActivity", "Calculator Btn clicked");
+                Intent intentCalculator = new Intent(this, CalculatorActivity.class);
+                startActivity(intentCalculator);
                 return true;
 
             default:

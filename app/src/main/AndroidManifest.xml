@@ -42,12 +42,14 @@
             android:name=".controllers.activities.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".controllers.activities.SearchActivity" />
-        <activity android:name=".controllers.activities.EditionActivity"></activity>
+        <activity android:name=".controllers.activities.EditionActivity" />
 
         <provider
             android:name=".provider.PropertyContentProvider"
             android:authorities="com.openclassrooms.realestatemanager.provider"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <activity android:name=".controllers.activities.CalculatorActivity"></activity>
     </application>
 
 </manifest>

@@ -48,12 +48,12 @@ public class PropertyContentProviderInstrumentedTest {
     public void insertAndGetItem() {
         // BEFORE : Adding demo item
         final Uri propertyUri = mContentResolver.insert(PropertyContentProvider.URI_PROPERTY, generateProperty());
-/*
+
         // TEST
         final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PropertyContentProvider.URI_PROPERTY, PROPERTY_ID), null, null, null, null);
         assertThat(cursor, notNullValue());
-        assertThat(cursor.getString(cursor.getColumnIndexOrThrow(Property.AREA_KEY)), is("Roscanvel"));
-*/
+        assertThat(cursor.getString(cursor.getColumnIndexOrThrow(Property.DESCRIPTION_KEY)), is("Awesome house to buy close to the sea"));
+
     }
 
     // ---

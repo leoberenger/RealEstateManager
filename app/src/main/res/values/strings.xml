@@ -122,6 +122,20 @@
 
     <string name="media">Media</string>
 
+    <!-- CALCULATOR ACTIVITY -->
+
+    <string name="calculator_loan">Loan asked : </string>
+    <string name="calculator_loan_hint">$$</string>
+    <string name="calculator_down_payment">Down payment : </string>
+    <string name="calculator_down_payment_hint">$$</string>
+    <string name="calculator_interest_rate">Interest rate : </string>
+    <string name="calculator_interest_rate_hint">%</string>
+    <string name="calculator_duration">Duration : </string>
+    <string name="calculator_duration_hint">Number of years</string>
+
+    <string name="calculator_calculate">Calculate</string>
+    <string name="calculator_monthly_payment">Monthly payments : </string>
+    <string name="calculator_interests">Total interests : </string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

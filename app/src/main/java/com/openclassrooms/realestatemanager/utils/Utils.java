@@ -56,4 +56,14 @@ public class Utils {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
     }
+
+
+    public static float calculateMonthlyPayment(int loan, int downPayment, float interestRate, int duration){
+        return  ((loan - downPayment) * (1+(interestRate/100)))/(duration*12);
+    }
+
+    public static float calculateTotalInterests(int loan, int downPayment, float interestRate){
+        return ((loan - downPayment) * (interestRate/100));
+
+    }
 }
