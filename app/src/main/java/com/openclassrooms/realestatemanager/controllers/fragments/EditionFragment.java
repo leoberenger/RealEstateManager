@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.activities.EditionActivity;
+import com.openclassrooms.realestatemanager.models.Address;
 import com.openclassrooms.realestatemanager.models.Property;
 
 import java.text.SimpleDateFormat;
@@ -62,6 +63,8 @@ public class EditionFragment extends Fragment
 
     //FOR DATA
     private Property property;
+    private Address address;
+
     private Property propertyEdited;
     private boolean isEditionMode;
     private boolean [] poisArray = {false, false, false, false};
@@ -189,25 +192,34 @@ public class EditionFragment extends Fragment
                     property.setLatitude(latitude);
                     property.setLongitude(longitude);
 
-                    property.setStreetNb(streetNb);
-                    property.setStreetName(streetName);
-                    property.setApptNb(apptNb);
-                    property.setZipCode(zipCode);
-                    property.setStateNb(stateNb);
-                    property.setCity(city);
-                    property.setCountry(country);
+                    address.setStreetNb(streetNb);
+                    address.setStreetName(streetName);
+                    address.setApptNb(apptNb);
+                    address.setZipCode(zipCode);
+                    address.setStateNb(stateNb);
+                    address.setCity(city);
+                    address.setCountry(country);
 
+                    property.setAddress(address);
                     propertyEdited = property;
 
                 }else {
                     String timeStamp = new SimpleDateFormat("yyyyMMdd", Locale.FRANCE).format(Calendar.getInstance().getTime());
                     int dateCreated = Integer.valueOf(timeStamp);
 
+                    address.setStreetNb(streetNb);
+                    address.setStreetName(streetName);
+                    address.setApptNb(apptNb);
+                    address.setZipCode(zipCode);
+                    address.setStateNb(stateNb);
+                    address.setCity(city);
+                    address.setCountry(country);
+
                     propertyEdited = new Property(area, latitude, longitude, price, surface,
                             nbRooms, description, photoUrl, photoDescription, nbPhotos, isSold,
-                            dateCreated, dateOfSelling, type, agentID, poiSchool, poiPark, poiShopping, poiMetro,
-                            streetNb, streetName, apptNb, zipCode, stateNb, city, country
-                            );
+                            dateCreated, dateOfSelling, type, agentID,
+                            poiSchool, poiPark, poiShopping, poiMetro,
+                            address);
                 }
 
                 mCallback.onPropertyEdited(propertyEdited);
@@ -251,13 +263,13 @@ public class EditionFragment extends Fragment
             poisArray[3] = true;
         }
 
-        editTextStreetNb.setText(p.getStreetNb());
-        editTextStreetName.setText(p.getStreetName());
-        editTextApptNb.setText(p.getApptNb());
-        editTextZipCode.setText(p.getZipCode());
-        editTextState.setText(p.getStateNb());
-        editTextCity.setText(p.getCity());
-        editTextCountry.setText(p.getCountry());
+        editTextStreetNb.setText(p.getAddress().getStreetNb());
+        editTextStreetName.setText(p.getAddress().getStreetName());
+        editTextApptNb.setText(p.getAddress().getApptNb());
+        editTextZipCode.setText(p.getAddress().getZipCode());
+        editTextState.setText(p.getAddress().getStateNb());
+        editTextCity.setText(p.getAddress().getCity());
+        editTextCountry.setText(p.getAddress().getCountry());
 
         editTextLatitude.setText(String.valueOf(p.getLatitude()));
         editTextLongitude.setText(String.valueOf(p.getLongitude()));

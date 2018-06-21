@@ -1,4 +1,5 @@
 package com.openclassrooms.realestatemanager.models;
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
@@ -41,10 +42,11 @@ public class Property implements Parcelable {
     public static String ADDRESS_CITY_KEY = "city";
     public static String ADDRESS_COUNTRY_KEY = "country";
 
-    public static final String [] poisNames = {"School", "Park", "Shopping", "Metro"};
-    public static final String [] typesNames = {"House", "Apartment", "Duplex", "Penthouse"};
+    public static final String[] poisNames = {"School", "Park", "Shopping", "Metro"};
+    public static final String[] typesNames = {"House", "Apartment", "Duplex", "Penthouse"};
 
-    @PrimaryKey(autoGenerate = true) private long id;
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private String area;
     private Double latitude;
     private Double longitude;
@@ -68,13 +70,9 @@ public class Property implements Parcelable {
     private int poiShopping;
     private int poiMetro;
 
-    private String streetNb;
-    private String streetName;
-    private String apptNb;
-    private String zipCode;
-    private String stateNb;
-    private String city;
-    private String country;
+    @Embedded
+    private Address address;
+
 
     //---------------------------
     //CONSTRUCTORS
@@ -86,9 +84,7 @@ public class Property implements Parcelable {
                     int nbRooms, String description, String photoUrl,
                     String photoDescription, int nbPhotos, int isSold,
                     int dateCreated, int dateSold, String type, int agentID,
-                    int poiSchool, int poiPark, int poiShopping, int poiMetro,
-                    String streetNb, String streetName, String apptNb, String zipCode,
-                    String stateNb, String city, String country) {
+                    int poiSchool, int poiPark, int poiShopping, int poiMetro, Address address) {
         this.area = area;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -108,13 +104,7 @@ public class Property implements Parcelable {
         this.poiPark = poiPark;
         this.poiShopping = poiShopping;
         this.poiMetro = poiMetro;
-        this.streetNb = streetNb;
-        this.streetName = streetName;
-        this.apptNb = apptNb;
-        this.zipCode = zipCode;
-        this.stateNb = stateNb;
-        this.city = city;
-        this.country = country;
+        this.address = address;
     }
 
 
@@ -182,28 +172,9 @@ public class Property implements Parcelable {
     public int getPoiMetro() {
         return poiMetro;
     }
-    public String getStreetNb() {
-        return streetNb;
+    public Address getAddress() {
+        return address;
     }
-    public String getStreetName() {
-        return streetName;
-    }
-    public String getApptNb() {
-        return apptNb;
-    }
-    public String getZipCode() {
-        return zipCode;
-    }
-    public String getStateNb() {
-        return stateNb;
-    }
-    public String getCity() {
-        return city;
-    }
-    public String getCountry() {
-        return country;
-    }
-
 
     //---------------------------
     //SETTERS
@@ -269,26 +240,8 @@ public class Property implements Parcelable {
     public void setPoiMetro(int poiMetro) {
         this.poiMetro = poiMetro;
     }
-    public void setStreetNb(String streetNb) {
-        this.streetNb = streetNb;
-    }
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-    public void setApptNb(String apptNb) {
-        this.apptNb = apptNb;
-    }
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-    public void setStateNb(String stateNb) {
-        this.stateNb = stateNb;
-    }
-    public void setCity(String city) {
-        this.city = city;
-    }
-    public void setCountry(String country) {
-        this.country = country;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
 
@@ -324,13 +277,7 @@ public class Property implements Parcelable {
         out.writeInt(poiShopping);
         out.writeInt(poiMetro);
 
-        out.writeString(streetNb);
-        out.writeString(streetName);
-        out.writeString(apptNb);
-        out.writeString(zipCode);
-        out.writeString(stateNb);
-        out.writeString(city);
-        out.writeString(country);
+        out.writeParcelable(address, flags);
 
         out.writeString(photoUrl);
         out.writeString(photoDescription);
@@ -370,13 +317,7 @@ public class Property implements Parcelable {
         poiShopping = in.readInt();
         poiMetro = in.readInt();
 
-        streetNb = in.readString();
-        streetName = in.readString();
-        apptNb = in.readString();
-        zipCode = in.readString();
-        stateNb = in.readString();
-        city = in.readString();
-        country = in.readString();
+        address = in.readParcelable(getClass().getClassLoader());
 
         photoUrl = in.readString();
         photoDescription = in.readString();
@@ -410,7 +351,7 @@ public class Property implements Parcelable {
         if (values.containsKey(POI_PARK_KEY)) property.setPoiPark(values.getAsInteger(POI_PARK_KEY));
         if (values.containsKey(POI_SHOPPING_KEY)) property.setPoiShopping(values.getAsInteger(POI_SHOPPING_KEY));
         if (values.containsKey(POI_METRO_KEY)) property.setPoiMetro(values.getAsInteger(POI_METRO_KEY));
-
+/*
         if (values.containsKey(ADDRESS_STREET_NB_KEY)) property.setStreetNb(values.getAsString(ADDRESS_STREET_NB_KEY));
         if (values.containsKey(ADDRESS_STREET_NAME_KEY)) property.setStreetName(values.getAsString(ADDRESS_STREET_NAME_KEY));
         if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) property.setApptNb(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
@@ -418,7 +359,7 @@ public class Property implements Parcelable {
         if (values.containsKey(ADDRESS_STATE_NB_KEY)) property.setStateNb(values.getAsString(ADDRESS_STATE_NB_KEY));
         if (values.containsKey(ADDRESS_CITY_KEY)) property.setCity(values.getAsString(ADDRESS_CITY_KEY));
         if (values.containsKey(ADDRESS_COUNTRY_KEY)) property.setCountry(values.getAsString(ADDRESS_COUNTRY_KEY));
-
+*/
         return property;
     }
 

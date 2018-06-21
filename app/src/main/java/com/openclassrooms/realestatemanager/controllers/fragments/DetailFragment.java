@@ -65,7 +65,7 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
             property = getArguments().getParcelable(Property.PROPERTY_KEY);
             propertyCoordinates = new LatLng(property.getLatitude(), property.getLongitude());
             if(propertyCoordinates.latitude != 0 && propertyCoordinates.longitude !=0){
-                propertyTitle = property.getStreetNb() + " rue " + property.getStreetName() + ", " + property.getCity();
+                propertyTitle = property.getAddress().getStreetNb() + " rue " + property.getAddress().getStreetName() + ", " + property.getAddress().getCity();
                 this.configureMap(view);
             }
             updateShownProperty(property);
@@ -143,17 +143,17 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
         textViewPOIs.setText(pois);
 
         //Address
-        String street = (!((p.getStreetNb().isEmpty()) && (p.getStreetName().isEmpty())))?
-                p.getStreetNb() + ", rue " + p.getStreetName():
+        String street = (!((p.getAddress().getStreetNb().isEmpty()) && (p.getAddress().getStreetName().isEmpty())))?
+                p.getAddress().getStreetNb() + ", rue " + p.getAddress().getStreetName():
                 "No information";
-        String city = (!((p.getZipCode().isEmpty()) && (p.getCity().isEmpty())))?
-                p.getZipCode() + " " + p.getCity():
+        String city = (!((p.getAddress().getZipCode().isEmpty()) && (p.getAddress().getCity().isEmpty())))?
+                p.getAddress().getZipCode() + " " + p.getAddress().getCity():
                 "";
-        String appt = (!p.getApptNb().isEmpty())?
-                "Appt " + p.getApptNb():
+        String appt = (!p.getAddress().getApptNb().isEmpty())?
+                "Appt " + p.getAddress().getApptNb():
                 "";
-        String country = (!p.getCountry().isEmpty())?
-                            p.getCountry():
+        String country = (!p.getAddress().getCountry().isEmpty())?
+                            p.getAddress().getCountry():
                             "";
         textViewAddressStreet.setText(street);
         textViewAddressAppt.setText(appt);
