@@ -17,8 +17,8 @@ public class CalculatorActivity extends AppCompatActivity {
 
     private String TAG = "Calculator Activity";
 
-    float monthlyPayment = 0;
-    float totalInterests = 0;
+    int monthlyPayment = 0;
+    int totalInterests = 0;
 
     @BindView(R.id.calculator_loan) EditText editTextLoan;
     @BindView(R.id.calculator_down_payment) EditText editTextDownPayment;
@@ -41,10 +41,12 @@ public class CalculatorActivity extends AppCompatActivity {
         float interestRate = Float.valueOf(editTextInterestRate.getText().toString());
         int duration = Integer.valueOf(editTextDuration.getText().toString());
 
-        monthlyPayment = Utils.calculateMonthlyPayment(loan, downPayment, interestRate, duration);
-        totalInterests = Utils.calculateTotalInterests(loan, downPayment, interestRate);
+        monthlyPayment = (int) Utils.calculateMonthlyPayment(loan, downPayment, interestRate, duration);
+        totalInterests = (int) Utils.calculateTotalInterests(loan, downPayment, interestRate);
 
-        textViewMonthlyPayment.setText(String.valueOf(monthlyPayment));
-        textViewInterests.setText(String.valueOf(totalInterests));
+        String mthPayment = String.valueOf(monthlyPayment) + "$ /mth";
+        String interests = "$" + String.valueOf(totalInterests);
+        textViewMonthlyPayment.setText(mthPayment);
+        textViewInterests.setText(interests);
     }
 }
