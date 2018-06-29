@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     //FOR DATA
     private PropertyViewModel propertyViewModel;
     long propertyId = -1;
-    long propertySelectedOnMapId = -1;
+    long mapPropertyId = -1;
 
     //FOR DESIGN
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -55,15 +55,15 @@ public class MainActivity extends AppCompatActivity
         Stetho.initializeWithDefaults(this);
 
         //If from SearchActivity
-        if(getIntent().getParcelableExtra(SearchQuery.SEARCH_QUERY_KEY) != null) {
-            SearchQuery query = getIntent().getParcelableExtra(SearchQuery.SEARCH_QUERY_KEY);
+        SearchQuery query = getIntent().getParcelableExtra(SearchQuery.SEARCH_QUERY_KEY);
+        if(query != null) {
             this.getSearchedProperties(query);
         }else {
             this.getAllProperties();
         }
 
         //If from MapsActivity
-        propertySelectedOnMapId = getIntent().getLongExtra(Property.PROPERTY_ID, -1);
+        mapPropertyId = getIntent().getLongExtra(Property.PROPERTY_ID, -1);
 
     }
 
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "No property corresponding", Toast.LENGTH_LONG).show();
 
         //If from Maps Activity, show selected property
-        }else if (propertySelectedOnMapId != -1) {
+        }else if (mapPropertyId != -1) {
             ArrayList<Property> propertyArrayList = showPropertySelectedOnMap(properties);
             showMainFragment(propertyArrayList);
 
@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity
         ArrayList<Property> propertyArrayList = new ArrayList<>();
 
         for(int i = 0; i<properties.size(); i++){
-            if(properties.get(i).getId() == propertySelectedOnMapId){
-                propertyId = propertySelectedOnMapId;
+            if(properties.get(i).getId() == mapPropertyId){
+                propertyId = mapPropertyId;
                 propertyArrayList = new ArrayList<Property>();
                 propertyArrayList.add(properties.get(i));
             }
