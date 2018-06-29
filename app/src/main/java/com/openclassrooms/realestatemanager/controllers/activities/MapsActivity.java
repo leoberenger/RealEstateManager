@@ -222,7 +222,7 @@ public class MapsActivity extends FragmentActivity implements
         long propertyId = Long.valueOf(marker.getTag().toString());
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("PROPERTY_ID", propertyId);
+        intent.putExtra(Property.PROPERTY_ID, propertyId);
         startActivity(intent);
     }
 

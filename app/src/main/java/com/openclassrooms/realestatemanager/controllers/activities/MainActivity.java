@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,9 +15,9 @@ import com.facebook.stetho.Stetho;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
+import com.openclassrooms.realestatemanager.database.DataGenerator;
 import com.openclassrooms.realestatemanager.injections.Injection;
 import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
-import com.openclassrooms.realestatemanager.models.Address;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.models.SearchQuery;
 import com.openclassrooms.realestatemanager.utils.Utils;
@@ -63,6 +62,8 @@ public class MainActivity extends AppCompatActivity
             this.getAllProperties();
         }
 
+        //If from MapsActivity
+        propertySelectedOnMapId = getIntent().getLongExtra(Property.PROPERTY_ID, -1);
 
     }
 
@@ -121,39 +122,63 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
     }
 
-    private void configureAndShowMainFragment(List<Property> properties){
-
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
+    private void showMainFragment(ArrayList<Property> propertyArrayList){
+        MainFragment mainFragment =
+                (MainFragment) getSupportFragmentManager().findFragmentById(R.id.properties_recycler_view);
 
         Bundle bundle = new Bundle();
-        ArrayList<Property> propertyArrayList = new ArrayList<>(properties);
-        bundle.putParcelableArrayList(Property.PROPERTIES_KEY, propertyArrayList);
 
         if (mainFragment == null) {
             mainFragment = new MainFragment();
+            bundle.putParcelableArrayList(Property.PROPERTIES_KEY, propertyArrayList);
             mainFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_main_main_fragment, mainFragment)
                     .commit();
         }
+    }
 
-        //If from MapsActivity, property selected
-        propertySelectedOnMapId = getIntent().getLongExtra(Property.PROPERTY_ID, -1);
+    private void configureMainFragment(List<Property> properties){
 
-        if(propertySelectedOnMapId != -1) {
-            propertyId = propertySelectedOnMapId;   //Show property clicked in maps
-            getPropertyToShow(propertyId);
-        }else{
-            if (properties.size() != 0){
-                propertyId = properties.get(0).getId();  //Show by default 1st item
-                getPropertyToShow(propertyId);
-            }else{
-                Toast.makeText(this, "No property corresponding", Toast.LENGTH_LONG).show();
+        if (properties.size() == 0){
+            Toast.makeText(this, "No property corresponding", Toast.LENGTH_LONG).show();
+
+        //If from Maps Activity, show selected property
+        }else if (propertySelectedOnMapId != -1) {
+            ArrayList<Property> propertyArrayList = showPropertySelectedOnMap(properties);
+            showMainFragment(propertyArrayList);
+
+            getPropertyToShowInDetail(propertyId);
+
+        //Else show all properties
+        }else {
+            ArrayList<Property> propertyArrayList = showAllProperties(properties);
+            showMainFragment(propertyArrayList);
+
+            getPropertyToShowInDetail(propertyId);
+        }
+    }
+
+    private ArrayList<Property> showPropertySelectedOnMap(List<Property> properties){
+        ArrayList<Property> propertyArrayList = new ArrayList<>();
+
+        for(int i = 0; i<properties.size(); i++){
+            if(properties.get(i).getId() == propertySelectedOnMapId){
+                propertyId = propertySelectedOnMapId;
+                propertyArrayList = new ArrayList<Property>();
+                propertyArrayList.add(properties.get(i));
             }
         }
+        return propertyArrayList;
+    }
 
+    private ArrayList<Property> showAllProperties(List<Property> properties){
+        ArrayList<Property> propertyArrayList = new ArrayList<>(properties);
 
+        //Show by default 1st item in details
+        propertyId = properties.get(0).getId();
 
+        return propertyArrayList;
     }
 
     private void configureAndShowDetailFragment (Property property){
@@ -187,7 +212,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getAllProperties(){
-        this.propertyViewModel.getAllProperties().observe(this, this::configureAndShowMainFragment);
+        this.propertyViewModel.getAllProperties().observe(this, this::configureMainFragment);
     }
 
     private void getSearchedProperties(SearchQuery query){
@@ -198,11 +223,10 @@ public class MainActivity extends AppCompatActivity
                 query.getPropertyType(), query.getPropertyPOIs()[0], query.getPropertyPOIs()[1],
                 query.getPropertyPOIs()[2], query.getPropertyPOIs()[3]
                 )
-            .observe(this, this::configureAndShowMainFragment);
+            .observe(this, this::configureMainFragment);
     }
 
-    private void getPropertyToShow(long propertyId){
-
+    private void getPropertyToShowInDetail(long propertyId){
         this.propertyViewModel.getProperty(propertyId).observe(this, this::configureAndShowDetailFragment);
     }
 
@@ -228,7 +252,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPropertySelected(long propertyId) {
         this.propertyId = propertyId;
-        getPropertyToShow(propertyId);
+        getPropertyToShowInDetail(propertyId);
     }
 
 
@@ -238,38 +262,7 @@ public class MainActivity extends AppCompatActivity
 
     private void createProperties(){
 
-        Property [] properties = new Property[3];
-        for (int i = 0; i<properties.length; i++){
-            properties[i] = new Property();
-        }
-
-        Address address0 = new Address("4", "Glasgow", "4", "29200", "Brest", "France");
-        Address address1 = new Address("1", "Danton", "1", "29200", "Brest", "France");
-        Address address2 = new Address("2", "Jaurès", "0", "29200", "Brest", "France");
-
-        properties[0] = new Property("Port de commerce", 48.392151, -4.479032,
-                95000, 125, 7,
-                "Très bel appartement en bord de mer, proche de tous commerces",
-                "https://picsum.photos/200/200/?image=11", "Garden", 1,
-                0, 20180201, 0, Property.typesNames[1], 3,
-                1, 1, 0, 0,
-                address0);
-
-        properties[1] = new Property("Centre ville",48.380143,-4.487213,
-                250000,215,11,
-                "Au centre ville, maison de charme pour grande famille avec jardin",
-                "https://picsum.photos/200/200/?image=122", "Tower", 1,
-                0,20180401,0, Property.typesNames[0], 1,
-                0, 0, 1, 0,
-                address1);
-
-        properties[2] = new Property( "Centre ville", 48.406232, -4.496259,
-                328000, 120, 4,
-                "Immense loft au coeur du centre ville, parfait pour créateurs de startup",
-                "https://picsum.photos/200/200/?image=10", "View", 1,
-                1,20180131,20180401, Property.typesNames[3], 2,
-                1, 1, 0, 1,
-                address2);
+        Property [] properties = DataGenerator.generateProperties();
 
         for(int i = 0; i<properties.length;i++) {
             this.propertyViewModel.createProperty(properties[i]);
