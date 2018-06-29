@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -40,6 +43,8 @@ public class MainFragment extends Fragment {
 
     //FOR DATA
     long propertyId = -1;
+    private int selectedPosition = -1;
+    private SharedPreferences mPreferences;
 
     // FOR DESIGN
     @BindView(R.id.properties_recycler_view) RecyclerView recyclerView;
@@ -55,6 +60,8 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.properties_recycler_view, container, false);
         ButterKnife.bind(this, view);
+
+        this.mPreferences = getContext().getSharedPreferences("properties", MODE_PRIVATE);
 
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
@@ -83,6 +90,9 @@ public class MainFragment extends Fragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        mPreferences.edit().putInt("selectedPosition", position).apply();
+                        adapter.notifyDataSetChanged();
+
                         propertyId = adapter.getResult(position).getId();
                         mCallback.onPropertySelected(propertyId);
                     }

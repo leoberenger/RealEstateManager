@@ -1,8 +1,12 @@
 package com.openclassrooms.realestatemanager.views;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
@@ -18,17 +22,26 @@ import butterknife.ButterKnife;
 
 public class PropertiesViewHolder extends RecyclerView.ViewHolder{
 
+    @BindView(R.id.properties_recycler_view_item_layout) LinearLayout itemLayout;
     @BindView(R.id.properties_recycler_view_item_area) TextView itemArea;
     @BindView(R.id.properties_recycler_view_item_type) TextView itemType;
     @BindView(R.id.properties_recycler_view_item_price) TextView itemPrice;
     @BindView(R.id.properties_recycler_view_item_img) ImageView itemImg;
+
 
     public PropertiesViewHolder(View itemView){
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithProperty(Property property, RequestManager glide){
+    public void updateWithProperty(Property property, int currentPosition, int selectedPosition, RequestManager glide){
+
+        if(selectedPosition == currentPosition){
+            this.itemLayout.setBackgroundColor(Color.parseColor("#FF4081"));
+            this.itemPrice.setTextColor(Color.WHITE);
+        }else
+            this.itemLayout.setBackgroundColor(Color.WHITE);
+
         //Type
         this.itemType.setText(property.getType());
 

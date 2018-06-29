@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.views;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import com.openclassrooms.realestatemanager.models.Property;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+import static java.security.AccessController.getContext;
+
 /**
  * Created by berenger on 06/03/2018.
  */
@@ -23,6 +27,7 @@ public class PropertiesRecyclerAdapter extends RecyclerView.Adapter<PropertiesVi
 
     //FOR DATA
     private final List<Property> properties;
+    private SharedPreferences mPreferences;
 
     //CONSTRUCTOR
     public PropertiesRecyclerAdapter(List<Property> p, RequestManager glide){
@@ -41,12 +46,15 @@ public class PropertiesRecyclerAdapter extends RecyclerView.Adapter<PropertiesVi
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.properties_recycler_view_item, parent, false);
 
+        this.mPreferences = context.getSharedPreferences("properties", MODE_PRIVATE);
+
         return new PropertiesViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PropertiesViewHolder viewHolder, int position){
-        viewHolder.updateWithProperty(this.properties.get(position), this.glide);
+        int selectedPosition = mPreferences.getInt("selectedPosition", 0);
+        viewHolder.updateWithProperty(this.properties.get(position), position, selectedPosition, this.glide);
     }
 
     @Override
