@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity
 
     //FOR DATA
     private PropertyViewModel propertyViewModel;
-    long propertyId = -1;
-    long mapPropertyId = -1;
+    private long propertyId = -1;
+    private long mapPropertyId = -1;
 
     //FOR DESIGN
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity
         for(int i = 0; i<properties.size(); i++){
             if(properties.get(i).getId() == mapPropertyId){
                 propertyId = mapPropertyId;
-                propertyArrayList = new ArrayList<Property>();
+                propertyArrayList = new ArrayList<>();
                 propertyArrayList.add(properties.get(i));
             }
         }

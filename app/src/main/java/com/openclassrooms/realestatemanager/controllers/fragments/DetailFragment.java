@@ -37,7 +37,7 @@ public class DetailFragment extends Fragment implements OnMapReadyCallback {
     private LatLng propertyCoordinates;
     private String propertyTitle;
     private GoogleMap mMap;
-    MapView mapView;
+    private MapView mapView;
 
     //FOR DESIGN
     @BindView(R.id.fragment_detail_description) TextView textViewDescription;

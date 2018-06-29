@@ -17,9 +17,9 @@ import com.openclassrooms.realestatemanager.views.PropertyViewModel;
 public class EditionActivity extends AppCompatActivity
     implements EditionFragment.OnEditionListener{
 
-    String TAG = "EditionActivity";
-    public static String PROPERTY_KEY = "PROPERTY";
-    public static String EDITION_KEY = "EDITION";
+    private final String TAG = "EditionActivity";
+    public static final String PROPERTY_KEY = "PROPERTY";
+    public static final String EDITION_KEY = "EDITION";
     private boolean isEditionMode = false;
 
     //FOR DATA
@@ -49,7 +49,7 @@ public class EditionActivity extends AppCompatActivity
             Bundle bundle = new Bundle();
             bundle.putBoolean(EDITION_KEY, isEditionMode);
 
-            //if Edition of Property, send property
+            //if Edition, send property
             if(isEditionMode) {
                 bundle.putParcelable(PROPERTY_KEY, property);
             }

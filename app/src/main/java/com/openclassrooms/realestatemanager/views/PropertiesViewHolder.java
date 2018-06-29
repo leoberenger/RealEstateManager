@@ -1,8 +1,6 @@
 package com.openclassrooms.realestatemanager.views;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;

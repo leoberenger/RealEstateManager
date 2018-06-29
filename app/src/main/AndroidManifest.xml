@@ -49,7 +49,7 @@
             android:authorities="com.openclassrooms.realestatemanager.provider"
             android:exported="true" />
 
-        <activity android:name=".controllers.activities.CalculatorActivity"></activity>
+        <activity android:name=".controllers.activities.CalculatorActivity" />
     </application>
 
 </manifest>

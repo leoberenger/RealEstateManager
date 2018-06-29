@@ -6,43 +6,41 @@ import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import static com.openclassrooms.realestatemanager.models.Address.ADDRESS_APPT_NUMBER_KEY;
+import static com.openclassrooms.realestatemanager.models.Address.ADDRESS_CITY_KEY;
+import static com.openclassrooms.realestatemanager.models.Address.ADDRESS_COUNTRY_KEY;
+import static com.openclassrooms.realestatemanager.models.Address.ADDRESS_STREET_NAME_KEY;
+import static com.openclassrooms.realestatemanager.models.Address.ADDRESS_STREET_NB_KEY;
+import static com.openclassrooms.realestatemanager.models.Address.ADDRESS_ZIP_CODE_KEY;
+
 @Entity
 public class Property implements Parcelable {
 
-    public static String PROPERTY_KEY = "property";
-    public static String PROPERTIES_KEY = "properties";
-    public static String PROPERTY_ID = "PROPERTY_ID";
+    public static final String PROPERTY_KEY = "property";
+    public static final String PROPERTIES_KEY = "properties";
+    public static final String PROPERTY_ID = "PROPERTY_ID";
 
-    public static String AREA_KEY = "area";
-    public static String LATITUDE_KEY = "latitude";
-    public static String LONGITUDE_KEY = "longitude";
-    public static String PRICE_KEY = "price";
-    public static String SURFACE_KEY = "surface";
-    public static String NB_ROOMS_KEY = "nbRooms";
-    public static String DESCRIPTION_KEY = "description";
-    public static String PHOTO_URL_KEY = "photoUrls";
-    public static String PHOTO_DESCRIPTION_KEY = "photoDescriptions";
-    public static String NB_PHOTOS_KEY = "nbPhotos";
+    public static final String AREA_KEY = "area";
+    public static final String LATITUDE_KEY = "latitude";
+    public static final String LONGITUDE_KEY = "longitude";
+    public static final String PRICE_KEY = "price";
+    public static final String SURFACE_KEY = "surface";
+    public static final String NB_ROOMS_KEY = "nbRooms";
+    public static final String DESCRIPTION_KEY = "description";
+    public static final String PHOTO_URL_KEY = "photoUrls";
+    public static final String PHOTO_DESCRIPTION_KEY = "photoDescriptions";
+    public static final String NB_PHOTOS_KEY = "nbPhotos";
 
-    public static String IS_SOLD_KEY = "isSold";
-    public static String DATE_CREATED_KEY = "dateCreated";
-    public static String DATE_SOLD_KEY = "dateSold";
-    public static String TYPE_KEY = "type";
-    public static String AGENT_ID_KEY = "agentId";
-    public static String POI_SCHOOL_KEY = "poiSchool";
-    public static String POI_PARK_KEY = "poiPark";
-    public static String POI_SHOPPING_KEY = "poiShopping";
-    public static String POI_METRO_KEY = "poiMetro";
+    public static final String IS_SOLD_KEY = "isSold";
+    public static final String DATE_CREATED_KEY = "dateCreated";
+    public static final String DATE_SOLD_KEY = "dateSold";
+    public static final String TYPE_KEY = "type";
+    public static final String AGENT_ID_KEY = "agentId";
+    public static final String POI_SCHOOL_KEY = "poiSchool";
+    public static final String POI_PARK_KEY = "poiPark";
+    public static final String POI_SHOPPING_KEY = "poiShopping";
+    public static final String POI_METRO_KEY = "poiMetro";
 
-    public static String ADDRESS_STREET_NB_KEY = "streetNb";
-    public static String ADDRESS_STREET_NAME_KEY = "streetName";
-    public static String ADDRESS_APPT_NUMBER_KEY = "apptNb";
-    public static String ADDRESS_ZIP_CODE_KEY = "zipCode";
-    public static String ADDRESS_STATE_NB_KEY = "stateNb";
-    public static String ADDRESS_CITY_KEY = "city";
-    public static String ADDRESS_COUNTRY_KEY = "country";
-
-    public static final String[] poisNames = {"School", "Park", "Shopping", "Metro"};
     public static final String[] typesNames = {"House", "Apartment", "Duplex", "Penthouse"};
 
     @PrimaryKey(autoGenerate = true)
@@ -351,15 +349,14 @@ public class Property implements Parcelable {
         if (values.containsKey(POI_PARK_KEY)) property.setPoiPark(values.getAsInteger(POI_PARK_KEY));
         if (values.containsKey(POI_SHOPPING_KEY)) property.setPoiShopping(values.getAsInteger(POI_SHOPPING_KEY));
         if (values.containsKey(POI_METRO_KEY)) property.setPoiMetro(values.getAsInteger(POI_METRO_KEY));
-/*
-        if (values.containsKey(ADDRESS_STREET_NB_KEY)) property.setStreetNb(values.getAsString(ADDRESS_STREET_NB_KEY));
-        if (values.containsKey(ADDRESS_STREET_NAME_KEY)) property.setStreetName(values.getAsString(ADDRESS_STREET_NAME_KEY));
-        if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) property.setApptNb(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
-        if (values.containsKey(ADDRESS_ZIP_CODE_KEY)) property.setZipCode(values.getAsString(ADDRESS_ZIP_CODE_KEY));
-        if (values.containsKey(ADDRESS_STATE_NB_KEY)) property.setStateNb(values.getAsString(ADDRESS_STATE_NB_KEY));
-        if (values.containsKey(ADDRESS_CITY_KEY)) property.setCity(values.getAsString(ADDRESS_CITY_KEY));
-        if (values.containsKey(ADDRESS_COUNTRY_KEY)) property.setCountry(values.getAsString(ADDRESS_COUNTRY_KEY));
-*/
+
+        if (values.containsKey(ADDRESS_STREET_NB_KEY)) property.getAddress().setStreetNb(values.getAsString(ADDRESS_STREET_NB_KEY));
+        if (values.containsKey(ADDRESS_STREET_NAME_KEY)) property.getAddress().setStreetName(values.getAsString(ADDRESS_STREET_NAME_KEY));
+        if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) property.getAddress().setApptNb(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
+        if (values.containsKey(ADDRESS_ZIP_CODE_KEY)) property.getAddress().setZipCode(values.getAsString(ADDRESS_ZIP_CODE_KEY));
+        if (values.containsKey(ADDRESS_CITY_KEY)) property.getAddress().setCity(values.getAsString(ADDRESS_CITY_KEY));
+        if (values.containsKey(ADDRESS_COUNTRY_KEY)) property.getAddress().setCountry(values.getAsString(ADDRESS_COUNTRY_KEY));
+
         return property;
     }
 

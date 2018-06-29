@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,22 +38,21 @@ public class SearchFragment extends Fragment
     String TAG = "SearchFragment";
 
     //FOR DATA
-    String propertyType = "";
-    int [] propertyPOIs = new int[4];
-    final boolean [] typesArray = {false, false, false, false};
-    final boolean [] poisArray = {false, false, false, false};
-    int dateSelected = 0;
-    int dateSold = 0;
-    int dateCreated = 0;
-    boolean statusSold = false;
-    String [] areas;
-    String priceMin = "";
-    String priceMax = "";
-    String surfaceMin = "";
-    String surfaceMax = "";
-    String nbRooms = "";
-    String nbPhotos = "";
-    SearchQuery query;
+    private String propertyType = "";
+    private int [] propertyPOIs = new int[4];
+    private final boolean [] poisArray = {false, false, false, false};
+    private int dateSelected = 0;
+    private int dateSold = 0;
+    private int dateCreated = 0;
+    private boolean statusSold = false;
+    private String [] areas;
+    private String priceMin = "";
+    private String priceMax = "";
+    private String surfaceMin = "";
+    private String surfaceMax = "";
+    private String nbRooms = "";
+    private String nbPhotos = "";
+    private SearchQuery query;
 
     //FOR DESIGN
     @BindView(R.id.checkbox_school) CheckBox checkboxSchool;
@@ -80,7 +78,7 @@ public class SearchFragment extends Fragment
     }
 
     //FOR CALLBACK
-    OnSearchQueryListener mCallback;
+    private OnSearchQueryListener mCallback;
 
     public interface OnSearchQueryListener{
         void onQuerySelected(SearchQuery query);
@@ -112,24 +110,9 @@ public class SearchFragment extends Fragment
                 dateSelected = (!datePicker.getText().toString().isEmpty()) ?
                         transformDateFormat(datePicker) :
                         0 ;
-                Log.e(TAG, "selected date = " + dateSelected);
 
                 //Checkboxes
                 propertyPOIs = checkboxesSelected(poisArray);
-                Log.e(TAG, "POI selected = " + propertyPOIs[0] + propertyPOIs[1] + propertyPOIs[2] + propertyPOIs[3]);
-
-                //RadioGroup
-                Log.e(TAG, "status sold? : " + statusSold);
-
-                //Spinners
-                Log.e(TAG, "type = " + propertyType);
-                Log.e(TAG, "price min = " + priceMin);
-                Log.e(TAG, "price max = " + priceMax );
-                Log.e(TAG, "surface min = " + surfaceMin );
-                Log.e(TAG, "surface max = " + surfaceMax );
-                Log.e(TAG, "nb rooms = " + nbRooms);
-                Log.e(TAG, "nb photos = " + nbPhotos);
-                Log.e(TAG, "neighborhood selected = " + areas[0] + areas[1] + areas[2]);
 
 
                 if(statusSold){
@@ -139,7 +122,6 @@ public class SearchFragment extends Fragment
                     dateCreated = dateSelected;
                     dateSold = 0;
                 }
-
 
                 query = new SearchQuery(areas, Long.parseLong(priceMin), Long.parseLong(priceMax),
                         Integer.valueOf(surfaceMin), Integer.valueOf(surfaceMax), Integer.valueOf(nbRooms),
@@ -191,8 +173,9 @@ public class SearchFragment extends Fragment
         });
     }
 
-    //transforms (string) 10/01/2018 to (int) 20180110
-    public int transformDateFormat(EditText datePicker){
+    private int transformDateFormat(EditText datePicker){
+        //transforms (string) 10/01/2018 to (int) 20180110
+
         String date = datePicker.getText().toString();
         String orderedDate = date.substring(6,10) + date.substring(3,5) + date.substring(0,2);
 
@@ -214,7 +197,7 @@ public class SearchFragment extends Fragment
 
     }
 
-    public int [] checkboxesSelected(boolean [] array){
+    private int [] checkboxesSelected(boolean[] array){
 
         int [] propertyPOIs = new int [4];
 
@@ -321,9 +304,7 @@ public class SearchFragment extends Fragment
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 
 
     // -------------------------

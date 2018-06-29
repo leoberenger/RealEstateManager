@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,14 +34,14 @@ public class MainFragment extends Fragment {
     String TAG = "Main Fragment";
 
     //FOR CALLBACK
-    OnPropertiesListSelectedListener mCallback;
+    private OnPropertiesListSelectedListener mCallback;
 
     public interface OnPropertiesListSelectedListener{
         void onPropertySelected(long propertyId);
     }
 
     //FOR DATA
-    long propertyId = -1;
+    private long propertyId = -1;
     private int selectedPosition = -1;
     private SharedPreferences mPreferences;
 

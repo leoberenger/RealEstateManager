@@ -8,10 +8,10 @@ import static org.junit.Assert.assertEquals;
 
 public class CalculatorUnitTest {
 
-    int loan = 10000;
-    int downPayment = 2000;
-    float interestRate = 3.0f;
-    int duration = 10;
+    private final int loan = 10000;
+    private final int downPayment = 2000;
+    private final float interestRate = 3.0f;
+    private final int duration = 10;
 
     @Test
     public void calculateMonthlyPayment_isCorrect() {

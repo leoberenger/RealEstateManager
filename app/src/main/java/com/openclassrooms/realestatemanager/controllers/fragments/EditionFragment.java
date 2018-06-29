@@ -22,14 +22,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.activities.EditionActivity;
 import com.openclassrooms.realestatemanager.models.Address;
 import com.openclassrooms.realestatemanager.models.Property;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -48,14 +46,14 @@ public class EditionFragment extends Fragment
         implements CompoundButton.OnCheckedChangeListener,
         RadioGroup.OnCheckedChangeListener{
 
-    String TAG = "EditionFragment";
+    private final String TAG = "EditionFragment";
 
     public EditionFragment() {
         // Required empty public constructor
     }
 
     //FOR CALLBACK
-    OnEditionListener mCallback;
+    private OnEditionListener mCallback;
 
     public interface OnEditionListener{
         void onPropertyEdited(Property property);
@@ -67,40 +65,40 @@ public class EditionFragment extends Fragment
 
     private Property propertyEdited;
     private boolean isEditionMode;
-    private boolean [] poisArray = {false, false, false, false};
+    private final boolean [] poisArray = {false, false, false, false};
     private int statusSold;
     private int dateSold;
 
-    String area = "";
-    long price = 0;
-    int surface = 0;
-    int nbRooms = 0;
-    String description = "";
+    private String area = "";
+    private long price = 0;
+    private int surface = 0;
+    private int nbRooms = 0;
+    private String description = "";
 
-    String photoUrl = "";
-    String photoDescription = "";
-    int nbPhotos = 0;
+    private String photoUrl = "";
+    private String photoDescription = "";
+    private int nbPhotos = 0;
 
-    int isSold = 0;
-    int dateOfSelling = 0;
-    String type = "";
-    int agentID = 0;
+    private int isSold = 0;
+    private int dateOfSelling = 0;
+    private String type = "";
+    private int agentID = 0;
 
-    int poiSchool = 0;
-    int poiPark = 0;
-    int poiShopping= 0;
-    int poiMetro= 0;
+    private int poiSchool = 0;
+    private int poiPark = 0;
+    private int poiShopping= 0;
+    private int poiMetro= 0;
 
-    Double latitude = 0d;
-    Double longitude = 0d;
+    private Double latitude = 0d;
+    private Double longitude = 0d;
 
-    String streetNb = "";
-    String streetName = "";
-    String apptNb = "";
-    String zipCode = "";
+    private String streetNb = "";
+    private String streetName = "";
+    private String apptNb = "";
+    private String zipCode = "";
     String stateNb = "";
-    String city = "";
-    String country = "";
+    private String city = "";
+    private String country = "";
 
     //STATIC DATA FOR PICTURE
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;

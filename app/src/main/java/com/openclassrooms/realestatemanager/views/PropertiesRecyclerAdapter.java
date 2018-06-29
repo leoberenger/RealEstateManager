@@ -15,7 +15,6 @@ import com.openclassrooms.realestatemanager.models.Property;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by berenger on 06/03/2018.

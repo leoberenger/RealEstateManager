@@ -2,24 +2,19 @@ package com.openclassrooms.realestatemanager;
 
 import android.arch.persistence.room.Room;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.net.Uri;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.realestatemanager.database.RealEstateManagerDatabase;
+import com.openclassrooms.realestatemanager.models.Address;
 import com.openclassrooms.realestatemanager.models.Property;
 import com.openclassrooms.realestatemanager.provider.PropertyContentProvider;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.*;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -33,7 +28,7 @@ public class PropertyContentProviderInstrumentedTest {
     private ContentResolver mContentResolver;
 
     // DATA SET FOR TEST
-    private static long PROPERTY_ID = 101;
+    private static final long PROPERTY_ID = 101;
 
     @Before
     public void setUp() {
@@ -76,13 +71,13 @@ public class PropertyContentProviderInstrumentedTest {
         values.put(Property.POI_SHOPPING_KEY, 1);
         values.put(Property.POI_METRO_KEY, 0);
 
-        values.put(Property.ADDRESS_STREET_NB_KEY, "2");
-        values.put(Property.ADDRESS_STREET_NAME_KEY, "Glasgow");
-        values.put(Property.ADDRESS_APPT_NUMBER_KEY, "20");
-        values.put(Property.ADDRESS_STATE_NB_KEY, "Bretagne");
-        values.put(Property.ADDRESS_ZIP_CODE_KEY, "29200");
-        values.put(Property.ADDRESS_CITY_KEY, "Brest");
-        values.put(Property.ADDRESS_COUNTRY_KEY, "France");
+        values.put(Address.ADDRESS_STREET_NB_KEY, "2");
+        values.put(Address.ADDRESS_STREET_NAME_KEY, "Glasgow");
+        values.put(Address.ADDRESS_APPT_NUMBER_KEY, "20");
+        values.put(Address.ADDRESS_STATE_NB_KEY, "Bretagne");
+        values.put(Address.ADDRESS_ZIP_CODE_KEY, "29200");
+        values.put(Address.ADDRESS_CITY_KEY, "Brest");
+        values.put(Address.ADDRESS_COUNTRY_KEY, "France");
 
         return values;
     }

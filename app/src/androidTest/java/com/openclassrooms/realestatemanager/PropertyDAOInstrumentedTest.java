@@ -6,16 +6,11 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.realestatemanager.database.RealEstateManagerDatabase;
-import com.openclassrooms.realestatemanager.models.Property;
-import com.openclassrooms.realestatemanager.utils.LiveDataTestUtil;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Instrumented test, which will execute on an Android device.

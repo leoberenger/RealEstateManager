@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class SearchQuery implements Parcelable {
 
-    public static String SEARCH_QUERY_KEY = "query";
+    public static final String SEARCH_QUERY_KEY = "query";
 
     private String [] areas;
     private long priceMin;

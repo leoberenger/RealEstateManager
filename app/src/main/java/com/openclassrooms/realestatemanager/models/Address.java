@@ -4,6 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Address implements Parcelable {
+
+    public static final String ADDRESS_STREET_NB_KEY = "streetNb";
+    public static final String ADDRESS_STREET_NAME_KEY = "streetName";
+    public static final String ADDRESS_APPT_NUMBER_KEY = "apptNb";
+    public static final String ADDRESS_ZIP_CODE_KEY = "zipCode";
+    public static final String ADDRESS_STATE_NB_KEY = "stateNb";
+    public static final String ADDRESS_CITY_KEY = "city";
+    public static final String ADDRESS_COUNTRY_KEY = "country";
+
     private String streetNb;
     private String streetName;
     private String apptNb;

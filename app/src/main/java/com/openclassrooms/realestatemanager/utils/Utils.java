@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.EditText;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,5 +66,13 @@ public class Utils {
     public static float calculateTotalInterests(int loan, int downPayment, float interestRate){
         return ((loan - downPayment) * (interestRate/100));
 
+    }
+
+    //transforms (string) 10/01/2018 to (int) 20180110
+    public int transformDateFormat(EditText datePicker){
+        String date = datePicker.getText().toString();
+        String orderedDate = date.substring(6,10) + date.substring(3,5) + date.substring(0,2);
+
+        return Integer.valueOf(orderedDate);
     }
 }

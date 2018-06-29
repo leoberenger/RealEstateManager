@@ -4,13 +4,11 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.RoomWarnings;
 import android.arch.persistence.room.Update;
 import android.database.Cursor;
 
 import com.openclassrooms.realestatemanager.models.Property;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao

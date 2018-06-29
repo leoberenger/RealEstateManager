@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.controllers.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,8 +16,8 @@ public class CalculatorActivity extends AppCompatActivity {
 
     private String TAG = "Calculator Activity";
 
-    int monthlyPayment = 0;
-    int totalInterests = 0;
+    private int monthlyPayment = 0;
+    private int totalInterests = 0;
 
     @BindView(R.id.calculator_loan) EditText editTextLoan;
     @BindView(R.id.calculator_down_payment) EditText editTextDownPayment;
