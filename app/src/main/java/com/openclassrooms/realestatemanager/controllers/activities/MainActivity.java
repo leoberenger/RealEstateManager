@@ -243,9 +243,9 @@ public class MainActivity extends AppCompatActivity
             properties[i] = new Property();
         }
 
-        Address address0 = new Address("4", "Glasgow", "4", "29200", "29", "Brest", "France");
-        Address address1 = new Address("1", "Danton", "1", "29200", "29", "Brest", "France");
-        Address address2 = new Address("2", "Jaurès", "0", "29200", "29", "Brest", "France");
+        Address address0 = new Address("4", "Glasgow", "4", "29200", "Brest", "France");
+        Address address1 = new Address("1", "Danton", "1", "29200", "Brest", "France");
+        Address address2 = new Address("2", "Jaurès", "0", "29200", "Brest", "France");
 
         properties[0] = new Property("Port de commerce", 48.392151, -4.479032,
                 95000, 125, 7,

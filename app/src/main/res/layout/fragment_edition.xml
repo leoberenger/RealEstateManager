@@ -335,17 +335,7 @@
                 android:inputType="number"
                 android:hint="@string/edition_address_zip"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/edition_address_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/edition_address_state"/>
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"

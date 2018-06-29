@@ -8,7 +8,6 @@ public class Address implements Parcelable {
     private String streetName;
     private String apptNb;
     private String zipCode;
-    private String stateNb;
     private String city;
     private String country;
 
@@ -18,12 +17,11 @@ public class Address implements Parcelable {
 
     public Address(){}
 
-    public Address(String streetNb, String streetName, String apptNb, String zipCode, String stateNb, String city, String country) {
+    public Address(String streetNb, String streetName, String apptNb, String zipCode, String city, String country) {
         this.streetNb = streetNb;
         this.streetName = streetName;
         this.apptNb = apptNb;
         this.zipCode = zipCode;
-        this.stateNb = stateNb;
         this.city = city;
         this.country = country;
     }
@@ -43,9 +41,6 @@ public class Address implements Parcelable {
     }
     public String getZipCode() {
         return zipCode;
-    }
-    public String getStateNb() {
-        return stateNb;
     }
     public String getCity() {
         return city;
@@ -70,9 +65,6 @@ public class Address implements Parcelable {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-    public void setStateNb(String stateNb) {
-        this.stateNb = stateNb;
-    }
     public void setCity(String city) {
         this.city = city;
     }
@@ -91,10 +83,10 @@ public class Address implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
+        out.writeString(streetNb);
         out.writeString(streetName);
         out.writeString(apptNb);
         out.writeString(zipCode);
-        out.writeString(stateNb);
         out.writeString(city);
         out.writeString(country);
     }
@@ -116,7 +108,6 @@ public class Address implements Parcelable {
         streetName = in.readString();
         apptNb = in.readString();
         zipCode = in.readString();
-        stateNb = in.readString();
         city = in.readString();
         country = in.readString();
     }

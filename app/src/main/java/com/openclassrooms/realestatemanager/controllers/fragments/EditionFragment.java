@@ -130,7 +130,6 @@ public class EditionFragment extends Fragment
     @BindView(R.id.edition_address_streetName) EditText editTextStreetName;
     @BindView(R.id.edition_address_zipCode) EditText editTextZipCode;
     @BindView(R.id.edition_address_apptNb) EditText editTextApptNb;
-    @BindView(R.id.edition_address_state) EditText editTextState;
     @BindView(R.id.edition_address_city) EditText editTextCity;
     @BindView(R.id.edition_address_country) EditText editTextCountry;
     @BindView(R.id.edition_address_latitude) EditText editTextLatitude;
@@ -196,7 +195,6 @@ public class EditionFragment extends Fragment
                     address.setStreetName(streetName);
                     address.setApptNb(apptNb);
                     address.setZipCode(zipCode);
-                    address.setStateNb(stateNb);
                     address.setCity(city);
                     address.setCountry(country);
 
@@ -211,7 +209,6 @@ public class EditionFragment extends Fragment
                     address.setStreetName(streetName);
                     address.setApptNb(apptNb);
                     address.setZipCode(zipCode);
-                    address.setStateNb(stateNb);
                     address.setCity(city);
                     address.setCountry(country);
 
@@ -267,7 +264,6 @@ public class EditionFragment extends Fragment
         editTextStreetName.setText(p.getAddress().getStreetName());
         editTextApptNb.setText(p.getAddress().getApptNb());
         editTextZipCode.setText(p.getAddress().getZipCode());
-        editTextState.setText(p.getAddress().getStateNb());
         editTextCity.setText(p.getAddress().getCity());
         editTextCountry.setText(p.getAddress().getCountry());
 
@@ -317,7 +313,6 @@ public class EditionFragment extends Fragment
         streetName = editTextStreetName.getText().toString();
         apptNb = editTextApptNb.getText().toString();
         zipCode = editTextZipCode.getText().toString();
-        stateNb = editTextState.getText().toString();
         city = editTextCity.getText().toString();
         country = editTextCountry.getText().toString();
     }
