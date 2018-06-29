@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".controllers.fragments.EditionFragment"
     android:id="@+id/fragment_edition_layout"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="@dimen/margin">
+
+    <!--TYPE AND AREA -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,6 +54,8 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- PRICE SURFACE NBROOMS -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,6 +119,8 @@
 
     </LinearLayout>
 
+    <!-- DESCRIPTION -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -131,6 +138,8 @@
             android:inputType="text"/>
 
     </LinearLayout>
+
+    <!-- STATUS AND AGENT ID -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -184,6 +193,8 @@
 
     </LinearLayout>
 
+    <!-- POIS -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -216,49 +227,115 @@
 
     </LinearLayout>
 
+    <!-- Import horizontal line -->
+    <include layout="@layout/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <!-- PHOTO -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin">
 
-        <LinearLayout
+
+        <ImageView
+        android:id="@+id/edition_image_preview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+
+        <TextView
+            android:id="@+id/edition_photo_description_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edition_photos_descriptions"/>
+
+        <EditText
+            android:id="@+id/edition_photo_description"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:hint="@string/edition_photos_descriptions_hint"/>
 
-            <ImageView
-            android:id="@+id/edition_image_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
         <Button
             android:id="@+id/edition_add_photo_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/edition_photos_hint"/>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
+            android:id="@+id/edition_take_photo_button"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edition_photos_descriptions"/>
-            <EditText
-                android:id="@+id/edition_photo_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/edition_photos_descriptions_hint"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/edition_photos_take_hint"/>
+
+    </LinearLayout>
+
+    <!-- Import horizontal line -->
+    <include layout="@layout/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <!-- ADDRESS -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_streetNb"/>
+
+        <EditText
+            android:id="@+id/edition_address_streetNb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/edition_address_streetNb"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_streetName"/>
+
+        <EditText
+            android:id="@+id/edition_address_streetName"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/edition_address_streetName"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_apptNb"/>
+
+        <EditText
+            android:id="@+id/edition_address_apptNb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/edition_address_apptNb"/>
 
     </LinearLayout>
 
@@ -269,92 +346,46 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/edition_address" />
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_zip"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/edition_address_zipCode"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/edition_address_zip"/>
 
-            <EditText
-                android:id="@+id/edition_address_streetNb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/edition_address_streetNb"/>
-        </LinearLayout>
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/edition_address_streetName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/edition_address_streetName"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/edition_address_apptNb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/edition_address_apptNb"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/edition_address_zipCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/edition_address_zip"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_city"/>
 
         <EditText
             android:id="@+id/edition_address_city"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:hint="@string/edition_address_city"/>
 
-            <EditText
-                android:id="@+id/edition_address_country"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/edition_address_country"/>
-        </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_country"/>
+
+        <EditText
+            android:id="@+id/edition_address_country"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/edition_address_country"/>
 
     </LinearLayout>
 
@@ -363,42 +394,53 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-        <LinearLayout
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_latitude"/>
+
+        <EditText
+            android:id="@+id/edition_address_latitude"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/edition_address_latitude"/>
 
-            <EditText
-                android:id="@+id/edition_address_latitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="@string/edition_address_latitude"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/edition_address_longitude"/>
 
-        </LinearLayout>
-        <LinearLayout
+        <EditText
+            android:id="@+id/edition_address_longitude"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edition_address_longitude"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/edition_address_longitude"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/edition_address_longitude"/>
+
     </LinearLayout>
+
+    <!-- Import horizontal line -->
+    <include layout="@layout/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:gravity="center">
 
         <!-- Button Update/Create -->
         <Button
             android:id="@+id/edition_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
             android:text="@string/edition_update"
             android:textColor="#FFF"
             android:background="@color/colorPrimary"
