@@ -4,10 +4,15 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +31,15 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.activities.EditionActivity;
 import com.openclassrooms.realestatemanager.models.Address;
 import com.openclassrooms.realestatemanager.models.Property;
+import com.openclassrooms.realestatemanager.utils.Utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -61,7 +72,6 @@ public class EditionFragment extends Fragment
 
     //FOR DATA
     private Property property;
-    private Address address;
 
     private Property propertyEdited;
     private boolean isEditionMode;
@@ -96,15 +106,20 @@ public class EditionFragment extends Fragment
     private String streetName = "";
     private String apptNb = "";
     private String zipCode = "";
-    String stateNb = "";
     private String city = "";
     private String country = "";
 
     //STATIC DATA FOR PICTURE
-    private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
+    private static final String PERMS = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private static final String PERMS_PHOTO = Manifest.permission.CAMERA;
     private static final int RC_IMAGE_PERMS = 100;
     private static final int RC_CHOOSE_PHOTO = 200;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri uriImageSelected = null;
+    private Uri photoURI;
+
+
+
 
     //FOR DESIGN
     @BindView(R.id.edition_image_preview) ImageView imageViewPreview;
@@ -189,6 +204,8 @@ public class EditionFragment extends Fragment
                     property.setLatitude(latitude);
                     property.setLongitude(longitude);
 
+                    Address address = new Address();
+
                     address.setStreetNb(streetNb);
                     address.setStreetName(streetName);
                     address.setApptNb(apptNb);
@@ -203,12 +220,16 @@ public class EditionFragment extends Fragment
                     String timeStamp = new SimpleDateFormat("yyyyMMdd", Locale.FRANCE).format(Calendar.getInstance().getTime());
                     int dateCreated = Integer.valueOf(timeStamp);
 
+                    Address address = new Address();
+
                     address.setStreetNb(streetNb);
                     address.setStreetName(streetName);
                     address.setApptNb(apptNb);
                     address.setZipCode(zipCode);
                     address.setCity(city);
                     address.setCountry(country);
+
+                    Log.e(TAG, "latitude = " + latitude);
 
                     propertyEdited = new Property(area, latitude, longitude, price, surface,
                             nbRooms, description, photoUrl, photoDescription, nbPhotos, isSold,
@@ -307,12 +328,29 @@ public class EditionFragment extends Fragment
                 Double.valueOf(editTextLongitude.getText().toString()):
                 0;
 
-        streetNb = editTextStreetNb.getText().toString();
-        streetName = editTextStreetName.getText().toString();
-        apptNb = editTextApptNb.getText().toString();
-        zipCode = editTextZipCode.getText().toString();
-        city = editTextCity.getText().toString();
-        country = editTextCountry.getText().toString();
+        streetNb = (editTextStreetNb.getText().toString().isEmpty())?
+                editTextStreetNb.getText().toString() :
+                "";
+
+        streetName = (editTextStreetName.getText().toString().isEmpty())?
+                editTextStreetName.getText().toString():
+                "";
+
+        apptNb = (editTextApptNb.getText().toString().isEmpty())?
+                editTextApptNb.getText().toString():
+                "";
+
+        zipCode = (editTextZipCode.getText().toString().isEmpty())?
+                editTextZipCode.getText().toString():
+                "";
+
+        city = (editTextCity.getText().toString().isEmpty())?
+                editTextCity.getText().toString():
+                "";
+
+        country = (editTextCountry.getText().toString().isEmpty())?
+                editTextCountry.getText().toString():
+                "";
     }
 
 
@@ -379,17 +417,29 @@ public class EditionFragment extends Fragment
     }
 
     @OnClick(R.id.edition_add_photo_button)
-    // 3 - Ask permission when accessing to this listener
     @AfterPermissionGranted(RC_IMAGE_PERMS)
     public void onClickAddFile() {
         this.chooseImageFromPhone();
     }
 
+    @OnClick(R.id.edition_take_photo_button)
+    @AfterPermissionGranted(REQUEST_IMAGE_CAPTURE)
+    public void onClickTakePhoto(){
+        PackageManager pm = getContext().getPackageManager();
+
+        if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            this.takePhotoWithPhone();
+        }else{
+            Toast.makeText(getContext(), "No camera on your device", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // 6 - Calling the appropriate method after activity result
         this.handleResponse(requestCode, resultCode, data);
+
     }
 
     // --------------------
@@ -398,16 +448,46 @@ public class EditionFragment extends Fragment
 
     private void chooseImageFromPhone(){
         if (!EasyPermissions.hasPermissions(getContext(), PERMS)) {
-            EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_files_access), RC_IMAGE_PERMS, PERMS);
+            EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_files_access),
+                    RC_IMAGE_PERMS, PERMS);
             return;
         }
-        // 3 - Launch an "Selection Image" Activity
+
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
+    private void takePhotoWithPhone(){
+
+        if (!EasyPermissions.hasPermissions(getContext(), PERMS_PHOTO)) {
+        EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_take_photo), REQUEST_IMAGE_CAPTURE, PERMS_PHOTO);
+        return;
+        }
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
+
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = Utils.createImageFile(getContext());
+            } catch (IOException ex) {
+                Log.e(TAG, "Error occurred while creating the File");
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                photoURI = FileProvider.getUriForFile(getContext(),
+                        "com.openclassrooms.realestatemanager.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+
+    }
+
     // 4 - Handle activity response (after user has chosen or not a picture)
     private void handleResponse(int requestCode, int resultCode, Intent data){
+
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == RESULT_OK) { //SUCCESS
                 this.uriImageSelected = data.getData();
@@ -416,6 +496,13 @@ public class EditionFragment extends Fragment
                         .into(this.imageViewPreview);
             } else {
                 Toast.makeText(getContext(), "No photo selected", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if(requestCode == REQUEST_IMAGE_CAPTURE){
+            if (resultCode == RESULT_OK) {
+                imageViewPreview.setImageURI(photoURI);
+                this.uriImageSelected = photoURI;
             }
         }
     }

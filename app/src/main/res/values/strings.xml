@@ -92,6 +92,7 @@
     <!-- EDITION -->
     <string name="edition_update">EDIT</string>
     <string name="popup_title_permission_files_access">Authorize access to your photos</string>
+    <string name="popup_title_permission_take_photo">Authorize to take a photo with your phone</string>
 
     <string name="edition_area">Area : </string>
     <string name="edition_price">Price : </string>
