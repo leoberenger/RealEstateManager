@@ -60,12 +60,13 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.properties_recycler_view, container, false);
         ButterKnife.bind(this, view);
 
-        this.mPreferences = getContext().getSharedPreferences("properties", MODE_PRIVATE);
+        this.mPreferences = getContext().getSharedPreferences(Property.PROPERTIES_KEY, MODE_PRIVATE);
+        mPreferences.edit().putInt("selectedPosition", 0).apply();
 
         this.configureRecyclerView();
         this.configureOnClickRecyclerView();
 
-        mPropertyArrayList = getArguments().getParcelableArrayList("properties");
+        mPropertyArrayList = getArguments().getParcelableArrayList(Property.PROPERTIES_KEY);
         if(mPropertyArrayList.size() != 0) {
             this.updatePropertiesList(mPropertyArrayList);
         }
