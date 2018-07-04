@@ -328,6 +328,8 @@ public class Property implements Parcelable {
 
     public static Property fromContentValues(ContentValues values) {
         final Property property = new Property();
+        final Address address = new Address();
+
         if (values.containsKey(AREA_KEY)) property.setArea(values.getAsString(AREA_KEY));
         if (values.containsKey(LATITUDE_KEY)) property.setLatitude(values.getAsDouble(LATITUDE_KEY));
         if (values.containsKey(LONGITUDE_KEY)) property.setLongitude(values.getAsDouble(LONGITUDE_KEY));
@@ -350,12 +352,14 @@ public class Property implements Parcelable {
         if (values.containsKey(POI_SHOPPING_KEY)) property.setPoiShopping(values.getAsInteger(POI_SHOPPING_KEY));
         if (values.containsKey(POI_METRO_KEY)) property.setPoiMetro(values.getAsInteger(POI_METRO_KEY));
 
-        if (values.containsKey(ADDRESS_STREET_NB_KEY)) property.getAddress().setStreetNb(values.getAsString(ADDRESS_STREET_NB_KEY));
-        if (values.containsKey(ADDRESS_STREET_NAME_KEY)) property.getAddress().setStreetName(values.getAsString(ADDRESS_STREET_NAME_KEY));
-        if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) property.getAddress().setApptNb(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
-        if (values.containsKey(ADDRESS_ZIP_CODE_KEY)) property.getAddress().setZipCode(values.getAsString(ADDRESS_ZIP_CODE_KEY));
-        if (values.containsKey(ADDRESS_CITY_KEY)) property.getAddress().setCity(values.getAsString(ADDRESS_CITY_KEY));
-        if (values.containsKey(ADDRESS_COUNTRY_KEY)) property.getAddress().setCountry(values.getAsString(ADDRESS_COUNTRY_KEY));
+        if (values.containsKey(ADDRESS_STREET_NB_KEY)) address.setStreetNb(values.getAsString(ADDRESS_STREET_NB_KEY));
+        if (values.containsKey(ADDRESS_STREET_NAME_KEY)) address.setStreetName(values.getAsString(ADDRESS_STREET_NAME_KEY));
+        if (values.containsKey(ADDRESS_APPT_NUMBER_KEY)) address.setApptNb(values.getAsString(ADDRESS_APPT_NUMBER_KEY));
+        if (values.containsKey(ADDRESS_ZIP_CODE_KEY)) address.setZipCode(values.getAsString(ADDRESS_ZIP_CODE_KEY));
+        if (values.containsKey(ADDRESS_CITY_KEY)) address.setCity(values.getAsString(ADDRESS_CITY_KEY));
+        if (values.containsKey(ADDRESS_COUNTRY_KEY)) address.setCountry(values.getAsString(ADDRESS_COUNTRY_KEY));
+
+        property.setAddress(address);
 
         return property;
     }

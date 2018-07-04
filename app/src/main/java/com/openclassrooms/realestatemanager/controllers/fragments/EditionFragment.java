@@ -72,36 +72,29 @@ public class EditionFragment extends Fragment
 
     //FOR DATA
     private Property property;
-
     private Property propertyEdited;
     private boolean isEditionMode;
     private final boolean [] poisArray = {false, false, false, false};
     private int statusSold;
     private int dateSold;
-
     private String area = "";
     private long price = 0;
     private int surface = 0;
     private int nbRooms = 0;
     private String description = "";
-
     private String photoUrl = "";
     private String photoDescription = "";
     private int nbPhotos = 0;
-
     private int isSold = 0;
     private int dateOfSelling = 0;
     private String type = "";
     private int agentID = 0;
-
     private int poiSchool = 0;
     private int poiPark = 0;
     private int poiShopping= 0;
     private int poiMetro= 0;
-
     private Double latitude = 0d;
     private Double longitude = 0d;
-
     private String streetNb = "";
     private String streetName = "";
     private String apptNb = "";
@@ -117,9 +110,6 @@ public class EditionFragment extends Fragment
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri uriImageSelected = null;
     private Uri photoURI;
-
-
-
 
     //FOR DESIGN
     @BindView(R.id.edition_image_preview) ImageView imageViewPreview;
@@ -179,68 +169,71 @@ public class EditionFragment extends Fragment
 
                 getDataFromUserInput();
 
-                if(isEditionMode){
-
-                    property.setArea(area);
-                    property.setPrice(price);
-                    property.setSurface(surface);
-                    property.setNbRooms(nbRooms);
-                    property.setDescription(description);
-
-                    property.setType(type);
-                    property.setPhotoUrl(photoUrl);
-                    property.setPhotoDescription(photoDescription);
-                    property.setNbPhotos(nbPhotos);
-
-                    property.setIsSold(isSold);
-                    property.setDateSold(dateOfSelling);
-                    property.setAgentID(agentID);
-
-                    property.setPoiSchool(poiSchool);
-                    property.setPoiPark(poiPark);
-                    property.setPoiShopping(poiShopping);
-                    property.setPoiMetro(poiMetro);
-
-                    property.setLatitude(latitude);
-                    property.setLongitude(longitude);
-
-                    Address address = new Address();
-
-                    address.setStreetNb(streetNb);
-                    address.setStreetName(streetName);
-                    address.setApptNb(apptNb);
-                    address.setZipCode(zipCode);
-                    address.setCity(city);
-                    address.setCountry(country);
-
-                    property.setAddress(address);
-                    propertyEdited = property;
-
-                }else {
-                    String timeStamp = new SimpleDateFormat("yyyyMMdd", Locale.FRANCE).format(Calendar.getInstance().getTime());
-                    int dateCreated = Integer.valueOf(timeStamp);
-
-                    Address address = new Address();
-
-                    address.setStreetNb(streetNb);
-                    address.setStreetName(streetName);
-                    address.setApptNb(apptNb);
-                    address.setZipCode(zipCode);
-                    address.setCity(city);
-                    address.setCountry(country);
-
-                    Log.e(TAG, "latitude = " + latitude);
-
-                    propertyEdited = new Property(area, latitude, longitude, price, surface,
-                            nbRooms, description, photoUrl, photoDescription, nbPhotos, isSold,
-                            dateCreated, dateOfSelling, type, agentID,
-                            poiSchool, poiPark, poiShopping, poiMetro,
-                            address);
-                }
+                propertyEdited = (isEditionMode)?
+                        setEditedProperty():
+                        createEditedProperty();
 
                 mCallback.onPropertyEdited(propertyEdited);
             }
         });
+    }
+
+    private Property setEditedProperty(){
+        property.setArea(area);
+        property.setPrice(price);
+        property.setSurface(surface);
+        property.setNbRooms(nbRooms);
+        property.setDescription(description);
+
+        property.setType(type);
+        property.setPhotoUrl(photoUrl);
+        property.setPhotoDescription(photoDescription);
+        property.setNbPhotos(nbPhotos);
+
+        property.setIsSold(isSold);
+        property.setDateSold(dateOfSelling);
+        property.setAgentID(agentID);
+
+        property.setPoiSchool(poiSchool);
+        property.setPoiPark(poiPark);
+        property.setPoiShopping(poiShopping);
+        property.setPoiMetro(poiMetro);
+
+        property.setLatitude(latitude);
+        property.setLongitude(longitude);
+
+        Address address = new Address();
+
+        address.setStreetNb(streetNb);
+        address.setStreetName(streetName);
+        address.setApptNb(apptNb);
+        address.setZipCode(zipCode);
+        address.setCity(city);
+        address.setCountry(country);
+
+        property.setAddress(address);
+
+        return property;
+    }
+
+    private Property createEditedProperty(){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd", Locale.FRANCE).format(Calendar.getInstance().getTime());
+        int dateCreated = Integer.valueOf(timeStamp);
+
+        Address address = new Address();
+
+        address.setStreetNb(streetNb);
+        address.setStreetName(streetName);
+        address.setApptNb(apptNb);
+        address.setZipCode(zipCode);
+        address.setCity(city);
+        address.setCountry(country);
+
+        return new Property(area, latitude, longitude, price, surface,
+                nbRooms, description, photoUrl, photoDescription, nbPhotos, isSold,
+                dateCreated, dateOfSelling, type, agentID,
+                poiSchool, poiPark, poiShopping, poiMetro,
+                address);
     }
 
     private void showPropertyCurrentValues(Property p){
@@ -435,13 +428,6 @@ public class EditionFragment extends Fragment
     }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        this.handleResponse(requestCode, resultCode, data);
-
-    }
-
     // --------------------
     // FILE MANAGEMENT
     // --------------------
@@ -485,7 +471,12 @@ public class EditionFragment extends Fragment
 
     }
 
-    // 4 - Handle activity response (after user has chosen or not a picture)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.handleResponse(requestCode, resultCode, data);
+    }
+
     private void handleResponse(int requestCode, int resultCode, Intent data){
 
         if (requestCode == RC_CHOOSE_PHOTO) {

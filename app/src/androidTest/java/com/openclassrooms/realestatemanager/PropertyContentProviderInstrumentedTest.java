@@ -74,7 +74,6 @@ public class PropertyContentProviderInstrumentedTest {
         values.put(Address.ADDRESS_STREET_NB_KEY, "2");
         values.put(Address.ADDRESS_STREET_NAME_KEY, "Glasgow");
         values.put(Address.ADDRESS_APPT_NUMBER_KEY, "20");
-        values.put(Address.ADDRESS_STATE_NB_KEY, "Bretagne");
         values.put(Address.ADDRESS_ZIP_CODE_KEY, "29200");
         values.put(Address.ADDRESS_CITY_KEY, "Brest");
         values.put(Address.ADDRESS_COUNTRY_KEY, "France");

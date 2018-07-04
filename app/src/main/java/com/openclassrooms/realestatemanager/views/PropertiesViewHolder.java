@@ -37,8 +37,10 @@ public class PropertiesViewHolder extends RecyclerView.ViewHolder{
         if(selectedPosition == currentPosition){
             this.itemLayout.setBackgroundColor(Color.parseColor("#FF4081"));
             this.itemPrice.setTextColor(Color.WHITE);
-        }else
+        }else{
             this.itemLayout.setBackgroundColor(Color.WHITE);
+            this.itemPrice.setTextColor(Color.parseColor("#FF4081"));}
+
 
         //Type
         this.itemType.setText(property.getType());
